@@ -37,7 +37,7 @@ export default function ProjectsPage() {
             Competitions
         </h2>
 
-            {/* Smart Car */}
+            {/* Smart Car Competition – Multi-Vehicle Autonomous Driving System */}
             <div className="mt-6 border border-gray-800 rounded-xl p-6">
                 <h3 className="text-2xl font-semibold">
                     Smart Car Race – Triple-Vehicle Formation System
@@ -77,6 +77,7 @@ export default function ProjectsPage() {
                 </div>
             </div>
 
+            {/* Cooperative Dual-Vehicle Driving System with Distance Control */}
             <div className="mt-6 border border-gray-800 rounded-xl p-6">
                 <h3 className="text-2xl font-semibold">
                     Electronic Design Contest – Dual-Vehicle Following System
@@ -105,7 +106,7 @@ export default function ProjectsPage() {
                 </p>
                 <div className="mt-6">
                 <iframe
-                    src="https://player.bilibili.com/player.html?bvid=BV1bo4y1v7qp"
+                    src="https://player.bilibili.com/player.html?bvid=BV1QXQQBbEMi"
                     width="100%"
                     height="400"
                     scrolling="no"
