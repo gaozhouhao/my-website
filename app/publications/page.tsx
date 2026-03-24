@@ -1,7 +1,7 @@
 export default function PublicationsPage() {
   return (
     <main className="min-h-screen bg-black text-white px-8 py-16">
-      <h1 className="text-4xl font-bold">Publications</h1>
+      <h1 className="text-3xl font-bold sm:text-4xl md:text-5xl">
 
       {/* Papers */}
       <section className="mt-12">

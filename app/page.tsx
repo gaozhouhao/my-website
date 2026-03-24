@@ -15,7 +15,7 @@ export default function Home() {
         IC Design (RTL / Analog / System)
       </p>
 
-      <div className="mt-8 flex gap-4">
+      <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
         <Link
           href="/projects"
           className="px-6 py-2 bg-white text-black rounded"
