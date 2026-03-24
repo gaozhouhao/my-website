@@ -14,6 +14,7 @@ export default function Navbar() {
           <Link href="/projects">Projects</Link>
           <Link href="/publications">Publications</Link>
           <Link href="/awards">Awards</Link>
+          <Link href="/beyond">Beyond</Link>
           <a
             href="/CV_Gao_Zhouhao.pdf"
             className="rounded border border-white px-3 py-1"
