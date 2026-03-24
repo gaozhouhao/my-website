@@ -1,6 +1,6 @@
 export default function PublicationsPage() {
   return (
-    <main className="min-h-screen bg-black text-white px-8 py-16">
+    <main className="min-h-screen bg-black text-white px-4 sm:px-6 md:px-8 py-16">
       <h1 className="text-3xl font-bold sm:text-4xl md:text-5xl">
 
       {/* Papers */}
