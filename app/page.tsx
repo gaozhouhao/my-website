@@ -8,11 +8,11 @@ export default function Home() {
       </h1>
 
       <p className="mt-4 text-lg text-gray-300 text-center">
-        MSc Integrated Circuit Design (TUM Asia × NTU)
+        MSc Integrated Circuit Design (TUM × NTU)
       </p>
 
       <p className="mt-2 text-gray-400 text-center">
-        Digital / Analog / Mixed-Signal IC Design
+        IC Design (RTL / Analog / System)
       </p>
 
       <div className="mt-8 flex gap-4">
@@ -23,12 +23,12 @@ export default function Home() {
           View Projects
         </Link>
 
-        <Link
+        {/* <Link
           href="/contact"
           className="px-6 py-2 border border-white rounded"
         >
           Contact
-        </Link>
+        </Link> */}
       </div>
     </main>
   );

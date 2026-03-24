@@ -10,12 +10,13 @@ export default function Navbar() {
 
         <div className="flex items-center gap-6 text-sm">
           <Link href="/">Home</Link>
-          <Link href="/about">About</Link>
+          <Link href="/about">Aboust</Link>
           <Link href="/projects">Projects</Link>
+          <Link href="/publications">Publications</Link>
           <Link href="/awards">Awards</Link>
-          <Link href="/contact">Contact</Link>
+          {/* <Link href="/contact">Contact</Link> */}
           <a
-            href="/cv.pdf"
+            href="/CV_Gao_Zhouhao.pdf"
             className="rounded border border-white px-3 py-1"
             target="_blank"
             rel="noreferrer"
