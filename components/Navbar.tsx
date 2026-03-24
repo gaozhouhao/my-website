@@ -3,12 +3,12 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <header className="w-full border-b border-gray-800 bg-black text-white">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <nav className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <Link href="/" className="text-lg font-semibold">
           Gao Zhouhao
         </Link>
 
-        <div className="flex items-center gap-6 text-sm">
+        <div className="flex flex-wrap items-center justify-end gap-3 text-sm">
           <Link href="/">Home</Link>
           <Link href="/about">Aboust</Link>
           <Link href="/projects">Projects</Link>
