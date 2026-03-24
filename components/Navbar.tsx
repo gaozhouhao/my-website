@@ -8,7 +8,7 @@ export default function Navbar() {
           Gao Zhouhao
         </Link>
 
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm md:justify-end">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm md:flex-nowrap md:justify-end">
           <Link href="/">Home</Link>
           <Link href="/about">About</Link>
           <Link href="/projects">Projects</Link>
