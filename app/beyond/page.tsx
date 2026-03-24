@@ -17,10 +17,10 @@ export default function BeyondPage() {
             Hands-on Making
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-7 text-gray-400 sm:text-base">
-            I enjoy building things by hand, including 3D printing, carving,
-            and small DIY projects. These experiences reflect the same mindset I
-            value in engineering: curiosity, iteration, and turning ideas into
-            something real.
+            I enjoy building things by hand, including FDM and SLA 3D printing, 
+            rubber stamp carving, and small DIY projects. These experiences reflect 
+            the same mindset I value in engineering: iteration, precision, and turning 
+            ideas into physical objects.
           </p>
 
           <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -37,6 +37,16 @@ export default function BeyondPage() {
             <img
               src="/beyond/making/figure-bajie.webp"
               alt="3D printed figures"
+              className="h-full w-full rounded-xl object-cover"
+            />
+            <img
+              src="/beyond/making/mini-sculpture.webp"
+              alt="3D printed figures"
+              className="h-full w-full rounded-xl object-cover"
+            />
+            <img
+              src="/beyond/making/bead-art.webp"
+              alt="bead-art"
               className="h-full w-full rounded-xl object-cover"
             />
             <img
@@ -59,39 +69,67 @@ export default function BeyondPage() {
 
         {/* Leadership */}
         <section className="mt-16">
-          <h2 className="text-2xl font-semibold text-gray-200">
+        <h2 className="text-2xl font-semibold text-gray-200">
             Leadership & Recognition
-          </h2>
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-gray-400 sm:text-base">
+        </h2>
+        <p className="mt-3 max-w-2xl text-sm leading-7 text-gray-400 sm:text-base">
             Beyond technical work, I have also represented students in academic
             events and public speaking occasions.
-          </p>
+        </p>
 
-          <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+        {/* Mobile */}
+        <div className="mt-8 grid grid-cols-2 gap-4 md:hidden">
+            <div className="col-span-2">
+            <img
+                src="/beyond/leadership/speech-red.webp"
+                alt="Representative speech"
+                className="w-full aspect-[4/3] rounded-xl object-cover"
+            />
+            </div>
+
+            <div>
+            <img
+                src="/beyond/leadership/top10-stage.webp"
+                alt="Top 10 student selection presentation event"
+                className="w-full aspect-[4/3] rounded-xl object-cover"
+            />
+            </div>
+
+            <div>
+            <img
+                src="/beyond/leadership/award-top10.webp"
+                alt="Top 10 student award"
+                className="w-full aspect-[4/3] rounded-xl object-cover"
+            />
+            </div>
+        </div>
+
+        {/* Desktop */}
+        <div className="mt-8 hidden md:grid md:grid-cols-3 md:gap-4">
             <div className="md:col-span-2 md:row-span-2">
-              <img
+            <img
                 src="/beyond/leadership/speech-red.webp"
                 alt="Representative speech"
                 className="h-full w-full rounded-xl object-cover"
-              />
+            />
             </div>
 
             <div>
-                <img
+            <img
                 src="/beyond/leadership/top10-stage.webp"
                 alt="Top 10 student selection presentation event"
-                className="h-full w-full rounded-xl object-cover"
-                />
+                className="w-full aspect-[4/3] rounded-xl object-cover"
+            />
             </div>
 
             <div>
-              <img
+            <img
                 src="/beyond/leadership/award-top10.webp"
                 alt="Top 10 student award"
-                className="h-full w-full rounded-xl object-cover"
-              />
+                className="w-full aspect-[4/3] rounded-xl object-cover"
+            />
             </div>
-          </div>
+        </div>
         </section>
 
         {/* Music */}
@@ -103,7 +141,7 @@ export default function BeyondPage() {
 
           <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
             <img
-              src="/beyond/music/guitar-stage.jpg"
+              src="/beyond/music/street-performance.webp"
               alt="Playing guitar on stage"
               className="h-full w-full rounded-xl object-cover"
             />
