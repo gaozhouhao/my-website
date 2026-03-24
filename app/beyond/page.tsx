@@ -23,48 +23,72 @@ export default function BeyondPage() {
             ideas into physical objects.
           </p>
 
-          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-3">
+        <div className="flex h-120 items-center justify-center rounded-xl bg-black">
             <img
-              src="/beyond/making/figure-fern.webp"
-              alt="3D printed figure"
-              className="h-full w-full rounded-xl object-cover"
+            src="/beyond/making/figure-fern.webp"
+            alt="3D printed figure"
+            className="max-h-full max-w-full rounded-xl object-contain"
             />
+        </div>
+
+        <div className="flex h-120 items-center justify-center rounded-xl bg-black">
             <img
-              src="/beyond/making/figure-wukong.webp"
-              alt="3D printed figure"
-              className="h-full w-full rounded-xl object-cover"
+            src="/beyond/making/figure-wukong.webp"
+            alt="3D printed figure"
+            className="max-h-full max-w-full rounded-xl object-contain"
             />
+        </div>
+
+        <div className="flex h-120 items-center justify-center rounded-xl bg-black">
             <img
-              src="/beyond/making/figure-bajie.webp"
-              alt="3D printed figures"
-              className="h-full w-full rounded-xl object-cover"
+            src="/beyond/making/mini-sculpture.webp"
+            alt="Mini sculpture"
+            className="max-h-full max-w-full rounded-xl object-contain"
             />
+        </div>
+
+        <div className="flex h-80 items-center justify-center rounded-xl bg-black">
             <img
-              src="/beyond/making/mini-sculpture.webp"
-              alt="3D printed figures"
-              className="h-full w-full rounded-xl object-cover"
+            src="/beyond/making/figure-bajie.webp"
+            alt="3D printed figures"
+            className="max-h-full max-w-full rounded-xl object-contain"
             />
+        </div>
+
+
+        <div className="flex h-80 items-center justify-center rounded-xl bg-black">
             <img
-              src="/beyond/making/bead-art.webp"
-              alt="bead-art"
-              className="h-full w-full rounded-xl object-cover"
+            src="/beyond/making/bead-art.webp"
+            alt="Bead art"
+            className="max-h-full max-w-full rounded-xl object-contain"
             />
+        </div>
+
+        <div className="flex h-80 items-center justify-center rounded-xl bg-black">
             <img
-              src="/beyond/making/stamp-anime-black.webp"
-              alt="Hand-carved stamp artwork"
-              className="h-full w-full rounded-xl object-cover"
+            src="/beyond/making/stamp-anime-black.webp"
+            alt="Hand-carved rubber stamp artwork"
+            className="max-h-full max-w-full rounded-xl object-contain"
             />
+        </div>
+
+        <div className="flex h-80 items-center justify-center rounded-xl bg-black">
             <img
-              src="/beyond/making/stamp-anime-orange.webp"
-              alt="Hand-carved stamp artwork in orange"
-              className="h-full w-full rounded-xl object-cover"
+            src="/beyond/making/stamp-anime-orange.webp"
+            alt="Hand-carved rubber stamp artwork in orange"
+            className="max-h-full max-w-full rounded-xl object-contain"
             />
+        </div>
+
+        <div className="flex h-80 items-center justify-center rounded-xl bg-black">
             <img
-              src="/beyond/making/stamp-fate.webp"
-              alt="Hand-carved Fate artwork"
-              className="h-full w-full rounded-xl object-cover"
+            src="/beyond/making/stamp-fate.webp"
+            alt="Hand-carved Fate rubber stamp artwork"
+            className="max-h-full max-w-full rounded-xl object-contain"
             />
-          </div>
+        </div>
+        </div>
         </section>
 
         {/* Leadership */}
