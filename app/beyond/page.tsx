@@ -135,49 +135,49 @@ export default function BeyondPage() {
 
         {/* Music */}
         <section className="mt-16">
-          <h2 className="text-2xl font-semibold text-gray-200">Music</h2>
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-gray-400 sm:text-base">
+        <h2 className="text-2xl font-semibold text-gray-200">Music</h2>
+        <p className="mt-3 max-w-2xl text-sm leading-7 text-gray-400 sm:text-base">
             Music has long been part of my life outside engineering.
-          </p>
+        </p>
 
-          <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="mt-8 grid grid-cols-2 gap-4 max-w-[760px]">
             <img
-              src="/beyond/music/street-performance.webp"
-              alt="Playing guitar on stage"
-              className="h-full w-full rounded-xl object-cover"
+            src="/beyond/music/street-performance.webp"
+            alt="Street performance"
+            className="w-full aspect-[4/3] rounded-xl object-cover"
             />
             <img
-              src="/beyond/music/guitar-classroom.webp"
-              alt="Playing guitar in classroom"
-              className="h-full w-full rounded-xl object-cover"
+            src="/beyond/music/guitar-classroom.webp"
+            alt="Playing guitar in classroom"
+            className="w-full aspect-[4/3] rounded-xl object-cover"
             />
-          </div>
+        </div>
         </section>
 
         {/* Life */}
         <section className="mt-16">
-          <h2 className="text-2xl font-semibold text-gray-200">Life</h2>
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-gray-400 sm:text-base">
+        <h2 className="text-2xl font-semibold text-gray-200">Life</h2>
+        <p className="mt-3 max-w-2xl text-sm leading-7 text-gray-400 sm:text-base">
             A few moments beyond study and projects.
-          </p>
+        </p>
 
-          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 w-full max-w-[540px] grid grid-cols-2 gap-4 md:max-w-[760px] md:grid-cols-3">
             <img
-              src="/beyond/life/swim.webp"
-              alt="swim"
-              className="h-full w-full rounded-xl object-cover"
+            src="/beyond/life/swim.webp"
+            alt="Swimming"
+            className="w-full aspect-[4/3] rounded-xl object-cover"
             />
             <img
-              src="/beyond/life/fish.webp"
-              alt="Holding a fish"
-              className="h-full w-full rounded-xl object-cover"
+            src="/beyond/life/fish.webp"
+            alt="Holding a fish"
+            className="w-full aspect-[4/3] rounded-xl object-cover"
             />
             <img
-              src="/beyond/life/group-photo.webp"
-              alt="Group photo"
-              className="h-full w-full rounded-xl object-cover"
+            src="/beyond/life/group-photo.webp"
+            alt="Group photo"
+            className="w-full aspect-[4/3] rounded-xl object-cover"
             />
-          </div>
+        </div>
         </section>
       </div>
     </main>
