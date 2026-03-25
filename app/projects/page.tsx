@@ -36,15 +36,25 @@ export default function ProjectsPage() {
                 </p>
 
                 <ul className="mt-4 list-disc pl-5 space-y-2 text-gray-300 text-sm sm:text-base">
-                <li>Designed RTL datapath and control logic</li>
-                <li>Implemented CSR-based exception and trap handling</li>
-                <li>Built C reference model and applied differential testing</li>
-                <li>Developed Verilator-based simulation and debug environment</li>
-                <li>Ran RT-Thread for system-level validation</li>
+                <li>
+                    Designed RTL datapath and control logic for an RV32E RISC-V CPU core
+                </li>
+                <li>
+                    Implemented machine-mode CSR subsystem with exception and trap handling
+                </li>
+                <li>
+                    Built a C reference model (RV32E + M) and applied differential testing against the RTL core (RV32E)
+                </li>
+                <li>
+                    Developed a Verilator-based simulation and debugging environment with waveform tracing and instruction-level inspection
+                </li>
+                <li>
+                    Successfully ran RT-Thread on the RTL CPU for system-level validation
+                </li>
                 </ul>
 
                 <p className="mt-4 text-sm text-gray-500">
-                Tools: Verilog, C, Verilator, GTKWave, RISC-V, Difftest
+                Tools: Verilog, C, Python, Verilator, GTKWave, RISC-V, Difftest
                 </p>
             </div>
             </div>
