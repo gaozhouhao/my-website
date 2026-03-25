@@ -11,85 +11,62 @@ export default function BeyondPage() {
           printing and carving to public speaking, music, and everyday life.
         </p>
 
-        {/* Hands-on Making */}
-        <section className="mt-14">
-          <h2 className="text-2xl font-semibold text-gray-200">
-            Hands-on Making
-          </h2>
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-gray-400 sm:text-base">
-            I enjoy building things by hand, including FDM and SLA 3D printing, 
-            rubber stamp carving, and small DIY projects. These experiences reflect 
-            the same mindset I value in engineering: iteration, precision, and turning 
-            ideas into physical objects.
-          </p>
+{/* Hands-on Making */}
+<section className="mt-14">
+  <h2 className="text-2xl font-semibold text-gray-200">
+    Hands-on Making
+  </h2>
 
-        <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-3">
-        <div className="flex h-120 items-center justify-center rounded-xl bg-black">
-            <img
-            src="/beyond/making/figure-fern.webp"
-            alt="3D printed figure"
-            className="max-h-full max-w-full rounded-xl object-contain"
-            />
-        </div>
+  <p className="mt-3 max-w-2xl text-sm leading-7 text-gray-400 sm:text-base">
+    I enjoy building things by hand, including FDM and SLA 3D printing,
+    rubber stamp carving, and small DIY projects. These experiences reflect
+    the same mindset I value in engineering: iteration, precision, and turning
+    ideas into physical objects.
+  </p>
 
-        <div className="flex h-120 items-center justify-center rounded-xl bg-black">
-            <img
-            src="/beyond/making/figure-wukong.webp"
-            alt="3D printed figure"
-            className="max-h-full max-w-full rounded-xl object-contain"
-            />
-        </div>
-
-        <div className="flex h-120 items-center justify-center rounded-xl bg-black">
-            <img
-            src="/beyond/making/mini-sculpture.webp"
-            alt="Mini sculpture"
-            className="max-h-full max-w-full rounded-xl object-contain"
-            />
-        </div>
-
-        <div className="flex h-80 items-center justify-center rounded-xl bg-black">
-            <img
-            src="/beyond/making/figure-bajie.webp"
-            alt="3D printed figures"
-            className="max-h-full max-w-full rounded-xl object-contain"
-            />
-        </div>
-
-
-        <div className="flex h-80 items-center justify-center rounded-xl bg-black">
-            <img
-            src="/beyond/making/bead-art.webp"
-            alt="Bead art"
-            className="max-h-full max-w-full rounded-xl object-contain"
-            />
-        </div>
-
-        <div className="flex h-80 items-center justify-center rounded-xl bg-black">
-            <img
-            src="/beyond/making/stamp-anime-black.webp"
-            alt="Hand-carved rubber stamp artwork"
-            className="max-h-full max-w-full rounded-xl object-contain"
-            />
-        </div>
-
-        <div className="flex h-80 items-center justify-center rounded-xl bg-black">
-            <img
-            src="/beyond/making/stamp-anime-orange.webp"
-            alt="Hand-carved rubber stamp artwork in orange"
-            className="max-h-full max-w-full rounded-xl object-contain"
-            />
-        </div>
-
-        <div className="flex h-80 items-center justify-center rounded-xl bg-black">
-            <img
-            src="/beyond/making/stamp-fate.webp"
-            alt="Hand-carved Fate rubber stamp artwork"
-            className="max-h-full max-w-full rounded-xl object-contain"
-            />
-        </div>
-        </div>
-        </section>
+  <div className="mt-8 w-full max-w-[540px] columns-2 gap-4 md:max-w-[760px] lg:max-w-[880px] lg:columns-3">
+    <img
+      src="/beyond/making/figure-fern.webp"
+      alt="3D printed figure"
+      className="mb-4 block w-full break-inside-avoid rounded-xl"
+    />
+    <img
+      src="/beyond/making/figure-bajie.webp"
+      alt="3D printed figures"
+      className="mb-4 block w-full break-inside-avoid rounded-xl"
+    />
+    <img
+      src="/beyond/making/stamp-anime-black.webp"
+      alt="Hand-carved rubber stamp artwork"
+      className="mb-4 block w-full break-inside-avoid rounded-xl"
+    />
+    <img
+      src="/beyond/making/mini-sculpture.webp"
+      alt="Mini sculpture"
+      className="mb-4 block w-full break-inside-avoid rounded-xl"
+    />
+    <img
+      src="/beyond/making/stamp-anime-orange.webp"
+      alt="Hand-carved rubber stamp artwork in orange"
+      className="mb-4 block w-full break-inside-avoid rounded-xl"
+    />
+    <img
+      src="/beyond/making/stamp-fate.webp"
+      alt="Hand-carved Fate rubber stamp artwork"
+      className="mb-4 block w-full break-inside-avoid rounded-xl"
+    />
+    <img
+      src="/beyond/making/figure-wukong.webp"
+      alt="3D printed figure"
+      className="mb-4 block w-full break-inside-avoid rounded-xl"
+    />
+    <img
+      src="/beyond/making/bead-art.webp"
+      alt="Bead art"
+      className="mb-4 block w-full break-inside-avoid rounded-xl"
+    />
+  </div>
+</section>
 
         {/* Leadership */}
         <section className="mt-16">
