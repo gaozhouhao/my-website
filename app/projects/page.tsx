@@ -24,6 +24,7 @@ export default function ProjectsPage() {
                 />
             </div>
 
+
             {/* 右边内容 */}
             <div className="flex-1">
                 <h3 className="text-xl font-semibold">
@@ -31,30 +32,33 @@ export default function ProjectsPage() {
                 </h3>
 
                 <p className="mt-2 text-sm text-gray-400 sm:text-base">
-                Designed and verified an RTL RISC-V CPU with differential testing,
-                CSR-based exception handling, and system-level bring-up.
+                Designed and verified a multi-cycle RTL RISC-V CPU with latency-insensitive
+                handshake-based microarchitecture, differential testing, and RTOS bring-up.
                 </p>
 
                 <ul className="mt-4 list-disc pl-5 space-y-2 text-gray-300 text-sm sm:text-base">
                 <li>
-                    Designed RTL datapath and control logic for an RV32E RISC-V CPU core
+                    Designed a modular multi-cycle RV32E CPU (IF/ID/EX/LSU/WB) with valid-ready handshake for stage and memory interaction
                 </li>
                 <li>
-                    Implemented machine-mode CSR subsystem with exception and trap handling
+                    Implemented machine-mode privilege architecture including CSR subsystem and precise exception/trap handling
                 </li>
                 <li>
-                    Built a C reference model (RV32E + M) and applied differential testing against the RTL core (RV32E)
+                    Built a C reference model (RV32E + M) and developed differential testing (DUT vs. reference) for instruction-level verification
                 </li>
                 <li>
-                    Developed a Verilator-based simulation and debugging environment with waveform tracing and instruction-level inspection
+                    Integrated a custom SimpleBus-based memory interface with request/response protocol supporting variable-latency access
                 </li>
                 <li>
-                    Successfully ran RT-Thread on the RTL CPU for system-level validation
+                    Developed a Verilator-based simulation framework with waveform tracing, instruction/memory trace, and debug tooling
+                </li>
+                <li>
+                    Successfully booted RT-Thread RTOS on the RTL CPU, validating system-level execution and exception handling
                 </li>
                 </ul>
 
                 <p className="mt-4 text-sm text-gray-500">
-                Tools: Verilog, C, Python, Verilator, GTKWave, RISC-V, Difftest
+                Tools: Verilog, C/C++, Python, Verilator, GTKWave, RISC-V ISA, Difftest
                 </p>
             </div>
             </div>
