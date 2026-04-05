@@ -63,41 +63,103 @@ export default function ProjectsPage() {
             </div>
             </div>
 
+<div className="border-t border-gray-800 my-10"></div>
+
             {/* Analog IC Project */}
             <div className="flex flex-col gap-6 md:flex-row md:items-start">
-            <div className="w-full md:w-1/3 flex-shrink-0">
-                <img
-                src="/projects/opamp-layout.webp"
-                alt="Op-amp layout in Cadence Virtuoso"
-                className="w-full rounded-lg"
-                />
-            </div>
 
-            <div className="flex-1">
+                {/* 图片区域 */}
+                <div className="w-full md:w-1/3 flex-shrink-0 flex flex-col gap-4">
+                  
+                  {/* <img
+                    src="/projects/opamp-schematic.webp"
+                    alt="Op-amp schematic"
+                    className="w-full rounded-lg object-cover max-h-40 md:max-h-48"
+                  /> */}
+                  <img
+                    src="/projects/bias-schematic.webp"
+                    alt="bias schematic"
+                    className="w-full rounded-lg object-cover max-h-40 md:max-h-48"
+                  />
+                  <img
+                    src="/projects/opamp-layout.webp"
+                    alt="Op-amp layout"
+                    className="w-full rounded-lg object-cover max-h-40 md:max-h-48"
+                  />
+              </div>
+
+              {/* 右边内容 */}
+              <div className="flex-1">
                 <h3 className="text-xl font-semibold">
-                Class-AB Audio Amplifier Design in 0.18-μm CMOS
+                  Class-AB Audio Amplifier Design in GF 0.18-μm CMOS
                 </h3>
 
                 <p className="mt-2 text-sm text-gray-400 sm:text-base">
-                Designed a class-AB audio amplifier with full-custom layout and
-                post-layout verification.
+                  Designed a class-AB audio amplifier with full-custom layout and
+                  post-layout verification.
                 </p>
 
                 <ul className="mt-4 list-disc pl-5 space-y-2 text-gray-300 text-sm sm:text-base">
-                <li>Designed amplifier, bias, and start-up circuits</li>
-                <li>Applied translinear-loop class-AB control and Ahuja compensation</li>
-                <li>Completed layout with DRC/LVS clean and PEX</li>
-                <li>Verified performance across PVT corners</li>
-                <li>Achieved ~12-dB gain, ~300-kHz UGBW, &gt;60° phase margin</li>
+                  <li>Designed amplifier, bias, and start-up circuits</li>
+                  <li>Applied translinear-loop class-AB control and Ahuja compensation</li>
+                  <li>Completed layout with DRC/LVS clean and PEX</li>
+                  <li>Verified performance across PVT corners</li>
+                  <li>Achieved ~12-dB gain, ~300-kHz UGBW, &gt;60° phase margin</li>
                 </ul>
 
                 <p className="mt-4 text-sm text-gray-500">
-                Tools: Cadence Virtuoso, Spectre, Layout, DRC, LVS, PEX
+                  Tools: Cadence Virtuoso, Spectre, Layout, DRC, LVS, PEX
                 </p>
-            </div>
+              </div>
             </div>
         </div>
+
+<div className="border-t border-gray-800 my-10"></div>
+
+        {/* Reference Voltage Project */}
+        <div className="flex flex-col gap-6 md:flex-row md:items-start">
+
+          {/* 图片区域 */}
+          <div className="w-full md:w-1/3 flex-shrink-0 flex flex-col gap-4">
+            <img
+              src="/projects/bandgap-schematic.webp"
+              alt="Bandgap schematic"
+              className="w-full rounded-lg object-cover max-h-40 md:max-h-48"
+            />
+            {/* <img
+              src="/projects/bandgap-temp.png"
+              alt="Temperature sweep result"
+              className="w-full rounded-lg object-cover max-h-40 md:max-h-48"
+            /> */}
+          </div>
+
+          {/* 右边内容 */}
+          <div className="flex-1">
+            <h3 className="text-xl font-semibold">
+              Bandgap-Based Reference Voltage Design in TSMC 0.18-μm CMOS
+            </h3>
+
+            <p className="mt-2 text-sm text-gray-400 sm:text-base">
+              Designed a temperature-compensated reference circuit based on BJT ΔVbe
+              generation and PTAT/CTAT compensation.
+            </p>
+
+            <ul className="mt-4 list-disc pl-5 space-y-2 text-gray-300 text-sm sm:text-base">
+              <li>Implemented ΔVbe generation using BJT area ratio (N = 4)</li>
+              <li>Designed bias network and current mirrors for stable operation</li>
+              <li>Optimized resistor ratios to balance PTAT and CTAT components</li>
+              <li>Achieved ~25 ppm/°C over -40°C to 100°C</li>
+              <li>Output reference voltage ~2.54 V</li>
+            </ul>
+
+            <p className="mt-4 text-sm text-gray-500">
+              Tools: Cadence Virtuoso, Spectre
+            </p>
+          </div>
+        </div>
         </section>
+
+<div className="border-t border-gray-800 my-10"></div>
 
         {/* Competitions */}
         <section className="mt-14">
@@ -109,7 +171,7 @@ export default function ProjectsPage() {
             {/* Smart Car */}
             <div>
               <h3 className="text-xl font-semibold">
-                Smart Car Race – Triple-Vehicle Formation System
+                Multi-Vehicle Formation System (17th National College Smart Car Competition, WCH Track)
               </h3>
 
               <p className="mt-2 text-gray-400 text-sm sm:text-base">
@@ -118,12 +180,30 @@ export default function ProjectsPage() {
               </p>
 
               <ul className="mt-4 list-disc pl-5 space-y-2 text-gray-300 text-sm sm:text-base">
-                <li>Three-vehicle cooperative control</li>
-                <li>Electromagnetic path tracking</li>
-                <li>Road condition recognition</li>
-                <li>Fork-road overtaking strategy</li>
-                <li>CH32V307 + STC16-based system design</li>
-                <li>Bluetooth communication</li>
+                <li>
+                  Designed a three-vehicle cooperative control system within a 5-member team, enabling coordinated tracking and overtaking via wireless communication
+                </li>
+                <li>
+                  Developed custom electromagnetic sensing module for path tracking using AC-driven wire, enabling robust line detection
+                </li>
+                <li>
+                  Implemented multi-loop PID control for motor speed, inter-vehicle spacing, and steering servo angle
+                </li>
+                <li>
+                  Built full hardware system including sensor module, motor driver, and custom PCB (CH32V307 + STC16)
+                </li>
+                <li>
+                  Designed wireless networking between vehicles for real-time state exchange and cooperative decision-making
+                </li>
+                <li>
+                  Performed embedded software development and parameter tuning for control stability and high-speed operation
+                </li>
+                <li>
+                  Integrated 3D-printed mechanical structures for chassis and system assembly
+                </li>
+                <li>
+                  Achieved 2nd place in East China region and National Second Prize in a high-speed autonomous racing competition
+                </li>
               </ul>
 
               <p className="mt-4 text-sm text-gray-500">
@@ -144,10 +224,12 @@ export default function ProjectsPage() {
               </div>
             </div>
 
+<div className="border-t border-gray-800 my-10"></div>
+
             {/* Dual Vehicle */}
             <div>
               <h3 className="text-xl font-semibold">
-                Electronic Design Contest – Dual-Vehicle Following System
+                Dual-Vehicle Following System - TI Cup National Electronic Design Contest
               </h3>
 
               <p className="mt-2 text-gray-400 text-sm sm:text-base">
@@ -155,12 +237,27 @@ export default function ProjectsPage() {
               </p>
 
               <ul className="mt-4 list-disc pl-5 space-y-2 text-gray-300 text-sm sm:text-base">
-                <li>Dual-vehicle cooperative system</li>
-                <li>Grayscale path tracking</li>
-                <li>Ultrasonic distance measurement</li>
-                <li>Bluetooth communication</li>
-                <li>MSP430-based control and circuit design</li>
-                <li>Stable following strategy optimization</li>
+                <li>
+                  Designed a dual-vehicle cooperative system with Bluetooth-based communication for coordinated following control
+                </li>
+                <li>
+                  Implemented grayscale sensor-based path tracking for reliable line following
+                </li>
+                <li>
+                  Integrated ultrasonic sensing for real-time inter-vehicle distance measurement
+                </li>
+                <li>
+                  Developed multi-loop PID control for vehicle speed and following distance regulation
+                </li>
+                <li>
+                  Built MSP430-based embedded system including control logic and peripheral circuit design
+                </li>
+                <li>
+                  Optimized following strategy for stability and responsiveness in dynamic conditions
+                </li>
+                <li>
+                  Awarded First Prize in Jiangsu Province (TI Cup Electronic Design Contest)
+                </li>
               </ul>
 
               <p className="mt-4 text-sm text-gray-500">

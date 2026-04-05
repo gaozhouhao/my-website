@@ -45,8 +45,8 @@ export default function PublicationsPage() {
                     frequency and unit size brought by the interdigital structure.
                   </li>
                   <li>
-                    Fabricated a prototype and validated a 0–5.66 GHz passband,
-                    over 24 dB out-of-band suppression in 5.95–12 GHz, and sharp
+                    Fabricated a prototype and validated a 0-5.66 GHz passband,
+                    over 24 dB out-of-band suppression in 5.95-12 GHz, and sharp
                     roll-off near 5.74 GHz.
                   </li>
                 </ul>
@@ -100,16 +100,45 @@ export default function PublicationsPage() {
         <section className="mt-14">
           <h2 className="text-2xl font-semibold text-gray-300">Patents</h2>
 
-          <div className="mt-8">
-            <h3 className="text-xl font-semibold">
-              Ultra-small low-pass artificial surface plasmon filter based on
-              interdigital structure
-            </h3>
+          <div className="flex flex-col gap-6 md:flex-row">
+            {/* 左侧图片 */}
+            <div className="flex w-full shrink-0 items-start justify-center md:w-72">
+              <img
+                src="/papers/sspp-patent.webp"
+                alt="SSPP filter patent structure"
+                className="max-h-64 w-full max-w-xs object-contain md:max-w-full"
+              />
+            </div>
 
-            <p className="mt-2 text-sm text-gray-400">First Inventor</p>
-            <p className="mt-1 text-sm text-gray-400">
-              2024 · Patent pending / CN117060030A
-            </p>
+            {/* 右侧内容 */}
+            <div className="flex-1">
+              <h3 className="text-xl font-semibold leading-snug">
+                Ultra-small Low-pass Artificial Surface Plasmon Filter Based on Interdigital Structure
+              </h3>
+
+              <p className="mt-2 text-sm text-gray-400">
+                Patent Pending, 2023 · First Inventor
+              </p>
+
+              <p className="mt-1 text-sm text-gray-400">
+                CN117060030A
+              </p>
+
+              <ul className="mt-4 list-disc space-y-2 pl-5 text-gray-300">
+                <li>
+                  Proposed a compact SSPP-based low-pass filter using interdigital structure to reduce cutoff frequency and device size
+                </li>
+                <li>
+                  Designed multi-stage plasmonic unit cells with transition sections to improve impedance matching and suppress reflection
+                </li>
+                <li>
+                  Introduced via-connected 3D interdigital structure to enhance equivalent capacitance without increasing footprint
+                </li>
+                <li>
+                  Achieved high out-of-band suppression (&gt;24 dB) and sharp roll-off characteristics
+                </li>
+              </ul>
+            </div>
           </div>
         </section>
       </div>
