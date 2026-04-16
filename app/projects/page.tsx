@@ -37,24 +37,13 @@ export default function ProjectsPage() {
                 </p>
 
                 <ul className="mt-4 list-disc pl-5 space-y-2 text-gray-300 text-sm sm:text-base">
-                <li>
-                    Designed a modular multi-cycle RV32E CPU (IF/ID/EX/LSU/WB) with valid-ready handshake for stage and memory interaction
-                </li>
-                <li>
-                    Implemented machine-mode privilege architecture including CSR subsystem and precise exception/trap handling
-                </li>
-                <li>
-                    Built a C reference model (RV32E + M) and developed differential testing (DUT vs. reference) for instruction-level verification
-                </li>
-                <li>
-                    Integrated a custom SimpleBus-based memory interface with request/response protocol supporting variable-latency access
-                </li>
-                <li>
-                    Developed a Verilator-based simulation framework with waveform tracing, instruction/memory trace, and debug tooling
-                </li>
-                <li>
-                    Successfully booted RT-Thread RTOS on the RTL CPU, validating system-level execution and exception handling
-                </li>
+                  <li>Designed a modular multi-cycle RV32E CPU (IF/ID/EX/LSU/WB) with valid-ready handshake for stage and memory interaction</li>
+                  <li>Implemented machine-mode privilege architecture including CSR subsystem and precise exception/trap handling</li>
+                  <li>Built a C reference model (RV32E + M) and developed differential testing (DUT vs. reference) for instruction-level verification</li>
+                  <li>Integrated a custom SimpleBus-based memory interface with request/response protocol supporting variable-latency access</li>
+                  <li>Designed and integrated an AXI4-Lite read interface for instruction-fetch memory access, enabling bus-based external memory communication</li>
+                  <li>Developed a Verilator-based simulation framework with waveform tracing, instruction/memory trace, and debug tooling</li>
+                  <li>Successfully booted RT-Thread RTOS on the RTL CPU, validating system-level execution and exception handling</li>
                 </ul>
 
                 <p className="mt-4 text-sm text-gray-500">
@@ -68,8 +57,8 @@ export default function ProjectsPage() {
             {/* Analog IC Project */}
             <div className="flex flex-col gap-6 md:flex-row md:items-start">
 
-                {/* 图片区域 */}
-                <div className="w-full md:w-1/3 flex-shrink-0 flex flex-col gap-4">
+            	{/* 图片区域 */}
+            	<div className="w-full md:w-1/3 flex-shrink-0 flex flex-col gap-4">
                   
                   {/* <img
                     src="/projects/opamp-schematic.webp"
@@ -86,10 +75,10 @@ export default function ProjectsPage() {
                     alt="Op-amp layout"
                     className="w-full rounded-lg object-cover max-h-40 md:max-h-48"
                   />
-              </div>
+            	</div>
 
-              {/* 右边内容 */}
-              <div className="flex-1">
+            	{/* 右边内容 */}
+            	<div className="flex-1">
                 <h3 className="text-xl font-semibold">
                   Class-AB Audio Amplifier Design in GF 0.18-μm CMOS
                 </h3>
@@ -110,8 +99,52 @@ export default function ProjectsPage() {
                 <p className="mt-4 text-sm text-gray-500">
                   Tools: Cadence Virtuoso, Spectre, Layout, DRC, LVS, PEX
                 </p>
-              </div>
+            	</div>
             </div>
+        </div>
+
+<div className="border-t border-gray-800 my-10"></div>
+
+		{/* Charge Pump Project */}
+        <div className="flex flex-col gap-6 md:flex-row md:items-start">
+
+        	{/* 图片区域 */}
+        	<div className="w-full md:w-1/3 flex-shrink-0 flex flex-col gap-4">
+        	<img
+            	src="/projects/charge_pump.webp"
+            	alt="Cross-coupled charge pump schematic"
+            	className="w-full rounded-lg object-cover max-h-40 md:max-h-48"
+            />
+            <img
+            	src="/projects/cp_waveform.webp"
+            	alt="Charge pump transient simulation"
+            	className="w-full rounded-lg object-cover max-h-40 md:max-h-48"
+            />
+        	</div>
+
+        	{/* 右边内容 */}
+        	<div className="flex-1">
+            <h3 className="text-xl font-semibold">
+            	Digitally Controlled Cross-Coupled Charge Pump in 0.18-µm CMOS
+            </h3>
+
+            <p className="mt-2 text-sm text-gray-400 sm:text-base">
+            	Designed a 2-stage cross-coupled charge pump with 4-phase non-overlapping
+            	clock generation and closed-loop digital regulation in Cadence Virtuoso.
+            </p>
+
+            <ul className="mt-4 list-disc pl-5 space-y-2 text-gray-300 text-sm sm:text-base">
+            	<li>Designed a 2-stage cross-coupled charge pump for on-chip voltage boosting</li>
+            	<li>Implemented 4-phase non-overlapping clock generation to improve charge transfer stability</li>
+            	<li>Optimized device sizing and pumping capacitance to balance boosting capability, ripple, and startup behavior under leakage effects</li>
+            	<li>Built a bang-bang closed-loop digital control scheme using comparator feedback for output regulation</li>
+            	<li>Achieved regulated output of 2.94-3.01 V from a 1.8 V supply with about 70 mV peak-to-peak ripple under ~100 kΩ load in schematic-level simulations</li>
+            </ul>
+
+            <p className="mt-4 text-sm text-gray-500">
+            	Tools: Cadence Virtuoso
+            </p>
+          </div>
         </div>
 
 <div className="border-t border-gray-800 my-10"></div>
