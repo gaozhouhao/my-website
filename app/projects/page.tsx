@@ -213,30 +213,14 @@ export default function ProjectsPage() {
               </p>
 
               <ul className="mt-4 list-disc pl-5 space-y-2 text-gray-300 text-sm sm:text-base">
-                <li>
-                  Designed a three-vehicle cooperative control system within a 5-member team, enabling coordinated tracking and overtaking via wireless communication
-                </li>
-                <li>
-                  Developed custom electromagnetic sensing module for path tracking using AC-driven wire, enabling robust line detection
-                </li>
-                <li>
-                  Implemented multi-loop PID control for motor speed, inter-vehicle spacing, and steering servo angle
-                </li>
-                <li>
-                  Built full hardware system including sensor module, motor driver, and custom PCB (CH32V307 + STC16)
-                </li>
-                <li>
-                  Designed wireless networking between vehicles for real-time state exchange and cooperative decision-making
-                </li>
-                <li>
-                  Performed embedded software development and parameter tuning for control stability and high-speed operation
-                </li>
-                <li>
-                  Integrated 3D-printed mechanical structures for chassis and system assembly
-                </li>
-                <li>
-                  Achieved 2nd place in East China region and National Second Prize in a high-speed autonomous racing competition
-                </li>
+                <li>Designed a three-vehicle cooperative control system within a 5-member team, enabling coordinated tracking and overtaking via wireless communication</li>
+                <li>Developed custom electromagnetic sensing module for path tracking using AC-driven wire, enabling robust line detection</li>
+                <li>Implemented multi-loop PID control for motor speed, inter-vehicle spacing, and steering servo angle</li>
+                <li>Built full hardware system including sensor module, motor driver, and custom PCB (CH32V307 + STC16)</li>
+                <li>Designed wireless networking between vehicles for real-time state exchange and cooperative decision-making</li>
+                <li>Performed embedded software development and parameter tuning for control stability and high-speed operation</li>
+                <li>Integrated 3D-printed mechanical structures for chassis and system assembly</li>
+                <li>Achieved 2nd place in East China region and National Second Prize in a high-speed autonomous racing competition</li>
               </ul>
 
               <p className="mt-4 text-sm text-gray-500">
@@ -270,27 +254,13 @@ export default function ProjectsPage() {
               </p>
 
               <ul className="mt-4 list-disc pl-5 space-y-2 text-gray-300 text-sm sm:text-base">
-                <li>
-                  Designed a dual-vehicle cooperative system with Bluetooth-based communication for coordinated following control
-                </li>
-                <li>
-                  Implemented grayscale sensor-based path tracking for reliable line following
-                </li>
-                <li>
-                  Integrated ultrasonic sensing for real-time inter-vehicle distance measurement
-                </li>
-                <li>
-                  Developed multi-loop PID control for vehicle speed and following distance regulation
-                </li>
-                <li>
-                  Built MSP430-based embedded system including control logic and peripheral circuit design
-                </li>
-                <li>
-                  Optimized following strategy for stability and responsiveness in dynamic conditions
-                </li>
-                <li>
-                  Awarded First Prize in Jiangsu Province (TI Cup Electronic Design Contest)
-                </li>
+                <li>Designed a dual-vehicle cooperative system with Bluetooth-based communication for coordinated following control</li>
+                <li>Implemented grayscale sensor-based path tracking for reliable line following</li>
+                <li>Integrated ultrasonic sensing for real-time inter-vehicle distance measurement</li>
+                <li>Developed multi-loop PID control for vehicle speed and following distance regulation</li>
+                <li>Built MSP430-based embedded system including control logic and peripheral circuit design</li>
+                <li>Optimized following strategy for stability and responsiveness in dynamic conditions</li>
+                <li>Awarded First Prize in Jiangsu Province (TI Cup Electronic Design Contest)</li>
               </ul>
 
               <p className="mt-4 text-sm text-gray-500">

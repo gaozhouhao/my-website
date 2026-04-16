@@ -15,14 +15,14 @@ export default function Navbar() {
           <Link href="/publications">Publications</Link>
           <Link href="/awards">Awards</Link>
           <Link href="/beyond">Beyond</Link>
-          <a
+          {/* <a
             href="/CV_Gao_Zhouhao.pdf"
             className="rounded border border-white px-3 py-1"
             target="_blank"
             rel="noreferrer"
           >
             Download CV
-          </a>
+          </a> */}
         </div>
       </nav>
     </header>
