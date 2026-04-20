@@ -5,18 +5,22 @@ export default function AboutPage() {
         <h1 className="text-3xl font-bold sm:text-4xl md:text-5xl">About</h1>
 
         <section className="mt-8 max-w-3xl text-sm leading-7 text-gray-300 sm:text-base">
-          <p>
-            I am a Master&apos;s student in Integrated Circuit Design at TUM Asia
-            and Nanyang Technological University, focused on RTL CPU design and
-            digital IC development, with additional experience in analog circuit
-            design.
+            <p>
+            I am a Master’s student in Integrated Circuit Design at TUM Asia and
+            Nanyang Technological University, with experience in both analog/mixed-signal
+            and digital IC design.
           </p>
 
           <p className="mt-4">
-            My work includes developing a RISC-V CPU with differential testing
-            and system-level bring-up, as well as designing analog circuits such
-            as operational amplifiers with full-custom layout and post-layout
-            verification.
+            In analog and mixed-signal design, I have worked on transistor-level circuits
+            including amplifiers, charge pumps, and bandgap-based references, with
+            full-custom layout and post-layout verification.
+          </p>
+
+          <p className="mt-4">
+            In digital design, I have developed an RTL RISC-V CPU with differential
+            testing and system-level bring-up, building a structured approach to
+            design, verification, and integration.
           </p>
         </section>
 
@@ -37,11 +41,12 @@ export default function AboutPage() {
             </div>
 
             <div className="rounded-xl border border-gray-800 p-5">
-              <h3 className="font-semibold text-white">Analog IC</h3>
+              <h3 className="font-semibold text-white">Analog / Mixed-Signal IC</h3>
               <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-gray-300 sm:text-base">
-                <li>Cadence Virtuoso (Schematic and Layout)</li>
-                <li>DRC / LVS / PEX</li>
-                <li>Operational Amplifier Design</li>
+                <li>Cadence Virtuoso (schematic & full-custom layout), Spectre simulation</li>
+                <li>DRC / LVS / PEX, post-layout verification and PVT analysis</li>
+                <li>Analog building blocks: amplifiers, charge pumps, bandgap-based references</li>
+                <li>Device sizing, bias design, stability and trade-off analysis</li>
               </ul>
             </div>
 
