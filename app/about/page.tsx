@@ -1,84 +1,66 @@
+import Link from "next/link";
+import { pageMetadata } from "../../lib/site";
+
+export const metadata = pageMetadata("About & Education", "Education, technical scope, and engineering approach of Gao Zhouhao.", "/about");
+
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-black px-4 py-16 text-white sm:px-6 md:px-8">
-      <div className="mx-auto max-w-5xl">
-        <h1 className="text-3xl font-bold sm:text-4xl md:text-5xl">About</h1>
+    <main id="main-content" className="page-shell">
+      <p className="eyebrow">About</p>
+      <h1 className="page-title">Devices, RTL, and the systems between them.</h1>
+      <p className="lead" style={{ marginTop: "1.5rem" }}>
+        I am a full-time M.Sc. student in Integrated Circuit Design in the joint
+        TUM–NTU programme. My work spans transistor-level analog design, RTL and
+        SoC integration, verification, and hands-on hardware development.
+      </p>
 
-        <section className="mt-8 max-w-3xl text-sm leading-7 text-gray-300 sm:text-base">
-            <p>
-            I am a Master’s student in Integrated Circuit Design at TUM Asia and
-            Nanyang Technological University, with experience in both analog/mixed-signal
-            and digital IC design.
-          </p>
+      <section className="section">
+        <p className="eyebrow">Technical scope</p>
+        <h2 className="section-heading">Evidence, not a keyword list</h2>
+        <div className="card-grid">
+          <article className="card">
+            <p className="eyebrow">Analog / Mixed-Signal</p>
+            <h3>Transistor-level to extracted view</h3>
+            <p>Cadence Virtuoso schematic and full-custom layout, Calibre DRC/LVS/PEX, post-layout simulation, and documented process-corner work in the Class-AB project.</p>
+            <Link className="card-link" href="/projects/class-ab-amplifier">Class-AB evidence →</Link>
+          </article>
+          <article className="card">
+            <p className="eyebrow">Digital IC / SoC</p>
+            <h3>RTL, interfaces, and debug</h3>
+            <p>Verilog/SystemVerilog, a multi-cycle RV32E CPU, valid-ready control, AXI/APB integration, NEMU difftest, Verilator, waveform and transaction-level debugging.</p>
+            <Link className="card-link" href="/projects/riscv-cpu">CPU / SoC evidence →</Link>
+          </article>
+          <article className="card">
+            <p className="eyebrow">Hardware / Embedded</p>
+            <h3>Boards and system bring-up</h3>
+            <p>PCB design, assembly, soldering and rework, MCU interfaces, sensors, motor-control integration, and system-level debugging.</p>
+            <Link className="card-link" href="/projects/smart-car">Hardware evidence →</Link>
+          </article>
+        </div>
+      </section>
 
-          <p className="mt-4">
-            In analog and mixed-signal design, I have worked on transistor-level circuits
-            including amplifiers, charge pumps, and bandgap-based references, with
-            full-custom layout and post-layout verification.
-          </p>
+      <section className="section split">
+        <div>
+          <p className="eyebrow">Education</p>
+          <h2 className="section-heading">M.Sc. in Integrated Circuit Design</h2>
+          <p className="section-intro">A full-time joint programme of the Technical University of Munich and Nanyang Technological University, leading to one jointly awarded degree.</p>
+        </div>
+        <dl className="fact-panel">
+          <dt>Graduate</dt>
+          <dd>TUM / NTU · M.Sc. Integrated Circuit Design · 2025.08–2027.07 expected</dd>
+          <dt>Undergraduate</dt>
+          <dd>Jiangsu Normal University · B.Eng. Electronic Information Engineering · 2020.09–2024.06</dd>
+          <dt>Languages</dt>
+          <dd>English — IELTS 7.0; CET-4 509; CET-6 435</dd>
+        </dl>
+      </section>
 
-          <p className="mt-4">
-            In digital design, I have developed an RTL RISC-V CPU with differential
-            testing and system-level bring-up, building a structured approach to
-            design, verification, and integration.
-          </p>
-        </section>
-
-        <section className="mt-14">
-          <h2 className="text-2xl font-semibold text-gray-200">
-            Technical Skills
-          </h2>
-
-          <div className="mt-6 grid gap-6 md:grid-cols-2">
-            <div className="rounded-xl border border-gray-800 p-5">
-              <h3 className="font-semibold text-white">Digital & RTL</h3>
-              <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-gray-300 sm:text-base">
-                <li>Verilog, RISC-V CPU Design</li>
-                <li>Datapath and Control Logic</li>
-                <li>Basic Verification and Debugging (Verilator, Waveform Analysis)</li>
-                <li>Python for test automation and tooling, Makefile for build flow</li>
-              </ul>
-            </div>
-
-            <div className="rounded-xl border border-gray-800 p-5">
-              <h3 className="font-semibold text-white">Analog / Mixed-Signal IC</h3>
-              <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-gray-300 sm:text-base">
-                <li>Cadence Virtuoso (schematic & full-custom layout), Spectre simulation</li>
-                <li>DRC / LVS / PEX, post-layout verification and PVT analysis</li>
-                <li>Analog building blocks: amplifiers, charge pumps, bandgap-based references</li>
-                <li>Device sizing, bias design, stability and trade-off analysis</li>
-              </ul>
-            </div>
-
-            <div className="rounded-xl border border-gray-800 p-5">
-              <h3 className="font-semibold text-white">Embedded & Systems</h3>
-              <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-gray-300 sm:text-base">
-                <li>C/C++, MCU Development</li>
-                <li>Sensor Integration and Motor Control</li>
-                <li>System-Level Debugging</li>
-              </ul>
-            </div>
-
-            <div className="rounded-xl border border-gray-800 p-5">
-              <h3 className="font-semibold text-white">Additional</h3>
-              <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-gray-300 sm:text-base">
-                <li>PCB Design (Altium Designer)</li>
-                <li>CST (RF Simulation)</li>
-                <li>3D Modeling and 3D Printing</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <section className="mt-14">
-          <h2 className="text-2xl font-semibold text-gray-200">Education</h2>
-
-          <ul className="mt-6 space-y-3 text-sm text-gray-300 sm:text-base">
-            <li>M.Sc. Integrated Circuit Design, TUM Asia & NTU (2025–2027)</li>
-            <li>B.Eng. Electronic Information Engineering, JSNU</li>
-          </ul>
-        </section>
-      </div>
+      <section className="section">
+        <p className="eyebrow">Beyond the portfolio</p>
+        <h2 className="section-heading">Hands-on making</h2>
+        <p className="section-intro">The original making, music, and life gallery is retained as a secondary page rather than a primary recruiting path.</p>
+        <Link className="card-link" href="/beyond">View Beyond Engineering →</Link>
+      </section>
     </main>
   );
 }

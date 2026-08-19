@@ -1,70 +1,28 @@
+import { pageMetadata } from "../../lib/site";
+
+export const metadata = pageMetadata("Awards", "Verified engineering and modeling competition awards of Gao Zhouhao.", "/awards");
+
+const awards = [
+  ["2022.08", "National Second Prize", "17th National College Student Smart Car Competition · Multi-Vehicle Formation"],
+  ["2022.08", "First Prize, Jiangsu", "TI Cup College Student Electronic Design Competition"],
+  ["2021.11", "Second Prize, Jiangsu Division", "National College Student Electronic Design Competition"],
+  ["2022", "National First Prize", "12th MathorCup University Mathematical Modeling Challenge"],
+];
+
 export default function AwardsPage() {
   return (
-    <main className="min-h-screen bg-black px-4 py-16 text-white sm:px-6 md:px-8">
-      <div className="mx-auto max-w-4xl">
-        <h1 className="text-3xl font-bold sm:text-4xl md:text-5xl">
-          Awards
-        </h1>
-
-        {/* Competitions */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold text-gray-300 sm:text-2xl">
-            Competitions
-          </h2>
-
-          <ul className="mt-6 space-y-3 text-sm text-gray-300 sm:text-base">
-            <li>
-              National First Prize, China Undergraduate Mathematical Contest in Modeling
-            </li>
-            <li>
-              National Second Prize, China Undergraduate Smart Car Race (17th)
-            </li>
-            <li>
-              National First Prize, MathorCup College Mathematical Modeling Challenge
-            </li>
-            <li>
-              Honorable Mention, Interdisciplinary Contest in Modeling (ICM)
-            </li>
-            <li>
-              National Second Prize, Asia-Pacific Undergraduate Mathematical Contest in Modeling
-            </li>
-            <li>
-              Provincial First Prize, China Undergraduate Electronic Design Contest
-            </li>
-            <li>
-              Provincial Second Prize, Lanqiao Cup China Software & IT Talent Competition (C/C++)
-            </li>
-            <li>
-              Provincial Third Prize, University Mathematical Contest in Modeling
-            </li>
-          </ul>
-        </section>
-
-        {/* Scholarships */}
-        <section className="mt-14">
-          <h2 className="text-xl font-semibold text-gray-300 sm:text-2xl">
-            Scholarships & Honors
-          </h2>
-
-          <ul className="mt-6 space-y-3 text-sm text-gray-300 sm:text-base">
-            <li>
-              JSNU Model Student (Top 0.05%, 10 / 20,000+)
-            </li>
-            <li>
-              Outstanding Graduation Thesis (Top 3%)
-            </li>
-            <li>
-              Outstanding Graduate (Top 10%)
-            </li>
-            <li>
-              Merit Student (Top 10%)
-            </li>
-            <li>
-              Second-Class Scholarship (Top 15%)
-            </li>
-          </ul>
-        </section>
-      </div>
+    <main id="main-content" className="page-shell page-narrow">
+      <p className="eyebrow">Awards</p>
+      <h1 className="page-title">Selected verified awards.</h1>
+      <p className="lead" style={{ marginTop: "1.5rem" }}>Only awards with confirmed names and levels are shown. Candidate honors and unverified rankings remain offline.</p>
+      <section className="section">
+        {awards.map(([date, level, name]) => (
+          <article className="card" style={{ marginTop: "1rem" }} key={name}>
+            <p className="eyebrow">{date} · {level}</p>
+            <h2 style={{ margin: ".65rem 0 0", fontSize: "1.2rem" }}>{name}</h2>
+          </article>
+        ))}
+      </section>
     </main>
   );
 }
