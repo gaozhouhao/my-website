@@ -1,0 +1,1 @@
+import { AboutPage } from "../../about/page"; import { pageMetadata } from "../../../lib/site"; export const metadata=pageMetadata("About & Education","Education, technical scope, and engineering approach of Gao Zhouhao.","/about","en"); export default function Page(){return <AboutPage locale="en"/>}

@@ -1,0 +1,1 @@
+import { ContactPage } from "../../contact/page"; import { pageMetadata } from "../../../lib/site"; export const metadata=pageMetadata("Contact","Contact Gao Zhouhao about 2027 graduate opportunities in IC design and hardware.","/contact","en"); export default function Page(){return <ContactPage locale="en"/>}

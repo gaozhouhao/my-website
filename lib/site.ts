@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import type { Locale } from "./i18n";
+import { localizedPath } from "./i18n";
 
 export const site = {
   name: "Gao Zhouhao",
@@ -14,26 +16,44 @@ export function pageMetadata(
   title: string,
   description: string,
   path: string,
+  locale: Locale = "zh",
 ): Metadata {
-  const canonical = path === "/" ? site.url : `${site.url}${path}`;
+  const localized = localizedPath(path, locale);
+  const displayName = locale === "zh" ? "郜周豪" : site.name;
+  const canonical = localized === "/" ? site.url : `${site.url}${localized}`;
+  const zhPath = localizedPath(path, "zh");
+  const enPath = localizedPath(path, "en");
 
   return {
-    title,
+    title: { absolute: `${title} | ${displayName}` },
     description,
-    alternates: { canonical },
+    applicationName: locale === "zh" ? "郜周豪 IC 设计作品集" : "Gao Zhouhao IC Design Portfolio",
+    authors: [{ name: displayName, url: canonical }],
+    creator: displayName,
+    publisher: displayName,
+    alternates: {
+      canonical,
+      languages: {
+        "zh-CN": zhPath === "/" ? site.url : `${site.url}${zhPath}`,
+        en: `${site.url}${enPath}`,
+        "x-default": zhPath === "/" ? site.url : `${site.url}${zhPath}`,
+      },
+    },
     openGraph: {
-      title: `${title} | ${site.name}`,
+      title: `${title} | ${displayName}`,
       description,
       url: canonical,
-      siteName: "Gao Zhouhao IC Design Portfolio",
+      siteName: locale === "zh" ? "郜周豪 IC 设计作品集" : "Gao Zhouhao IC Design Portfolio",
       type: "website",
-      images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: site.title }],
+      locale: locale === "zh" ? "zh_CN" : "en_US",
+      alternateLocale: locale === "zh" ? ["en_US"] : ["zh_CN"],
+      images: [{ url: locale === "zh" ? "/opengraph-image" : "/en/opengraph-image", width: 1200, height: 630, alt: `${displayName} IC Design Portfolio` }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | ${site.name}`,
+      title: `${title} | ${displayName}`,
       description,
-      images: ["/opengraph-image"],
+      images: [locale === "zh" ? "/opengraph-image" : "/en/opengraph-image"],
     },
   };
 }

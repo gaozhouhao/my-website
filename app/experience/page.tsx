@@ -1,43 +1,13 @@
 import Link from "next/link";
 import { profileBoundary } from "../../lib/content";
+import type { Locale } from "../../lib/i18n";
+import { localizedPath } from "../../lib/i18n";
 import { pageMetadata } from "../../lib/site";
 
-export const metadata = pageMetadata("Experience", "Current analog IC design internship experience of Gao Zhouhao.", "/experience");
-
-export default function ExperiencePage() {
-  return (
-    <main id="main-content" className="page-shell">
-      <p className="eyebrow">Experience</p>
-      <h1 className="page-title">Current industry work, described conservatively.</h1>
-      <p className="lead" style={{ marginTop: "1.5rem" }}>
-        Public information is intentionally limited. Internal architecture,
-        specifications, implementation details, and results are not published here.
-      </p>
-
-      <section className="section split">
-        <div>
-          <p className="eyebrow">2026.06 — 2027.04</p>
-          <h2 className="section-heading">Analog IC Design Intern</h2>
-          <p className="section-intro">Infineon Technologies · Singapore · Full-time internship</p>
-          <p className="section-intro">
-            Working on an ongoing startup-circuit project for energy-harvesting applications.
-            The project remains work in progress; this page does not claim completed or verified results.
-          </p>
-        </div>
-        <dl className="fact-panel">
-          <dt>Status</dt>
-          <dd>Work in progress</dd>
-          <dt>Public scope</dt>
-          <dd>{profileBoundary.publicInternshipScope}</dd>
-          <dt>Not published</dt>
-          <dd>{profileBoundary.privateInternshipScope}</dd>
-        </dl>
-      </section>
-
-      <p className="status-note section">
-        No target specification is presented as an achieved result. Additional technical detail will only be added after both factual verification and a separate confidentiality review.
-      </p>
-      <div className="button-row"><Link className="button" href="/projects">View public project evidence</Link></div>
-    </main>
-  );
-}
+const copy = {
+  zh: { label:"实习经历", title:"Infineon Technologies Singapore", lead:"Analog IC Design Intern · Full-time Internship", role:"Analog IC Design Intern", place:"Singapore · 2026.06–2027.04", work:"参与能量采集系统低压启动电路项目。项目仍在进行中，暂不公开内部设计细节和仿真结果。", status:"项目状态", wip:"进行中", public:"项目方向", private:"公开说明", publicScope:"Energy-harvesting startup circuit", privateScope:"本页仅介绍岗位和项目方向，不涉及内部规格、架构及数据。", note:"后续仅在符合保密要求且相关工作已经完成后补充可公开内容。", projects:"查看个人项目", meta:"郜周豪在 Infineon Technologies Singapore 的 Analog IC Design Internship。" },
+  en: { label:"Experience", title:"Current industry work, described conservatively.", lead:"Public information is intentionally limited. Internal architecture, specifications, implementation details, and results are not published here.", role:"Analog IC Design Intern", place:"Infineon Technologies · Singapore · Full-time internship", work:"Working on an ongoing startup-circuit project for energy-harvesting applications. The project remains work in progress; this page does not claim completed or verified results.", status:"Status", wip:"Work in progress", public:"Public scope", private:"Not published", publicScope:profileBoundary.publicInternshipScope, privateScope:profileBoundary.privateInternshipScope, note:"No target specification is presented as an achieved result. Additional detail will only be added after factual verification and a separate confidentiality review.", projects:"View public project evidence", meta:"Current analog IC design internship experience of Gao Zhouhao." },
+} as const;
+export const metadata = pageMetadata("实习经历", copy.zh.meta, "/experience", "zh");
+export function ExperiencePage({locale}:{locale:Locale}) { const t=copy[locale]; return <main id="main-content" className="page-shell" lang={locale==="zh"?"zh-CN":"en"}><p className="eyebrow">{t.label}</p><h1 className="page-title">{t.title}</h1><p className="lead" style={{marginTop:"1.5rem"}}>{t.lead}</p><section className="section split"><div><p className="eyebrow">2026.06 — 2027.04</p><h2 className="section-heading">{t.role}</h2><p className="section-intro">{t.place}</p><p className="section-intro">{t.work}</p></div><dl className="fact-panel"><dt>{t.status}</dt><dd>{t.wip}</dd><dt>{t.public}</dt><dd>{t.publicScope}</dd><dt>{t.private}</dt><dd>{t.privateScope}</dd></dl></section><p className="status-note section">{t.note}</p><div className="button-row"><Link className="button" href={localizedPath("/projects",locale)}>{t.projects}</Link></div></main> }
+export default function Page(){return <ExperiencePage locale="zh"/>}

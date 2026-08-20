@@ -1,0 +1,1 @@
+import { RiscvCpuPage } from "../../../projects/riscv-cpu/page"; import { pageMetadata } from "../../../../lib/site"; export const metadata=pageMetadata("Multi-Cycle RISC-V CPU / SoC","RTL, verification, memory-system, and SoC integration evidence for Gao Zhouhao's RV32E CPU project.","/projects/riscv-cpu","en"); export default function Page(){return <RiscvCpuPage locale="en"/>}

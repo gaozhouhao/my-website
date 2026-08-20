@@ -1,28 +1,4 @@
-import { pageMetadata } from "../../lib/site";
-
-export const metadata = pageMetadata("Awards", "Verified engineering and modeling competition awards of Gao Zhouhao.", "/awards");
-
-const awards = [
-  ["2022.08", "National Second Prize", "17th National College Student Smart Car Competition · Multi-Vehicle Formation"],
-  ["2022.08", "First Prize, Jiangsu", "TI Cup College Student Electronic Design Competition"],
-  ["2021.11", "Second Prize, Jiangsu Division", "National College Student Electronic Design Competition"],
-  ["2022", "National First Prize", "12th MathorCup University Mathematical Modeling Challenge"],
-];
-
-export default function AwardsPage() {
-  return (
-    <main id="main-content" className="page-shell page-narrow">
-      <p className="eyebrow">Awards</p>
-      <h1 className="page-title">Selected verified awards.</h1>
-      <p className="lead" style={{ marginTop: "1.5rem" }}>Only awards with confirmed names and levels are shown. Candidate honors and unverified rankings remain offline.</p>
-      <section className="section">
-        {awards.map(([date, level, name]) => (
-          <article className="card" style={{ marginTop: "1rem" }} key={name}>
-            <p className="eyebrow">{date} · {level}</p>
-            <h2 style={{ margin: ".65rem 0 0", fontSize: "1.2rem" }}>{name}</h2>
-          </article>
-        ))}
-      </section>
-    </main>
-  );
-}
+import type { Locale } from "../../lib/i18n"; import { pageMetadata } from "../../lib/site";
+const awards={zh:[["2022.08","全国总决赛二等奖","第十七届全国大学生智能汽车竞赛 · 多车编队组"],["2022.08","江苏省一等奖","2022 年江苏省 TI 杯大学生电子设计竞赛"],["2021.11","江苏赛区二等奖","2021 年全国大学生电子设计竞赛"],["2022","全国一等奖","第十二届 MathorCup 高校数学建模挑战赛"]],en:[["2022.08","National Second Prize","17th National College Student Smart Car Competition · Multi-Vehicle Formation"],["2022.08","First Prize, Jiangsu","TI Cup College Student Electronic Design Competition"],["2021.11","Second Prize, Jiangsu Division","National College Student Electronic Design Competition"],["2022","National First Prize","12th MathorCup University Mathematical Modeling Challenge"]]} as const;
+export const metadata=pageMetadata("奖项荣誉","郜周豪的代表性竞赛奖项。","/awards","zh");
+export function AwardsPage({locale}:{locale:Locale}){const zh=locale==="zh";return <main id="main-content" className="page-shell page-narrow" lang={zh?"zh-CN":"en"}><p className="eyebrow">{zh?"奖项荣誉":"Awards"}</p><h1 className="page-title">{zh?"代表性竞赛奖项":"Selected verified awards."}</h1><p className="lead" style={{marginTop:"1.5rem"}}>{zh?"电子设计、智能车与数学建模竞赛。":"Only awards with confirmed names and levels are shown. Candidate honors and unverified rankings remain offline."}</p><section className="section">{awards[locale].map(([date,level,name])=><article className="card" style={{marginTop:"1rem"}} key={name}><p className="eyebrow">{date} · {level}</p><h2 style={{margin:".65rem 0 0",fontSize:"1.2rem"}}>{name}</h2></article>)}</section></main>}; export default function Page(){return <AwardsPage locale="zh"/>}

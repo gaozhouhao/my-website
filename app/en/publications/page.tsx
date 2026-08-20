@@ -1,0 +1,1 @@
+import { PublicationsPage } from "../../publications/page"; import { pageMetadata } from "../../../lib/site"; export const metadata=pageMetadata("Publications & Patent","Peer-reviewed publications and a published patent application by Gao Zhouhao.","/publications","en"); export default function Page(){return <PublicationsPage locale="en"/>}

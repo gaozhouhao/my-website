@@ -1,0 +1,1 @@
+import { AwardsPage } from "../../awards/page"; import { pageMetadata } from "../../../lib/site"; export const metadata=pageMetadata("Awards","Verified engineering and modeling competition awards of Gao Zhouhao.","/awards","en"); export default function Page(){return <AwardsPage locale="en"/>}

@@ -7,11 +7,11 @@ import { site } from "../lib/site";
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Gao Zhouhao | IC Design Portfolio",
-    template: "%s | Gao Zhouhao",
+    default: "郜周豪 | IC 设计作品集",
+    template: "%s | 郜周豪",
   },
   description: site.description,
-  applicationName: "Gao Zhouhao IC Design Portfolio",
+  applicationName: "郜周豪 IC 设计作品集",
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
   publisher: site.name,
@@ -19,11 +19,11 @@ export const metadata: Metadata = {
   keywords: ["IC design", "analog IC", "RTL", "SoC", "ASIC", "RISC-V", "hardware portfolio"],
   robots: { index: true, follow: true },
   openGraph: {
-    title: "Gao Zhouhao | IC Design Portfolio",
+    title: "郜周豪 | IC 设计作品集",
     description:
-      "Engineering evidence across analog IC, RTL, SoC, ASIC flow, verification, and hardware.",
+      "面向 IC 设计与硬件岗位的个人项目作品集。",
     url: site.url,
-    siteName: "Gao Zhouhao IC Design Portfolio",
+    siteName: "郜周豪 IC 设计作品集",
     type: "website",
     images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: site.title }],
   },
@@ -38,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col bg-black text-white">
-        <a className="skip-link" href="#main-content">Skip to content</a>
+        <a className="skip-link" href="#main-content">跳转到正文 / Skip to content</a>
         <Navbar />
         {children}
         <SiteFooter />
