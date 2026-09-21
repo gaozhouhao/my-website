@@ -26,6 +26,8 @@ const gallery = [
   ["life/group-photo.webp", "Group photo", 3024, 4032],
 ] as const;
 
+const imageLabelsZh: Record<string,string> = {"3D printed figure":"三维打印人物模型","3D printed figures":"三维打印人物模型","Hand-carved rubber stamp artwork":"手工雕刻橡皮章","Mini sculpture":"微型雕塑","Hand-carved rubber stamp artwork in orange":"橙色橡皮章作品","Hand-carved Fate rubber stamp artwork":"Fate 主题橡皮章作品","Bead art":"拼豆作品","Representative speech":"学生代表发言","Student selection presentation event":"学生评选展示活动","Student recognition event":"学生表彰活动","Street performance":"街头演奏","Playing guitar in a classroom":"教室吉他演奏","Swimming":"游泳","Outdoor life":"户外生活","Group photo":"合影"};
+
 export function BeyondPage({ locale }: { locale: Locale }) {
   const zh = locale === "zh";
   return (
@@ -33,15 +35,15 @@ export function BeyondPage({ locale }: { locale: Locale }) {
       <p className="eyebrow">{zh ? "个人兴趣" : "Beyond Engineering"}</p>
       <h1 className="page-title">{zh ? "动手制作与日常兴趣" : "Making, music, and life outside IC design."}</h1>
       <p className="lead" style={{ marginTop: "1.5rem" }}>
-        {zh ? "记录 3D 打印、橡皮章雕刻、音乐和部分校园活动。" : "This secondary gallery preserves the original site's personal material without competing with the recruiting-focused engineering portfolio."}
+        {zh ? "记录三维打印、橡皮章雕刻、音乐和部分校园活动。" : "This secondary gallery preserves the original site's personal material without competing with the recruiting-focused engineering portfolio."}
       </p>
 
       <section className="section">
         <h2 className="section-heading">{zh ? "动手制作" : "Hands-on making"}</h2>
-        <p className="section-intro">{zh ? "FDM / SLA 3D 打印、橡皮章雕刻和小型手工作品，也是对迭代与精度的另一种实践。" : "FDM and SLA printing, stamp carving, and small physical builds—another outlet for iteration and precision."}</p>
+        <p className="section-intro">{zh ? "熔融沉积与光固化三维打印、橡皮章雕刻和小型手工作品，也是对迭代与精度的另一种实践。" : "FDM and SLA printing, stamp carving, and small physical builds—another outlet for iteration and precision."}</p>
         <div className="masonry-gallery">
           {making.map(([file, alt, width, height]) => (
-            <Image key={file} src={`/beyond/making/${file}`} alt={alt} width={width} height={height} sizes="(max-width: 800px) 50vw, 30vw" />
+            <Image key={file} src={`/beyond/making/${file}`} alt={zh ? imageLabelsZh[alt] : alt} width={width} height={height} sizes="(max-width: 800px) 50vw, 30vw" />
           ))}
         </div>
       </section>
@@ -51,7 +53,7 @@ export function BeyondPage({ locale }: { locale: Locale }) {
         <p className="section-intro">{zh ? "从原作品集中保留的公开演讲、音乐与日常生活片段。" : "Public speaking, music, and everyday life retained from the original portfolio."}</p>
         <div className="personal-gallery">
           {gallery.map(([file, alt, width, height]) => (
-            <Image key={file} src={`/beyond/${file}`} alt={alt} width={width} height={height} sizes="(max-width: 800px) 50vw, 30vw" />
+            <Image key={file} src={`/beyond/${file}`} alt={zh ? imageLabelsZh[alt] : alt} width={width} height={height} sizes="(max-width: 800px) 50vw, 30vw" />
           ))}
         </div>
       </section>

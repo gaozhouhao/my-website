@@ -6,7 +6,7 @@ import { localizedPath } from "../../lib/i18n";
 import { pageMetadata } from "../../lib/site";
 
 const copy = {
-  zh: { title: "项目经历", heading: "代表项目", intro: "项目详情包括设计内容、本人负责部分、实现过程、仿真或测试结果。", open: "查看项目 →", meta: "郜周豪的模拟 IC、数字 IC、RTL、SoC 与硬件项目。" },
+  zh: { title: "项目经历", heading: "代表项目", intro: "项目详情包括设计内容、本人负责部分、实现过程、仿真或测试结果。", open: "查看项目 →", meta: "郜周豪的模拟集成电路、数字集成电路、寄存器传输级设计、片上系统与硬件项目。" },
   en: { title: "Projects", heading: "Engineering evidence across the IC stack.", intro: "Each page separates objective, personal contribution, implementation, verification, results, limitations, and third-party boundaries.", open: "Open project →", meta: "IC design, RTL, SoC, ASIC flow, verification, and hardware projects by Gao Zhouhao." },
 } as const;
 

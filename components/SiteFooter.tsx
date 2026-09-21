@@ -19,7 +19,7 @@ export default function SiteFooter() {
         <a href={site.github} target="_blank" rel="noreferrer">
           GitHub
         </a>
-        <a href={`mailto:${site.email}`}>Email</a>
+        <a href={`mailto:${site.email}`}>{locale === "zh" ? "邮箱" : "Email"}</a>
       </div>
     </footer>
   );

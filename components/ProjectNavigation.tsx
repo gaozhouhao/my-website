@@ -8,7 +8,7 @@ export default function ProjectNavigation() {
   const locale = localeFromPathname(usePathname());
   const copy = ui[locale];
   return (
-    <nav className="project-navigation" aria-label="Project navigation">
+    <nav className="project-navigation" aria-label={locale === "zh" ? "项目导航" : "Project navigation"}>
       <Link href={localizedPath("/projects", locale)}>{copy.allProjects}</Link>
       <Link href={localizedPath("/contact", locale)}>{copy.discuss}</Link>
     </nav>

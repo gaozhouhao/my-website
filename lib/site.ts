@@ -27,7 +27,7 @@ export function pageMetadata(
   return {
     title: { absolute: `${title} | ${displayName}` },
     description,
-    applicationName: locale === "zh" ? "郜周豪 IC 设计作品集" : "Gao Zhouhao IC Design Portfolio",
+    applicationName: locale === "zh" ? "郜周豪集成电路设计作品集" : "Gao Zhouhao IC Design Portfolio",
     authors: [{ name: displayName, url: canonical }],
     creator: displayName,
     publisher: displayName,
@@ -43,7 +43,7 @@ export function pageMetadata(
       title: `${title} | ${displayName}`,
       description,
       url: canonical,
-      siteName: locale === "zh" ? "郜周豪 IC 设计作品集" : "Gao Zhouhao IC Design Portfolio",
+      siteName: locale === "zh" ? "郜周豪集成电路设计作品集" : "Gao Zhouhao IC Design Portfolio",
       type: "website",
       locale: locale === "zh" ? "zh_CN" : "en_US",
       alternateLocale: locale === "zh" ? ["en_US"] : ["zh_CN"],

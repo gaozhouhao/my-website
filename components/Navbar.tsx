@@ -13,8 +13,10 @@ export default function Navbar() {
   const basePath = pathWithoutLocale(pathname);
 
   return (
+    <>
+    <a className="skip-link" href="#main-content">{copy.skip}</a>
     <header className="site-header">
-      <nav className="site-nav" aria-label="Primary navigation">
+      <nav className="site-nav" aria-label={locale === "zh" ? "主导航" : "Primary navigation"}>
         <Link href={localizedPath("/", locale)} className="site-name">
           {locale === "zh" ? "郜周豪" : "Gao Zhouhao"}
           <span>{copy.portfolio}</span>
@@ -33,5 +35,6 @@ export default function Navbar() {
         </div>
       </nav>
     </header>
+    </>
   );
 }
