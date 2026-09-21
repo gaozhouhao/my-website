@@ -184,8 +184,12 @@ a { color: inherit; }
 
 .awards-section, .award-card { scroll-margin-top: 11rem; }
 .awards-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.5rem; }
-.award-card { display: flex; flex-direction: column; align-items: flex-start; }
-.award-card .card-link { margin-top: auto; padding-top: 1rem; }
+.award-card { padding: 1rem 1.15rem; }
+.award-card .eyebrow { margin: 0 0 .55rem; }
+.award-card h3 { margin: 0; }
+.award-title-link { display: flex; align-items: baseline; gap: .5rem; justify-content: space-between; text-decoration: none; line-height: 1.55; }
+.award-title-link:hover, .award-title-link:focus-visible { color: var(--accent-strong); text-decoration: underline; text-underline-offset: .2em; }
+.award-link-icon { color: var(--accent); flex-shrink: 0; font-size: 1rem; }
 .patent-certificate { max-width: 36rem; margin-inline: auto; }
 .patent-certificate > a { display: block; }
 @media (max-width: 800px) { .awards-grid { grid-template-columns: 1fr; } }

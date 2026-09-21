@@ -12,7 +12,8 @@ export const awards = [
       "National Undergraduate Electronic Design Contest",
       "Second Prize, Jiangsu Division"
     ],
-    "certificate": "/certificates/awards/electronic-design-2023.pdf"
+    "certificate": "/certificates/awards/previews/electronic-design-2023.webp",
+    "originalCertificate": "/certificates/awards/electronic-design-2023.pdf"
   },
   {
     "id": "smart-car-national-2022",
@@ -26,7 +27,8 @@ export const awards = [
       "17th National College Student Smart Car Competition · Multi-Vehicle Formation",
       "National Finals Second Prize"
     ],
-    "certificate": "/certificates/awards/smart-car-national-2022.pdf"
+    "certificate": "/certificates/awards/previews/smart-car-national-2022.webp",
+    "originalCertificate": "/certificates/awards/smart-car-national-2022.pdf"
   },
   {
     "id": "smart-car-east-2022",
@@ -40,7 +42,8 @@ export const awards = [
       "17th National College Student Smart Car Competition · Multi-Vehicle Formation",
       "Second Prize, East China Division"
     ],
-    "certificate": "/certificates/awards/smart-car-east-2022.pdf"
+    "certificate": "/certificates/awards/previews/smart-car-east-2022.webp",
+    "originalCertificate": "/certificates/awards/smart-car-east-2022.pdf"
   },
   {
     "id": "ti-cup-2022",
@@ -54,7 +57,8 @@ export const awards = [
       "Jiangsu College Student Electronic Design Competition (TI Cup)",
       "First Prize, Jiangsu"
     ],
-    "certificate": "/certificates/awards/ti-cup-2022.pdf"
+    "certificate": "/certificates/awards/previews/ti-cup-2022.webp",
+    "originalCertificate": "/certificates/awards/ti-cup-2022.pdf"
   },
   {
     "id": "lanqiao-2022",
@@ -68,7 +72,8 @@ export const awards = [
       "13th Lanqiao Cup · C/C++ Programming, University Group B",
       "Second Prize, Jiangsu Division"
     ],
-    "certificate": "/certificates/awards/lanqiao-2022.pdf"
+    "certificate": "/certificates/awards/previews/lanqiao-2022.webp",
+    "originalCertificate": "/certificates/awards/lanqiao-2022.pdf"
   },
   {
     "id": "electronic-design-2021",
@@ -82,7 +87,8 @@ export const awards = [
       "National Undergraduate Electronic Design Contest",
       "Second Prize, Jiangsu Division"
     ],
-    "certificate": "/certificates/awards/electronic-design-2021.pdf"
+    "certificate": "/certificates/awards/previews/electronic-design-2021.webp",
+    "originalCertificate": "/certificates/awards/electronic-design-2021.pdf"
   },
   {
     "id": "mathorcup-2022",
@@ -96,7 +102,8 @@ export const awards = [
       "12th MathorCup Mathematical Modeling Challenge · Undergraduate Group",
       "First Prize"
     ],
-    "certificate": "/certificates/awards/mathorcup-2022.pdf"
+    "certificate": "/certificates/awards/previews/mathorcup-2022.webp",
+    "originalCertificate": "/certificates/awards/mathorcup-2022.pdf"
   },
   {
     "id": "huashu-2022",
@@ -110,7 +117,8 @@ export const awards = [
       "3rd Huashu Cup National College Student Mathematical Modeling Competition",
       "First Prize"
     ],
-    "certificate": "/certificates/awards/huashu-2022.pdf"
+    "certificate": "/certificates/awards/previews/huashu-2022.webp",
+    "originalCertificate": "/certificates/awards/huashu-2022.pdf"
   },
   {
     "id": "icm-2022",
@@ -124,7 +132,8 @@ export const awards = [
       "Interdisciplinary Contest in Modeling (ICM)",
       "Honorable Mention"
     ],
-    "certificate": "/certificates/awards/icm-2022.pdf"
+    "certificate": "/certificates/awards/previews/icm-2022.webp",
+    "originalCertificate": "/certificates/awards/icm-2022.pdf"
   },
   {
     "id": "apmcm-2021",
@@ -138,7 +147,8 @@ export const awards = [
       "Asia and Pacific Mathematical Contest in Modeling · Undergraduate Group",
       "Second Prize"
     ],
-    "certificate": "/certificates/awards/apmcm-2021.pdf"
+    "certificate": "/certificates/awards/previews/apmcm-2021.webp",
+    "originalCertificate": "/certificates/awards/apmcm-2021.pdf"
   },
   {
     "id": "shuwei-2021",
@@ -152,7 +162,8 @@ export const awards = [
       "Shuwei Cup Mathematical Modeling Competition · Undergraduate Group",
       "Excellence Award"
     ],
-    "certificate": "/certificates/awards/shuwei-2021.jpg"
+    "certificate": "/certificates/awards/previews/shuwei-2021.webp",
+    "originalCertificate": "/certificates/awards/shuwei-2021.jpg"
   },
   {
     "id": "may-day-2021",
@@ -166,7 +177,8 @@ export const awards = [
       "18th May Day Mathematical Contest in Modeling",
       "Successful Participation Award"
     ],
-    "certificate": "/certificates/awards/may-day-2021.jpg"
+    "certificate": "/certificates/awards/previews/may-day-2021.webp",
+    "originalCertificate": "/certificates/awards/may-day-2021.jpg"
   },
   {
     "id": "physics-experiment-2022",
@@ -180,7 +192,8 @@ export const awards = [
       "8th National Undergraduate Physics Experiment Competition",
       "Excellence Award"
     ],
-    "certificate": "/certificates/awards/physics-experiment-2022.jpg"
+    "certificate": "/certificates/awards/previews/physics-experiment-2022.webp",
+    "originalCertificate": "/certificates/awards/physics-experiment-2022.jpg"
   },
   {
     "id": "jiangsu-mathematics-18",
@@ -194,62 +207,7 @@ export const awards = [
       "18th Jiangsu Higher Mathematics Competition · Undergraduate Level 1, Group A",
       "Third Prize"
     ],
-    "certificate": "/certificates/awards/jiangsu-mathematics-18.jpg"
-  },
-  {
-    "id": "mechanics-2021",
-    "date": "2021",
-    "group": "campus",
-    "zh": [
-      "江苏师范大学第一届力学创新创意比赛 · “让鸡蛋飞”专项赛常规赛",
-      "一等奖"
-    ],
-    "en": [
-      "JSNU 1st Mechanics Innovation Competition · Egg-Drop Challenge, Regular Event",
-      "First Prize"
-    ],
-    "certificate": "/certificates/awards/mechanics-2021.jpg"
-  },
-  {
-    "id": "debate-2021",
-    "date": "2021",
-    "group": "campus",
-    "zh": [
-      "江苏师范大学“谈理论道，以辩会友”辩论大赛",
-      "二等奖"
-    ],
-    "en": [
-      "JSNU Student Debate Competition",
-      "Second Prize"
-    ],
-    "certificate": "/certificates/awards/debate-2021.jpg"
-  },
-  {
-    "id": "campus-proposal-2021",
-    "date": "2020–2021",
-    "group": "campus",
-    "zh": [
-      "江苏师范大学“金点子”校园提案比赛",
-      "优秀奖"
-    ],
-    "en": [
-      "JSNU Golden Ideas Campus Proposal Competition",
-      "Excellence Award"
-    ],
-    "certificate": "/certificates/awards/campus-proposal-2021.jpg"
-  },
-  {
-    "id": "egg-drop-2020",
-    "date": "2020",
-    "group": "campus",
-    "zh": [
-      "江苏师范大学第十届“让鸡蛋飞”结构设计竞赛",
-      "二等奖"
-    ],
-    "en": [
-      "JSNU 10th Egg-Drop Structural Design Competition",
-      "Second Prize"
-    ],
-    "certificate": "/certificates/awards/egg-drop-2020.jpg"
+    "certificate": "/certificates/awards/previews/jiangsu-mathematics-18.webp",
+    "originalCertificate": "/certificates/awards/jiangsu-mathematics-18.jpg"
   }
 ] as const;
