@@ -11,7 +11,9 @@ export default function CompetitionVideo({ bvid, title }: Props) {
   const { aid, cid } = videos[bvid];
   const params = new URLSearchParams({
     aid, bvid, cid, p: "1", page: "1",
-    autoplay: "0", poster: "1", danmaku: "0",
+    autoplay: "false", poster: "true", danmaku: "false",
+    // The mobile player uses onlyPoster; the desktop player uses poster.
+    onlyPoster: "true",
   });
   return <div className="video-preview">
     <iframe
