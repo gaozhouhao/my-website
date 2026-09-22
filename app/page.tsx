@@ -1,3 +1,4 @@
+import CompetitionVideo from "../components/CompetitionVideo";
 import Image from "next/image";
 import Link from "next/link";
 import type { Locale } from "../lib/i18n";
@@ -81,8 +82,17 @@ export function HomePage({ locale }: { locale: Locale }) {
           <div className="showcase-copy"><p className="eyebrow">{locale === "zh" ? "模拟集成电路 · 版图 · 寄生参数提取" : "Analog IC · Layout · PEX"}</p><h3>{locale === "zh" ? "甲乙类音频放大器" : "Class-AB Audio Amplifier"}</h3><p>{zh ? "基于格芯 0.18 微米工艺，完成晶体管级设计、全定制版图、物理验证与寄生参数提取，以及后仿真和工艺角仿真。" : "GF 0.18 µm transistor-level design, full-custom layout, DRC/LVS/PEX, post-layout and process-corner simulation."}</p><Link className="card-link" href={href("/projects/class-ab-amplifier")}>{t.view} →</Link></div>
         </article>
         <article className="showcase-card video-card">
-          <div className="video-preview"><iframe src="https://player.bilibili.com/player.html?bvid=BV1hiQXBFEzB&poster=1&autoplay=0&danmaku=0" title={locale === "zh" ? "多车编队智能车演示" : "Multi-vehicle smart car demo"} loading="lazy" allowFullScreen /></div>
+          <div className="video-preview"><CompetitionVideo bvid="BV1hiQXBFEzB" title={locale === "zh" ? "多车编队智能车比赛演示" : "Multi-vehicle smart car competition demo"} /></div>
           <div className="showcase-copy"><p className="eyebrow">{locale === "zh" ? "嵌入式 · 印制电路板 · 系统联调" : "Embedded · PCB · System Bring-Up"}</p><h3>{zh ? "多车编队智能车" : "Multi-Vehicle Formation Smart Car"}</h3><p>{zh ? "我主要负责电路板设计和焊接、车辆间蓝牙通信，以及控制参数调整和整车调试。团队获全国总决赛二等奖。" : "Our team won second prize at the national finals. I worked on the boards, inter-vehicle communication, control tuning, and vehicle integration."}</p><div className="inline-links"><Link className="card-link" href={href("/projects/smart-car")}>{t.view} →</Link></div></div>
+        </article>
+        <article className="showcase-card video-card">
+          <CompetitionVideo bvid="BV1QXQQBbEMi" title={zh ? "TI 杯双车跟随系统比赛演示" : "TI Cup dual-vehicle following demo"} />
+          <div className="showcase-copy">
+            <p className="eyebrow">{zh ? "电子设计竞赛 · 江苏省一等奖" : "TI Cup · Jiangsu First Prize"}</p>
+            <h3>{zh ? "双车跟随系统" : "Dual-Vehicle Following System"}</h3>
+            <p>{zh ? "采用 MSP430F5529 控制器，通过灰度传感器循迹、超声测距和蓝牙通信，实现两辆车的协同跟随。" : "Built around the MSP430F5529, the two cars follow a track and maintain their spacing using line sensors, ultrasonic ranging, and Bluetooth communication."}</p>
+            <a className="card-link" href="/certificates/awards/previews/ti-cup-2022.webp" target="_blank" rel="noreferrer">{zh ? "查看奖状" : "View certificate"} ↗</a>
+          </div>
         </article>
         <article className="showcase-card">
           <Link href={href("/projects/sspp-filter")} className="showcase-media"><Image src="/papers/SSPP.webp" alt={locale === "zh" ? "交指结构人工表面等离子体激元滤波器结构、样机与响应" : "Interdigital SSPP filter structure, prototype, and response"} width={1105} height={859} sizes="(max-width: 800px) 100vw, 45vw" /></Link>
