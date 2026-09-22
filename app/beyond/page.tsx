@@ -35,12 +35,12 @@ export function BeyondPage({ locale }: { locale: Locale }) {
       <p className="eyebrow">{zh ? "个人兴趣" : "Beyond Engineering"}</p>
       <h1 className="page-title">{zh ? "动手制作与日常兴趣" : "Making, music, and life outside IC design."}</h1>
       <p className="lead" style={{ marginTop: "1.5rem" }}>
-        {zh ? "记录三维打印、橡皮章雕刻、音乐和部分校园活动。" : "This secondary gallery preserves the original site's personal material without competing with the recruiting-focused engineering portfolio."}
+        {zh ? "记录三维打印、橡皮章雕刻、音乐和部分校园活动。" : "A few things I enjoy outside work: making models, carving stamps, playing music, and spending time with friends."}
       </p>
 
       <section className="section">
         <h2 className="section-heading">{zh ? "动手制作" : "Hands-on making"}</h2>
-        <p className="section-intro">{zh ? "熔融沉积与光固化三维打印、橡皮章雕刻和小型手工作品，也是对迭代与精度的另一种实践。" : "FDM and SLA printing, stamp carving, and small physical builds—another outlet for iteration and precision."}</p>
+        <p className="section-intro">{zh ? "平时喜欢做三维打印模型、刻橡皮章，也会尝试一些小手工。" : "I like turning ideas into physical objects, from 3D-printed figures to hand-carved stamps and bead art."}</p>
         <div className="masonry-gallery">
           {making.map(([file, alt, width, height]) => (
             <Image key={file} src={`/beyond/making/${file}`} alt={zh ? imageLabelsZh[alt] : alt} width={width} height={height} sizes="(max-width: 800px) 50vw, 30vw" />
@@ -50,7 +50,7 @@ export function BeyondPage({ locale }: { locale: Locale }) {
 
       <section className="section">
         <h2 className="section-heading">{zh ? "其他记录" : "Selected moments"}</h2>
-        <p className="section-intro">{zh ? "从原作品集中保留的公开演讲、音乐与日常生活片段。" : "Public speaking, music, and everyday life retained from the original portfolio."}</p>
+        <p className="section-intro">{zh ? "演讲、弹琴、游泳，还有和朋友一起度过的时光。" : "Snapshots from university events, music, and everyday life."}</p>
         <div className="personal-gallery">
           {gallery.map(([file, alt, width, height]) => (
             <Image key={file} src={`/beyond/${file}`} alt={zh ? imageLabelsZh[alt] : alt} width={width} height={height} sizes="(max-width: 800px) 50vw, 30vw" />

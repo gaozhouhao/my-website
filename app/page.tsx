@@ -14,9 +14,8 @@ const copy = {
     email: "邮箱",
     resume: "简历整理中",
     selected: "代表项目",
-    selectedIntro: "直接查看架构、原理图、版图、仿真结果和实车演示。",
+    selectedIntro: "做过的电路、处理器和智能车项目。",
     view: "项目详情",
-    demo: "实车视频",
     experience: "实习经历",
     ongoing: "进行中",
     experienceText: "正在参与能量收集芯片设计，芯片可在 0.1 V 输入电压下启动并工作。",
@@ -28,16 +27,15 @@ const copy = {
   },
   en: {
     meta: "Gao Zhouhao's IC design portfolio with projects across analog IC, RTL, SoC, ASIC flow, and hardware.",
-    degree: "TUM / NTU · M.Sc. Integrated Circuit Design · 2027 Graduate",
+    degree: "TUM / NTU · M.Sc. Integrated Circuit Design · Expected graduation: 2027",
     internship: "Infineon Technologies Singapore · Mixed-Signal Design Engineer",
     direction: "Analog / Mixed-Signal IC · Digital IC / RTL · SoC Design",
     projects: "Projects",
     email: "Email",
-    resume: "Resume in review",
+    resume: "Resume coming soon",
     selected: "Selected Projects",
-    selectedIntro: "Architecture, schematics, layout, simulation results, and a live vehicle demo.",
+    selectedIntro: "A selection of my work in circuit design, processors, and embedded hardware.",
     view: "Project details",
-    demo: "Vehicle demo",
     experience: "Experience",
     ongoing: "Ongoing",
     experienceText: "Currently working on an energy-harvesting chip that can start up and operate at an input voltage of 0.1 V.",
@@ -83,12 +81,12 @@ export function HomePage({ locale }: { locale: Locale }) {
           <div className="showcase-copy"><p className="eyebrow">{locale === "zh" ? "模拟集成电路 · 版图 · 寄生参数提取" : "Analog IC · Layout · PEX"}</p><h3>{locale === "zh" ? "甲乙类音频放大器" : "Class-AB Audio Amplifier"}</h3><p>{zh ? "基于格芯 0.18 微米工艺，完成晶体管级设计、全定制版图、物理验证与寄生参数提取，以及后仿真和工艺角仿真。" : "GF 0.18 µm transistor-level design, full-custom layout, DRC/LVS/PEX, post-layout and process-corner simulation."}</p><Link className="card-link" href={href("/projects/class-ab-amplifier")}>{t.view} →</Link></div>
         </article>
         <article className="showcase-card video-card">
-          <div className="video-preview"><iframe src="https://player.bilibili.com/player.html?bvid=BV1hiQXBFEzB&autoplay=0" title={locale === "zh" ? "多车编队智能车演示" : "Multi-vehicle smart car demo"} loading="lazy" allowFullScreen /></div>
-          <div className="showcase-copy"><p className="eyebrow">{locale === "zh" ? "嵌入式 · 印制电路板 · 系统联调" : "Embedded · PCB · System Bring-Up"}</p><h3>{zh ? "多车编队智能车" : "Multi-Vehicle Formation Smart Car"}</h3><p>{zh ? "主要负责印制电路板、装配焊接、蓝牙串口车辆通信、PID 参数整定与整车联调。全国总决赛二等奖。" : "PCB design and bring-up, Bluetooth-UART communication, PID tuning, and vehicle integration. National Second Prize."}</p><div className="inline-links"><Link className="card-link" href={href("/projects/smart-car")}>{t.view} →</Link><a className="card-link" href="https://www.bilibili.com/video/BV1hiQXBFEzB" target="_blank" rel="noreferrer">{t.demo} ↗</a></div></div>
+          <div className="video-preview"><iframe src="https://player.bilibili.com/player.html?bvid=BV1hiQXBFEzB&poster=1&autoplay=0&danmaku=0" title={locale === "zh" ? "多车编队智能车演示" : "Multi-vehicle smart car demo"} loading="lazy" allowFullScreen /></div>
+          <div className="showcase-copy"><p className="eyebrow">{locale === "zh" ? "嵌入式 · 印制电路板 · 系统联调" : "Embedded · PCB · System Bring-Up"}</p><h3>{zh ? "多车编队智能车" : "Multi-Vehicle Formation Smart Car"}</h3><p>{zh ? "我主要负责电路板设计和焊接、车辆间蓝牙通信，以及控制参数调整和整车调试。团队获全国总决赛二等奖。" : "Our team won second prize at the national finals. I worked on the boards, inter-vehicle communication, control tuning, and vehicle integration."}</p><div className="inline-links"><Link className="card-link" href={href("/projects/smart-car")}>{t.view} →</Link></div></div>
         </article>
         <article className="showcase-card">
           <Link href={href("/projects/sspp-filter")} className="showcase-media"><Image src="/papers/SSPP.webp" alt={locale === "zh" ? "交指结构人工表面等离子体激元滤波器结构、样机与响应" : "Interdigital SSPP filter structure, prototype, and response"} width={1105} height={859} sizes="(max-width: 800px) 100vw, 45vw" /></Link>
-          <div className="showcase-copy"><p className="eyebrow">{locale === "zh" ? "射频 · 电磁仿真 · 电路板测试" : "RF · CST · PCB Measurement"}</p><h3>{zh ? "交指结构 SSPP 低通滤波器" : "Interdigital SSPP Low-Pass Filter"}</h3><p>{zh ? "CST 结构设计与仿真、FR-4 印制电路板样机、Keysight 矢量网络分析仪测试及第一作者论文。" : "CST design and simulation, an FR-4 PCB prototype, Keysight VNA measurement, and a first-author paper."}</p><Link className="card-link" href={href("/projects/sspp-filter")}>{t.view} →</Link></div>
+          <div className="showcase-copy"><p className="eyebrow">{locale === "zh" ? "射频 · 电磁仿真 · 电路板测试" : "RF · CST · PCB Measurement"}</p><h3>{zh ? "交指结构 SSPP 低通滤波器" : "Interdigital SSPP Low-Pass Filter"}</h3><p>{zh ? "从结构设计和电磁仿真，到制作电路板并测试，完成了一款小型滤波器。成果以第一作者发表于 Micromachines。" : "I designed, built, and measured a compact RF filter. This work led to a first-author paper in Micromachines."}</p><Link className="card-link" href={href("/projects/sspp-filter")}>{t.view} →</Link></div>
         </article>
       </div>
     </section>
