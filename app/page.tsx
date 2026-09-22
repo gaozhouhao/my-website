@@ -8,7 +8,7 @@ const copy = {
   zh: {
     meta: "郜周豪的集成电路设计作品集，包含模拟集成电路、数字集成电路、寄存器传输级设计、片上系统与硬件项目。",
     degree: "慕尼黑工业大学 / 南洋理工大学 · 集成电路设计理学硕士 · 2027 届",
-    internship: "英飞凌科技（新加坡）· 模拟集成电路设计实习生",
+    internship: "英飞凌科技（新加坡）· 混合信号设计工程师",
     direction: "模拟与混合信号集成电路 · 数字集成电路 · 寄存器传输级与片上系统设计",
     projects: "项目经历",
     email: "邮箱",
@@ -19,7 +19,7 @@ const copy = {
     demo: "实车视频",
     experience: "实习经历",
     ongoing: "进行中",
-    experienceText: "参与能量采集系统低压启动电路项目。首页仅展示适合公开的岗位和项目方向。",
+    experienceText: "正在参与能量收集芯片设计，芯片可在 0.1 V 输入电压下启动并工作。",
     more: "更多项目",
     publications: "论文与专利",
     awards: "奖项荣誉",
@@ -29,7 +29,7 @@ const copy = {
   en: {
     meta: "Gao Zhouhao's IC design portfolio with projects across analog IC, RTL, SoC, ASIC flow, and hardware.",
     degree: "TUM / NTU · M.Sc. Integrated Circuit Design · 2027 Graduate",
-    internship: "Infineon Technologies Singapore · Analog IC Design Intern",
+    internship: "Infineon Technologies Singapore · Mixed-Signal Design Engineer",
     direction: "Analog / Mixed-Signal IC · Digital IC / RTL · SoC Design",
     projects: "Projects",
     email: "Email",
@@ -40,7 +40,7 @@ const copy = {
     demo: "Vehicle demo",
     experience: "Experience",
     ongoing: "Ongoing",
-    experienceText: "Working on a low-voltage startup circuit for an energy-harvesting system. Only the public role and project context are shown here.",
+    experienceText: "Currently working on an energy-harvesting chip that can start up and operate at an input voltage of 0.1 V.",
     more: "More Engineering Work",
     publications: "Publications & Patent",
     awards: "Awards",
@@ -94,8 +94,8 @@ export function HomePage({ locale }: { locale: Locale }) {
     </section>
 
     <section className="page-shell home-section compact-grid">
-      <article className="compact-panel experience-panel"><p className="eyebrow">{t.experience}</p><div className="compact-title"><h2>{locale === "zh" ? "英飞凌科技（新加坡）" : "Infineon Technologies Singapore"}</h2><span>{t.ongoing}</span></div><p><strong>{locale === "zh" ? "模拟集成电路设计实习生" : "Analog IC Design Intern"}</strong> · 2026.06–2027.04</p><p>{t.experienceText}</p><Link className="card-link" href={href("/experience")}>{zh ? "实习详情" : "Experience details"} →</Link></article>
-      <article className="compact-panel"><p className="eyebrow">{t.more}</p><div className="mini-project"><div><h3>{locale === "zh" ? "格芯 22 纳米专用集成电路设计流程" : "GF 22 nm ASIC Design Flow"}</h3><p>{locale === "zh" ? "逻辑综合 · 静态时序分析 · 时钟树综合 · 布局布线" : "Design Compiler · STA · Innovus · CTS · PnR"}</p></div><Link href={href("/projects/digital-ic-flow")}>→</Link></div><div className="mini-project"><div><h3>{locale === "zh" ? "带隙基准电压" : "Bandgap Reference"}</h3><p>{locale === "zh" ? "台积电 0.18 微米 · 原理图 · 温度扫描" : "TSMC 0.18 µm · Schematic · Temperature Sweep"}</p></div><Link href={href("/projects/bandgap-reference")}>→</Link></div><Link className="card-link" href={href("/projects")}>{t.allProjects} →</Link></article>
+      <article className="compact-panel experience-panel"><p className="eyebrow">{t.experience}</p><div className="compact-title"><h2>{locale === "zh" ? "英飞凌科技（新加坡）" : "Infineon Technologies Singapore"}</h2><span>{t.ongoing}</span></div><p><strong>{locale === "zh" ? "混合信号设计工程师" : "Mixed-Signal Design Engineer"}</strong> · 2026.06–2027.04</p><p>{t.experienceText}</p><Link className="card-link" href={href("/experience")}>{zh ? "实习详情" : "Experience details"} →</Link></article>
+      <article className="compact-panel"><p className="eyebrow">{t.more}</p><div className="mini-project"><div><h3>{locale === "zh" ? "NM6008 数字集成电路设计实验" : "NM6008 Digital IC Design Lab"}</h3><p>{locale === "zh" ? "课程基础实验 · 逻辑综合 · 布局布线" : "Introductory coursework · Synthesis · Place and route"}</p></div><Link href={href("/projects/digital-ic-flow")}>→</Link></div><div className="mini-project"><div><h3>{locale === "zh" ? "带隙基准电压" : "Bandgap Reference"}</h3><p>{locale === "zh" ? "台积电 0.18 微米 · 原理图 · 温度扫描" : "TSMC 0.18 µm · Schematic · Temperature Sweep"}</p></div><Link href={href("/projects/bandgap-reference")}>→</Link></div><Link className="card-link" href={href("/projects")}>{t.allProjects} →</Link></article>
     </section>
 
     <section className="page-shell home-section support-grid">

@@ -18,9 +18,9 @@ export type ProjectSummary = {
 export const profileBoundary = {
   authority: "job-hunting/profile",
   publicInternshipScope:
-    "Company, role, location, dates, and high-level energy-harvesting startup-circuit context only.",
+    "Energy-harvesting chip design, including startup and operation at an input voltage of 0.1 V.",
   privateInternshipScope:
-    "Internal organization, target specifications, architecture, implementation, simulation data, and results.",
+    "Internal architecture, circuit implementation, and detailed simulation or measurement data.",
   resumeStatus: "under-review",
 } as const;
 
@@ -57,14 +57,14 @@ export const projectSummaries: readonly ProjectSummary[] = [
   },
   {
     slug: "digital-ic-flow",
-    title: "GF 22 nm Digital IC Design Flow",
-    titleZh: "格芯 22 纳米专用集成电路设计流程",
+    title: "NM6008 Digital IC Design Lab",
+    titleZh: "NM6008 数字集成电路设计实验",
     direction: "RTL · Synthesis · STA · Place & Route",
     directionZh: "寄存器传输级设计 · 综合 · 静态时序分析 · 布局布线",
     summary:
-      "Coursework evidence across transistor-level labs, RTL, Design Compiler synthesis, timing analysis, and Innovus implementation.",
-    summaryZh: "课程项目涵盖晶体管级电路、寄存器传输级设计、Design Compiler 综合、静态时序分析与 Innovus 布局布线。",
-    featured: true,
+      "Introductory course exercises using GF 22 nm libraries: basic logic cells, Verilog, synthesis, timing analysis, and place and route.",
+    summaryZh: "使用格芯 22 纳米工艺库完成基础课程实验，练习逻辑单元、Verilog、综合、时序分析与布局布线。",
+    featured: false,
   },
   {
     slug: "sspp-filter",

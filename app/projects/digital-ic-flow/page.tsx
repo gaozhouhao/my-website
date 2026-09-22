@@ -1,4 +1,56 @@
-import ProjectNavigation from "../../../components/ProjectNavigation"; import type { Locale } from "../../../lib/i18n"; import { pageMetadata } from "../../../lib/site";
-export const metadata=pageMetadata("格芯 22 纳米专用集成电路设计流程","格芯 22 纳米课程项目，涵盖晶体管级电路、寄存器传输级设计、综合、静态时序分析与布局布线。","/projects/digital-ic-flow","zh");
-const cards={zh:[["晶体管级电路","反相器与与非门","完成原理图、仿真、定制版图、设计规则检查、版图与原理图一致性检查及寄生参数提取与后仿，并比较器件尺寸、驱动能力和与非门最差路径。"],["寄存器传输级设计","有限状态机与矩阵乘法器","完成课程框架下的寄存器传输级设计和测试平台。有限状态机输出改为寄存器输出，消除组合逻辑毛刺，同时增加一个周期延迟。"],["综合与静态时序分析","Design Compiler","矩阵乘法器综合结果为 274 个单元，其中 53 个时序单元、220 个组合逻辑单元；20 ns 时钟约束下报告无时序违例。"],["布局布线","Innovus 布局布线","完成布局规划、单元布局、时钟树综合和布线，并检查时钟树综合前后及布线后的建立时间与保持时间。报告截图中各阶段违例路径为 0。"]],en:[["Transistor-level","Inverter and NAND","Schematic, simulation, custom layout, DRC/LVS/PEX, post-layout simulation, device-width exploration, drive-strength comparison, and worst-case NAND path analysis."],["RTL","FSM and matrix multiplier","Course-framework RTL and testbench work. A registered FSM output removed a combinational glitch at the cost of one cycle. Starter-code boundaries are retained."],["Synthesis / STA","Design Compiler reports","The report records 274 cells, 53 sequential cells, 220 combinational cells, and no timing violation under the documented 20 ns constraint. Area units were not stated."],["Physical implementation","Innovus PnR","The report contains pre-CTS, post-CTS, and post-route setup/hold checks with zero reported violating paths in the shown runs, plus post-route WNS and placement density."]]} as const;
-export function DigitalIcFlowPage({locale}:{locale:Locale}){const zh=locale==="zh";return <main id="main-content" className="page-shell" lang={zh?"zh-CN":"en"}><p className="eyebrow">{locale === "zh" ? "数字集成电路 · 专用集成电路设计流程 · 静态时序分析" : "Digital IC · ASIC Flow · STA"}</p><h1 className="page-title">{zh?"格芯 22 纳米专用集成电路设计流程":"GF 22 nm Digital IC Design Laboratory"}</h1><p className="lead" style={{marginTop:"1.5rem"}}>{zh?"NM6008 数字集成电路设计实验课程项目，包括晶体管级标准单元实验和矩阵乘法器从寄存器传输级设计到版图的流程。":"Coursework evidence spanning transistor-level standard cells and an RTL-to-layout matrix-multiplier flow. This is not presented as tapeout, sign-off, or silicon validation."}</p><section className="section split"><div><h2 className="section-heading">{zh?"项目内容":"Flow coverage"}</h2><p className="section-intro">{locale === "zh" ? "CMOS 反相器与与非门的原理图和版图；使用 Verilog 设计全加器、有限状态机和矩阵乘法器；使用 Design Compiler 进行综合与静态时序分析；使用 Innovus 完成布局规划、单元布局、时钟树综合和布线。" : "CMOS inverter / NAND schematic 与 layout；Verilog full-adder、FSM、matrix multiplier；Design Compiler synthesis 与 STA；Innovus floorplan、placement、CTS 和 routing。"}</p></div><dl className="fact-panel"><dt>{zh?"工艺":"Technology"}</dt><dd>{locale === "zh" ? "格芯 22 纳米教学设计流程" : "GF 22 nm educational design flow"}</dd><dt>{zh?"工具":"Tools"}</dt><dd>Cadence Virtuoso, Calibre, Verilog, Design Compiler, Innovus</dd><dt>{zh?"课程成绩":"Course result"}</dt><dd>{locale === "zh" ? "数字集成电路设计实验（二）— A" : "Laboratory 2 Digital IC Design — A"}</dd></dl></section><div className="evidence-grid">{cards[locale].map(([label,title,text])=><article className="card" key={title}><p className="eyebrow">{label}</p><h3>{title}</h3><p>{text}</p></article>)}</div><section className="prose-section"><h2>{zh?"项目说明":"Evidence boundaries"}</h2><ul><li>{zh?"部分寄存器传输级设计和测试平台基于课程初始代码完成。":"Some RTL/testbench files began from course starter code; the portfolio does not claim every line was written from scratch."}</li><li>{zh?"功耗报告的分析设置不一致，其中一份存在未定义时钟的警告，因此不引用单一功耗数字。":"Power reports used different analysis settings, including one no-clock warning, so no single power figure is promoted as a final result."}</li><li>{zh?"课程材料未确认最终 GDS、签核级设计规则检查及版图与原理图一致性检查、流片、FPGA 实现或硅后测试。":"The evidence does not confirm final GDS, sign-off DRC/LVS, tapeout, FPGA implementation, or silicon measurements."}</li></ul></section><ProjectNavigation/></main>}; export default function Page(){return <DigitalIcFlowPage locale="zh"/>}
+import ProjectNavigation from "../../../components/ProjectNavigation";
+import type { Locale } from "../../../lib/i18n";
+import { pageMetadata } from "../../../lib/site";
+
+export const metadata = pageMetadata("NM6008 数字集成电路设计实验", "基础课程实验：逻辑单元、Verilog、综合、时序分析与布局布线。", "/projects/digital-ic-flow", "zh");
+
+const copy = {
+  zh: {
+    label: "数字集成电路 · 课程实验",
+    title: "NM6008 数字集成电路设计实验",
+    lead: "以熟悉数字集成电路设计工具和基本流程为主的课程实验，使用格芯 22 纳米工艺库，完成从简单逻辑单元到矩阵乘法器的练习。",
+    scope: "实验内容",
+    items: [
+      "绘制反相器、与非门的原理图与版图，进行仿真和基本物理验证。",
+      "在课程提供的代码框架下，完成全加器、有限状态机和矩阵乘法器的 Verilog 设计与仿真练习。",
+      "使用 Design Compiler 练习逻辑综合与静态时序分析，使用 Innovus 练习布局规划、单元布局、时钟树综合和布线。",
+    ],
+    type: "实验性质", typeValue: "基础课程实验",
+    tools: "使用工具", result: "课程成绩", resultValue: "数字集成电路设计实验（二）— A",
+    note: "主要收获是熟悉工具操作、设计流程和报告阅读。部分代码基于课程模板，完成范围为教学仿真与流程练习。",
+  },
+  en: {
+    label: "Digital IC · Coursework",
+    title: "NM6008 Digital IC Design Lab",
+    lead: "An introductory course lab focused on digital IC tools and workflow, using GF 22 nm libraries for exercises from basic logic cells to a matrix multiplier.",
+    scope: "Lab exercises",
+    items: [
+      "Created inverter and NAND schematics and layouts, with simulation and basic physical verification.",
+      "Completed Verilog design and simulation exercises for a full adder, finite-state machine, and matrix multiplier within the supplied course framework.",
+      "Practised synthesis and static timing analysis in Design Compiler, followed by floorplanning, placement, clock-tree synthesis, and routing in Innovus.",
+    ],
+    type: "Scope", typeValue: "Introductory course lab",
+    tools: "Tools", result: "Course result", resultValue: "Laboratory 2 Digital IC Design — A",
+    note: "The main outcome was familiarity with the tools, workflow, and report interpretation. Some code was based on course templates; the work covered educational simulation and flow exercises.",
+  },
+} as const;
+
+export function DigitalIcFlowPage({ locale }: { locale: Locale }) {
+  const t = copy[locale];
+  return <main id="main-content" className="page-shell" lang={locale === "zh" ? "zh-CN" : "en"}>
+    <p className="eyebrow">{t.label}</p>
+    <h1 className="page-title">{t.title}</h1>
+    <p className="lead" style={{ marginTop: "1.5rem" }}>{t.lead}</p>
+    <section className="section split">
+      <div className="prose-section"><h2>{t.scope}</h2><ul>{t.items.map(item => <li key={item}>{item}</li>)}</ul></div>
+      <dl className="fact-panel">
+        <dt>{t.type}</dt><dd>{t.typeValue}</dd>
+        <dt>{t.tools}</dt><dd>Cadence Virtuoso, Calibre, Verilog, Design Compiler, Innovus</dd>
+        <dt>{t.result}</dt><dd>{t.resultValue}</dd>
+      </dl>
+    </section>
+    <p className="section-intro prose-section">{t.note}</p>
+    <ProjectNavigation />
+  </main>;
+}
+export default function Page() { return <DigitalIcFlowPage locale="zh" />; }
