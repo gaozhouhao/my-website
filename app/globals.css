@@ -69,6 +69,21 @@ a { color: inherit; }
 .prose-section h2 { margin-bottom: 1rem; font-size: 1.65rem; letter-spacing: -.025em; }
 .prose-section p, .prose-section li { color: #4d4946; line-height: 1.75; }
 .prose-section ul { padding-left: 1.2rem; }
+.subsection-title { margin: 2rem 0 .65rem; font-size: 1.3rem; }
+.timeline { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-top: 2rem; border: 1px solid var(--line); }
+.timeline > div { padding: 1.35rem; border-right: 1px solid var(--line); }
+.timeline > div:last-child { border-right: 0; }
+.timeline span { display: block; color: var(--accent); font-size: .72rem; font-weight: 700; letter-spacing: .13em; }
+.timeline strong { display: block; margin-top: .7rem; }
+.timeline p, .challenge-card p { color: var(--muted); line-height: 1.65; }
+.challenge-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; margin-top: 2rem; border: 1px solid var(--line); }
+.challenge-card { padding: 1.4rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.challenge-card:nth-child(2n) { border-right: 0; }
+.challenge-card:nth-last-child(-n + 2) { border-bottom: 0; }
+.challenge-card h3 { margin: .35rem 0 .6rem; font-size: 1.15rem; }
+.challenge-card p { margin: 0; }
+.result-showcase { max-width: 38rem; margin-top: 2rem; border: 1px solid var(--line); padding: 1.35rem; }
+.result-showcase .result-table { margin-top: .75rem; }
 .status-note { border-left: 3px solid var(--warm); border-radius: 0; background: #eee6da; padding: 1rem 1.2rem; color: #48382e; line-height: 1.65; }
 .result-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
 .result-table th, .result-table td { border-bottom: 1px solid var(--line); padding: .75rem .6rem; text-align: left; vertical-align: top; }
@@ -160,7 +175,7 @@ a { color: inherit; }
   .site-nav { align-items: flex-start; flex-direction: column; gap: .85rem; }
   .nav-links { justify-content: flex-start; }
   .page-shell { width: min(100% - 2rem, 72rem); padding: 3.5rem 0 4.5rem; }
-  .card-grid, .evidence-grid, .split, .contact-grid { grid-template-columns: 1fr; }
+  .card-grid, .evidence-grid, .split, .contact-grid, .timeline, .challenge-grid { grid-template-columns: 1fr; }
   .section { margin-top: 4rem; }
   .site-footer { width: min(100% - 2rem, 72rem); flex-direction: column; }
   .project-navigation { align-items: flex-start; flex-direction: column; }
@@ -175,6 +190,9 @@ a { color: inherit; }
   .card, .compact-panel, .showcase-card { border-right: 0; border-bottom: 1px solid var(--line); }
   .card:last-child, .compact-panel:last-child, .showcase-card:last-child { border-bottom: 0; }
   .showcase-wide { grid-column: auto; display: block; }
+  .timeline > div, .challenge-card { border-right: 0; border-bottom: 1px solid var(--line); }
+  .timeline > div:last-child, .challenge-card:last-child { border-bottom: 0; }
+  .challenge-card:nth-last-child(2) { border-bottom: 1px solid var(--line); }
   .showcase-media { min-height: 0; }
   .showcase-media img { max-height: 17rem; }
   .dual-media { height: 11rem; }
