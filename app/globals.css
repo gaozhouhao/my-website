@@ -124,7 +124,7 @@ a { color: inherit; }
 .education-copy p { margin: 0; color: var(--muted); font-size: .84rem; }
 .education-logos { display: flex; align-items: center; gap: 1rem; min-height: 2.2rem; margin-bottom: .45rem; }
 .education-logo { display: block; width: auto; height: 2.1rem; max-width: 7.5rem; object-fit: contain; object-position: left center; }
-.education-logo-ntu { height: 3.5rem; max-width: 14rem; }
+.education-logo-ntu { height: 4.25rem; max-width: 17rem; }
 .education-logo-jsnu { height: 2.35rem; max-width: 2.35rem; }
 .education-logos-single { margin-bottom: .15rem; }
 .school-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; margin-top: 2rem; border: 1px solid var(--line); }
@@ -182,7 +182,7 @@ a { color: inherit; }
   .education-strip > .education-entry { grid-template-columns: 5rem 1fr; }
   .education-logos { gap: .75rem; }
   .education-logo { height: 1.8rem; max-width: 6.5rem; }
-  .education-logo-ntu { height: 2.8rem; max-width: 11rem; }
+  .education-logo-ntu { height: 3.25rem; max-width: 13rem; }
   .education-logo-jsnu { height: 2rem; max-width: 2rem; }
   .school-grid { grid-template-columns: 1fr; }
   .school-profile { border-right: 0; border-bottom: 1px solid var(--line); min-height: 0; }
