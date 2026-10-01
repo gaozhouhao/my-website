@@ -57,13 +57,13 @@ export const projectSummaries: readonly ProjectSummary[] = [
   },
   {
     slug: "digital-ic-flow",
-    title: "NM6008 Digital IC Design Lab",
-    titleZh: "NM6008 数字集成电路设计实验",
-    direction: "RTL · Synthesis · STA · Place & Route",
-    directionZh: "寄存器传输级设计 · 综合 · 静态时序分析 · 布局布线",
+    title: "Digital IC Design Lab — ASIC Design Flow Implementation",
+    titleZh: "Digital IC Design Lab — ASIC 设计流程实践",
+    direction: "ASIC Flow · RTL · Synthesis · Physical Design",
+    directionZh: "ASIC 设计流程 · RTL · 综合 · 物理实现",
     summary:
       "Introductory course exercises using GF 22 nm libraries: basic logic cells, Verilog, synthesis, timing analysis, and place and route.",
-    summaryZh: "使用格芯 22 纳米工艺库完成基础课程实验，练习逻辑单元、Verilog、综合、时序分析与布局布线。",
+    summaryZh: "基于 GF 22 nm 的 ASIC 设计流程实践，覆盖全定制单元、RTL 验证、综合、时序分析、物理实现与验证。",
     featured: false,
   },
   {
