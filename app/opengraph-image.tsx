@@ -6,11 +6,11 @@ export const contentType = "image/png";
 
 export default function OpenGraphImage() {
   return new ImageResponse(
-    <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", padding: "76px", color: "#f5f7fa", background: "linear-gradient(135deg,#070a0f 20%,#102d2b 100%)" }}>
-      <div style={{ color: "#79d7c8", fontSize: 28, letterSpacing: 5 }}>集成电路设计作品集</div>
+    <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", padding: "76px", color: "#1c1a1b", background: "#f5f1ea", border: "24px solid #1c1a1b" }}>
+      <div style={{ color: "#705c8c", fontSize: 28, letterSpacing: 5 }}>集成电路设计作品集</div>
       <div style={{ fontSize: 78, fontWeight: 700, marginTop: 28 }}>郜周豪</div>
-      <div style={{ color: "#c5ced9", fontSize: 34, marginTop: 24 }}>模拟与混合信号集成电路 · 数字集成电路 / 寄存器传输级设计 · 片上系统 设计</div>
-      <div style={{ color: "#aab5c3", fontSize: 25, marginTop: 48 }}>集成电路设计理学硕士 · 2027 届</div>
+      <div style={{ color: "#4d4946", fontSize: 34, marginTop: 24 }}>模拟与混合信号集成电路 · 数字集成电路 / 寄存器传输级设计 · 片上系统设计</div>
+      <div style={{ color: "#6d6965", fontSize: 25, marginTop: 48 }}>集成电路设计理学硕士 · 2027 届</div>
     </div>,
     size,
   );
