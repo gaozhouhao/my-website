@@ -34,7 +34,7 @@ export const projectSummaries: readonly ProjectSummary[] = [
     summary:
       "RV32E-oriented CPU RTL, valid-ready control, AXI/APB integration, memory models, reference-model comparison, and engineering debug.",
     summaryZh: "完成 RV32E 处理器的寄存器传输级设计、有效—就绪握手控制、AXI/APB 总线集成、存储器建模、参考模型比对与工程调试。",
-    image: "/projects/cpu_arch.webp",
+    image: "/projects/riscv32-layout.png",
     imageAlt: "Functional architecture of the multi-cycle RISC-V CPU",
     width: 1087,
     height: 868,

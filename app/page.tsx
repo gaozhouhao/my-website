@@ -7,10 +7,10 @@ import { pageMetadata, site } from "../lib/site";
 
 const copy = {
   zh: {
-    meta: "郜周豪的集成电路设计作品集，包含模拟集成电路、数字集成电路、寄存器传输级设计、片上系统与硬件项目。",
+    meta: "郜周豪的集成电路设计作品集，重点展示数字集成电路、寄存器传输级设计、片上系统与硬件项目。",
     degree: "慕尼黑工业大学 / 南洋理工大学 · 集成电路设计理学硕士 · 2027 届",
-    internship: "英飞凌科技（新加坡）· 混合信号设计工程师",
-    direction: "模拟与混合信号集成电路 · 数字集成电路 · 寄存器传输级与片上系统设计",
+    internship: "英飞凌科技（新加坡亚太总部）· 混合信号设计工程师",
+    direction: "数字集成电路 · 寄存器传输级与片上系统设计 · 混合信号设计",
     projects: "项目经历",
     email: "邮箱",
     resume: "简历整理中",
@@ -74,7 +74,7 @@ export function HomePage({ locale }: { locale: Locale }) {
       <div className="section-bar"><div><p className="eyebrow">{t.selected}</p><h2 className="home-heading">{t.selected}</h2></div><p>{t.selectedIntro}</p></div>
       <div className="showcase-grid">
         <article className="showcase-card showcase-wide">
-          <Link href={href("/projects/riscv-cpu")} className="showcase-media"><Image src="/projects/cpu_arch.webp" alt={locale === "zh" ? "多周期 RISC-V 处理器架构" : "Multi-cycle RISC-V CPU architecture"} width={1087} height={868} sizes="(max-width: 800px) 100vw, 55vw" priority /></Link>
+          <Link href={href("/projects/riscv-cpu")} className="showcase-media"><Image src="/projects/riscv32-layout.png" alt={locale === "zh" ? "RISC-V32 处理器版图" : "RISC-V32 processor layout"} width={765} height={762} sizes="(max-width: 800px) 100vw, 55vw" priority /></Link>
           <div className="showcase-copy"><p className="eyebrow">{locale === "zh" ? "数字集成电路 · 寄存器传输级设计 · 片上系统" : "Digital IC · RTL · SoC"}</p><h3>{zh ? "多周期 RISC-V 处理器与片上系统" : "Multi-Cycle RISC-V CPU / SoC"}</h3><p>{zh ? "完成 RV32E 处理器的寄存器传输级设计、有效—就绪握手控制、AXI/APB 总线集成与 NEMU 差分测试，并调试 SDRAM、QSPI PSRAM 和启动程序。" : "RV32E CPU RTL, valid-ready control, AXI/APB integration, NEMU Difftest, memory models, and bootloader debug."}</p><Link className="card-link" href={href("/projects/riscv-cpu")}>{t.view} →</Link></div>
         </article>
         <article className="showcase-card">
@@ -102,7 +102,7 @@ export function HomePage({ locale }: { locale: Locale }) {
     </section>
 
     <section className="page-shell home-section compact-grid">
-      <article className="compact-panel experience-panel"><p className="eyebrow">{t.experience}</p><div className="compact-title"><h2>{locale === "zh" ? "英飞凌科技（新加坡）" : "Infineon Technologies Singapore"}</h2><span>{t.ongoing}</span></div><p><strong>{locale === "zh" ? "混合信号设计工程师" : "Mixed-Signal Design Engineer"}</strong> · 2026.06–2027.04</p><p>{t.experienceText}</p><Link className="card-link" href={href("/experience")}>{zh ? "实习详情" : "Experience details"} →</Link></article>
+      <article className="compact-panel experience-panel"><p className="eyebrow">{t.experience}</p><div className="compact-title"><div className="brand-title"><Image src="/brand/infineon.svg" alt="Infineon" width={120} height={53} className="brand-logo brand-logo-infineon" /><h2>{locale === "zh" ? "英飞凌科技（新加坡亚太总部）" : "Infineon Technologies Singapore"}</h2></div><span>{t.ongoing}</span></div><p><strong>{locale === "zh" ? "混合信号设计工程师" : "Mixed-Signal Design Engineer"}</strong> · 2026.06–2027.04</p><p>{t.experienceText}</p><Link className="card-link" href={href("/experience")}>{zh ? "实习详情" : "Experience details"} →</Link></article>
       <article className="compact-panel"><p className="eyebrow">{t.more}</p><div className="mini-project"><div><h3>{locale === "zh" ? "NM6008 数字集成电路设计实验" : "NM6008 Digital IC Design Lab"}</h3><p>{locale === "zh" ? "课程基础实验 · 逻辑综合 · 布局布线" : "Introductory coursework · Synthesis · Place and route"}</p></div><Link href={href("/projects/digital-ic-flow")}>→</Link></div><div className="mini-project"><div><h3>{locale === "zh" ? "带隙基准电压" : "Bandgap Reference"}</h3><p>{locale === "zh" ? "台积电 0.18 微米 · 原理图 · 温度扫描" : "TSMC 0.18 µm · Schematic · Temperature Sweep"}</p></div><Link href={href("/projects/bandgap-reference")}>→</Link></div><Link className="card-link" href={href("/projects")}>{t.allProjects} →</Link></article>
     </section>
 
@@ -111,7 +111,7 @@ export function HomePage({ locale }: { locale: Locale }) {
       <article className="support-card"><p className="eyebrow">{t.awards}</p><h3>{zh ? "全国大学生智能汽车竞赛 · 全国二等奖" : "National Smart Car Competition · Second Prize"}</h3><p>{zh ? "另获江苏省 TI 杯一等奖、全国大学生电子设计竞赛江苏赛区二等奖。" : "Also awarded a Jiangsu TI Cup First Prize and a Jiangsu Division Electronic Design Contest Second Prize."}</p><Link href={href("/awards")}>{zh ? "全部奖项" : "All awards"} →</Link></article>
     </section>
 
-    <section className="page-shell education-strip"><p className="eyebrow">{t.education}</p><div><span>2025–2027</span><strong>{locale === "zh" ? "慕尼黑工业大学 / 南洋理工大学" : "TUM / NTU"}</strong><p>{locale === "zh" ? "集成电路设计理学硕士" : "M.Sc. Integrated Circuit Design"}</p></div><div><span>2020–2024</span><strong>{zh ? "江苏师范大学" : "Jiangsu Normal University"}</strong><p>{locale === "zh" ? "电子信息工程工学学士" : "B.Eng. Electronic Information Engineering"}</p></div></section>
+    <section className="page-shell education-strip"><p className="eyebrow">{t.education}</p><div className="education-entry"><span>2025–2027</span><div className="education-copy"><div className="education-logos"><Image src="/brand/tum.svg" alt="Technical University of Munich" width={82} height={43} className="education-logo education-logo-tum" /><Image src="/brand/ntu.jpg" alt="Nanyang Technological University Singapore" width={180} height={64} className="education-logo education-logo-ntu" /></div><strong>{locale === "zh" ? "慕尼黑工业大学 / 南洋理工大学" : "TUM / NTU"}</strong><p>{locale === "zh" ? "集成电路设计理学硕士" : "M.Sc. Integrated Circuit Design"}</p></div></div><div className="education-entry"><span>2020–2024</span><div className="education-copy"><strong>{zh ? "江苏师范大学" : "Jiangsu Normal University"}</strong><p>{locale === "zh" ? "电子信息工程工学学士" : "B.Eng. Electronic Information Engineering"}</p></div></div></section>
   </main>;
 }
 
