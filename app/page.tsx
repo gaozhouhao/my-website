@@ -8,18 +8,18 @@ import { pageMetadata, site } from "../lib/site";
 const copy = {
   zh: {
     meta: "郜周豪的集成电路设计作品集，重点展示数字集成电路、寄存器传输级设计、片上系统与硬件项目。",
-    degree: "慕尼黑工业大学 / 南洋理工大学 · 集成电路设计理学硕士 · 2027 届",
+    degree: "慕尼黑工业大学与南洋理工大学 · 集成电路设计理学硕士 · 2027 届",
     internship: "英飞凌科技（新加坡亚太总部）· 混合信号设计工程师",
     direction: "数字集成电路 · 寄存器传输级与片上系统设计 · 混合信号设计",
     projects: "项目经历",
     email: "邮箱",
     resume: "简历整理中",
     selected: "代表项目",
-    selectedIntro: "做过的电路、处理器和智能车项目。",
+    selectedIntro: "部分电路、处理器与智能车项目。",
     view: "项目详情",
     experience: "实习经历",
     ongoing: "进行中",
-    experienceText: "正在参与能量收集芯片设计，芯片可在 0.1 V 输入电压下启动并工作。",
+    experienceText: "参与能量收集芯片设计；芯片可在 0.1 V 输入电压下启动并工作。",
     more: "更多项目",
     publications: "论文与专利",
     awards: "奖项荣誉",
@@ -111,7 +111,7 @@ export function HomePage({ locale }: { locale: Locale }) {
       <article className="support-card"><p className="eyebrow">{t.awards}</p><h3>{zh ? "全国大学生智能汽车竞赛 · 全国二等奖" : "National Smart Car Competition · Second Prize"}</h3><p>{zh ? "另获江苏省 TI 杯一等奖、全国大学生电子设计竞赛江苏赛区二等奖。" : "Also awarded a Jiangsu TI Cup First Prize and a Jiangsu Division Electronic Design Contest Second Prize."}</p><Link href={href("/awards")}>{zh ? "全部奖项" : "All awards"} →</Link></article>
     </section>
 
-    <section className="page-shell education-strip"><p className="eyebrow">{t.education}</p><div className="education-entry"><span>2025–2027</span><div className="education-copy"><div className="education-logos"><Image src="/brand/tum.svg" alt="Technical University of Munich" width={82} height={43} className="education-logo education-logo-tum" /><Image src="/brand/ntu-transparent.png" alt="Nanyang Technological University Singapore" width={180} height={64} className="education-logo education-logo-ntu" /></div><strong>{locale === "zh" ? "慕尼黑工业大学 / 南洋理工大学" : "TUM / NTU"}</strong><p>{locale === "zh" ? "集成电路设计理学硕士" : "M.Sc. Integrated Circuit Design"}</p></div></div><div className="education-entry"><span>2020–2024</span><div className="education-copy"><strong>{zh ? "江苏师范大学" : "Jiangsu Normal University"}</strong><p>{locale === "zh" ? "电子信息工程工学学士" : "B.Eng. Electronic Information Engineering"}</p></div></div></section>
+    <section className="page-shell education-strip"><p className="eyebrow">{t.education}</p><div className="education-entry"><span>2025–2027</span><div className="education-copy"><div className="education-logos"><Image src="/brand/tum.svg" alt="Technical University of Munich" width={82} height={43} className="education-logo education-logo-tum" /><Image src="/brand/ntu-logo.png" alt="Nanyang Technological University Singapore" width={180} height={64} className="education-logo education-logo-ntu" /></div><strong>{locale === "zh" ? "慕尼黑工业大学 / 南洋理工大学" : "TUM / NTU"}</strong><p>{locale === "zh" ? "集成电路设计理学硕士" : "M.Sc. Integrated Circuit Design"}</p></div></div><div className="education-entry"><span>2020–2024</span><div className="education-copy"><div className="education-logos education-logos-single"><Image src="/brand/jsnu.png" alt="Jiangsu Normal University" width={48} height={48} className="education-logo education-logo-jsnu" /></div><strong>{zh ? "江苏师范大学" : "Jiangsu Normal University"}</strong><p>{locale === "zh" ? "电子信息工程工学学士" : "B.Eng. Electronic Information Engineering"}</p></div></div></section>
   </main>;
 }
 

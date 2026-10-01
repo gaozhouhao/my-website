@@ -124,7 +124,18 @@ a { color: inherit; }
 .education-copy p { margin: 0; color: var(--muted); font-size: .84rem; }
 .education-logos { display: flex; align-items: center; gap: 1rem; min-height: 2.2rem; margin-bottom: .45rem; }
 .education-logo { display: block; width: auto; height: 2.1rem; max-width: 7.5rem; object-fit: contain; object-position: left center; }
-.education-logo-ntu { max-width: 9rem; }
+.education-logo-ntu { height: 3.5rem; max-width: 14rem; }
+.education-logo-jsnu { height: 2.35rem; max-width: 2.35rem; }
+.education-logos-single { margin-bottom: .15rem; }
+.school-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; margin-top: 2rem; border: 1px solid var(--line); }
+.school-profile { min-height: 15rem; border-right: 1px solid var(--line); padding: 1.5rem; }
+.school-profile:last-child { border-right: 0; }
+.school-profile h3 { margin: 1rem 0 .55rem; font-size: 1.2rem; }
+.school-profile p { margin: .3rem 0; color: var(--muted); line-height: 1.6; }
+.school-logo-row { display: flex; align-items: center; gap: 1.25rem; min-height: 3.6rem; }
+.school-logo { display: block; width: auto; height: 3.4rem; max-width: 10rem; object-fit: contain; object-position: left center; }
+.school-logo-ntu { height: 3.8rem; max-width: 13rem; }
+.school-logo-jsnu { height: 4rem; max-width: 4rem; }
 .brand-title { display: flex; flex-direction: column; align-items: flex-start; gap: .5rem; }
 .brand-logo { display: block; width: auto; object-fit: contain; object-position: left center; }
 .brand-logo-infineon { height: 1.65rem; max-width: 6.8rem; }
@@ -171,7 +182,14 @@ a { color: inherit; }
   .education-strip > .education-entry { grid-template-columns: 5rem 1fr; }
   .education-logos { gap: .75rem; }
   .education-logo { height: 1.8rem; max-width: 6.5rem; }
-  .education-logo-ntu { max-width: 8rem; }
+  .education-logo-ntu { height: 2.8rem; max-width: 11rem; }
+  .education-logo-jsnu { height: 2rem; max-width: 2rem; }
+  .school-grid { grid-template-columns: 1fr; }
+  .school-profile { border-right: 0; border-bottom: 1px solid var(--line); min-height: 0; }
+  .school-profile:last-child { border-bottom: 0; }
+  .school-logo { height: 2.8rem; }
+  .school-logo-ntu { height: 3.1rem; max-width: 10rem; }
+  .school-logo-jsnu { height: 3.1rem; max-width: 3.1rem; }
 }
 
 .awards-section, .award-card { scroll-margin-top: 11rem; }

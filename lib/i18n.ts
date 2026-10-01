@@ -22,7 +22,7 @@ export const ui = {
     nav: { experience: "实习经历", projects: "项目经历", publications: "论文与专利", awards: "奖项荣誉", about: "教育背景", contact: "联系方式" },
     allProjects: "← 返回全部项目",
     discuss: "联系方式 →",
-    footer: "模拟与混合信号集成电路 · 数字集成电路 / 寄存器传输级设计 · 片上系统设计",
+    footer: "数字集成电路 · 寄存器传输级与片上系统设计 · 混合信号设计",
     skip: "跳转到正文",
   },
   en: {
