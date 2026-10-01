@@ -223,3 +223,5 @@ a { color: inherit; }
 @media (max-width: 800px) { .awards-grid { grid-template-columns: 1fr; } }
 
 main[lang="zh-CN"] .page-title { line-height: 1.25; }
+
+.code-showcase { margin-top: 1.25rem; padding: 1.15rem; overflow-x: auto; border: 1px solid var(--line); border-radius: .65rem; background: #1c1b1a; color: #f8f3eb; font: .84rem/1.6 ui-monospace, SFMono-Regular, Consolas, monospace; tab-size: 2; }
