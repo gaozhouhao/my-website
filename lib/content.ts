@@ -41,6 +41,16 @@ export const projectSummaries: readonly ProjectSummary[] = [
     featured: true,
   },
   {
+    slug: "int8-systolic-npu",
+    title: "INT8 Systolic NPU / Matrix Accelerator",
+    titleZh: "INT8 Systolic NPU / Matrix Accelerator（开发中）",
+    direction: "Digital IC · RTL · AI Accelerator · Work in Progress",
+    directionZh: "数字集成电路 · RTL · AI 加速器 · 持续开发中",
+    summary: "Work in progress: a parameterized INT8 output-stationary systolic array with a verified base matrix-compute datapath.",
+    summaryZh: "持续开发中：参数化 INT8 Output Stationary 脉动阵列，已完成基础矩阵计算数据通路与端到端 GEMM 验证。",
+    featured: true,
+  },
+  {
     slug: "class-ab-amplifier",
     title: "Class-AB Audio Amplifier",
     titleZh: "Class AB 音频放大器",
