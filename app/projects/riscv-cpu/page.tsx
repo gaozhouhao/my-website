@@ -13,8 +13,8 @@ const copy = {
     repo: "RISCV32 代码仓库",
     socRepo: "ysyxSoC 代码仓库",
     overview: "项目概览",
-    overviewText: "这是一个围绕 RV32E 指令集展开的自研处理器项目。目标不是复现一个现成核，而是把微架构取舍落实到可运行的 RTL：从取指、译码、执行和访存控制开始，逐步接入验证环境、片上互连和外设，并把设计带入综合和静态时序分析流程。",
-    overviewText2: "项目以多周期实现为起点，随后尝试两级流水结构。开发过程中，我把处理器、SoC 集成和调试放在同一条工程链路中推进：每次控制逻辑或接口改动都回到差分测试、波形和软件运行结果中验证。",
+    overviewText: "项目先完成 NEMU 指令级模拟器，再实现 RV32E 处理器 RTL。NEMU 负责执行程序、提供寄存器和内存状态，用作后续差分测试的参考模型；RTL 处理器从取指、译码、执行、访存到写回逐步实现。",
+    overviewText2: "处理器先采用多周期结构，之后尝试两级流水。调试时用 NEMU 差分测试定位指令执行差异，再结合 Verilator 波形检查握手、总线返回和控制流。RTL CPU 接入 ysyxSoC 后，继续调试启动程序、存储器和外设访问。",
     architecture: "处理器微架构",
     architectureText: "初始版本采用多周期 Microarchitecture，将处理器划分为 IFU、IDU、EXU、LSU 和 WBU。各单元之间通过 valid-ready handshake 传递事务和背压信息，使取指、访存等可变延迟操作不必依赖固定周期数。PC 的更新、流水控制和 redirect 都由这一套握手关系协调。",
     architectureText2: "在多周期结构稳定后，我继续尝试两级 Pipeline。核心问题不是简单拆分级数，而是保证 PC、指令缓冲和执行结果在停顿、跳转和存储器返回时仍保持一致。因此，控制逻辑把取指请求的 PC 与已接收指令对应的 PC 分开保存，并明确记录请求、响应和 redirect 的状态。",
@@ -22,7 +22,7 @@ const copy = {
     isaText: "RV32E 基础整数运算、逻辑、移位、分支和跳转指令由译码逻辑生成控制信号，再在 EXU 中完成运算与条件判断。Load/store 指令通过 LSU 将访问请求转为总线事务；写回阶段根据指令类别选择算术结果、加载数据或 PC 相关结果。",
     isaText2: "CSR、ECALL、MRET 和 Exception handling 并非只在译码表中增加一个 opcode，而是需要把 CSR 读写、异常入口、返回地址和控制流 redirect 放进同一套状态管理中。Fence.i 也与取指路径和 ICache 状态关联：发生自修改代码或指令流切换时，必须让旧的指令缓存内容失效，避免继续执行过期指令。",
     verification: "验证环境",
-    verificationText: "验证以 C reference model 和 Differential testing 为主。RTL 运行结果与参考模型逐条对比，同时结合 ISA tests、riscv-tests 和自定义测试程序覆盖算术、控制流、访存和异常路径。发生偏差时，使用 Verilator、FST 和 GTKWave 回溯 valid-ready 关系、总线响应和寄存器状态。",
+    verificationText: "我实现的 NEMU 作为 Differential testing 的参考模型。RTL 与 NEMU 逐条比对寄存器和程序执行状态，并使用 ISA tests、riscv-tests 和自定义程序检查算术、控制流、访存和异常。出现差异时，通过 Verilator、FST 和 GTKWave 查看 valid-ready 信号、总线响应和寄存器状态。",
     verificationText2: "除裸机测试外，项目还在 RTL CPU 上运行 RT-Thread。RTOS 启动让验证从单条指令推进到中断、串口、内存布局和外设协同，能够暴露仅靠小型测试程序难以触及的控制和集成问题。",
     soc: "SoC 集成与缓存",
     socText: "处理器通过 AXI4-Lite interconnect 接入片上系统。地址空间中包含 SRAM、CLINT、UART 等外设；IFU 和 LSU 发出的请求需要在互连中完成仲裁、寻址和响应返回。内存映射不是静态表格，而是启动程序、外设访问和调试日志共同依赖的接口约定。",
@@ -30,7 +30,7 @@ const copy = {
     backend: "综合与后端探索",
     backendText: "在 RTL 验证之外，项目进入 Yosys Synthesis、iSTA Static Timing Analysis 和 Innovus 探索流程。综合报告用于观察面积构成，时序报告用于定位 critical path。对 ICache 而言，tag comparator 的组织方式会直接影响取指关键路径，因此在比较器实现上进行过针对性的优化和取舍。",
     challenges: "关键工程问题",
-    challengesIntro: "以下问题都来自 RTL、总线和软件联调，而不是抽象的 RISC-V 教科书示例。",
+    challengesIntro: "",
     results: "结果与当前状态",
     resultsText: "下面数据来自当前运行记录，用于说明已完成的执行与验证过程，不用于宣称处理器性能。较低的 IPC 与多周期实现、访存和调试负载有关；它应被视为一次具体运行的观测值。",
     future: "后续工作",
@@ -46,8 +46,8 @@ const copy = {
     repo: "RISCV32 repository",
     socRepo: "ysyxSoC repository",
     overview: "Project overview",
-    overviewText: "This is a self-directed RV32E processor project. The focus is not on reproducing an existing core, but on turning microarchitectural choices into runnable RTL: control logic, verification, SoC integration, and implementation-flow exploration are developed as one engineering path.",
-    overviewText2: "The work began with a multi-cycle core and later explored a two-stage pipeline. Each RTL or interface change is checked again through differential testing, waveforms, and software execution.",
+    overviewText: "The project started with an implementation of the NEMU instruction-set simulator, followed by an RV32E RTL processor. NEMU executes programs and exposes register and memory state; it is the reference model for later differential testing. The RTL core was then built from fetch, decode, execute, load/store, and writeback logic.",
+    overviewText2: "The CPU began as a multi-cycle design and later explored a two-stage pipeline. Differential testing against NEMU, Verilator waveforms, and software running after ysyxSoC integration were used to debug control logic, memory access, boot code, and peripheral access.",
     architecture: "Processor architecture",
     architectureText: "The initial multi-cycle microarchitecture separates IFU, IDU, EXU, LSU, and WBU. Valid-ready handshakes carry transactions and backpressure between units, allowing variable-latency instruction fetches and memory accesses without assuming a fixed cycle count.",
     architectureText2: "The subsequent two-stage pipeline attempt required separating fetch PCs from instruction-buffer PCs and explicitly tracking requests, responses, stalls, and redirects so that PC and instruction state remain aligned.",
@@ -55,7 +55,7 @@ const copy = {
     isaText: "RV32E integer arithmetic, logical, shift, branch, and jump instructions are decoded into control signals and executed in EXU. LSU turns load/store operations into bus transactions, while WBU selects arithmetic, load, or PC-related results.",
     isaText2: "CSR access, ECALL, MRET, and exception handling share redirect and state-control paths. Fence.i is tied to the fetch path and ICache invalidation so stale instructions are not reused after code changes or redirects.",
     verification: "Verification environment",
-    verificationText: "Verification combines a C reference model, differential testing, ISA tests, riscv-tests, custom programs, Verilator simulation, FST traces, and GTKWave debugging.",
+    verificationText: "The implemented NEMU simulator is the reference model for differential testing. RTL state is compared against NEMU alongside ISA tests, riscv-tests, and custom programs; Verilator, FST traces, and GTKWave are used to inspect handshake signals, bus responses, and registers when a mismatch appears.",
     verificationText2: "RT-Thread also runs on the RTL CPU. This extends validation beyond isolated instructions to startup, interrupt, UART, memory mapping, and peripheral integration.",
     soc: "SoC integration and cache",
     socText: "The CPU connects to SRAM, CLINT, UART, and peripherals through an AXI4-Lite interconnect. IFU and LSU traffic requires arbitration, address decoding, response routing, and a consistent memory map shared by boot software and hardware.",
@@ -108,7 +108,7 @@ export function RiscvCpuPage({ locale }: { locale: Locale }) {
 
     <section className="section"><h2 className="section-heading">{t.backend}</h2><p className="section-intro">{t.backendText}</p><div className="timeline"><div><span>01</span><strong>{zh ? "RTL 与验证" : "RTL and verification"}</strong><p>{zh ? "从多周期控制、差分测试和波形调试建立功能闭环。" : "Established a functional loop through multi-cycle control, differential testing, and waveform debug."}</p></div><div><span>02</span><strong>{zh ? "SoC 与缓存" : "SoC and cache"}</strong><p>{zh ? "接入 AXI4-Lite、外设与指令缓存，处理总线和控制流问题。" : "Integrated AXI4-Lite, peripherals, and ICache while resolving bus and control-flow issues."}</p></div><div><span>03</span><strong>{zh ? "实现流程" : "Implementation flow"}</strong><p>{zh ? "进入 Synthesis、STA 和 Innovus 探索，检查面积与关键路径。" : "Moved through synthesis, STA, and Innovus exploration to inspect area and critical paths."}</p></div></div></section>
 
-    <section className="section"><h2 className="section-heading">{t.challenges}</h2><p className="section-intro">{t.challengesIntro}</p><div className="challenge-grid">{challenges[locale].map(([title, text], index) => <article className="challenge-card" key={title}><p className="eyebrow">0{index + 1}</p><h3>{title}</h3><p>{text}</p></article>)}</div></section>
+    <section className="section"><h2 className="section-heading">{t.challenges}</h2><div className="challenge-grid">{challenges[locale].map(([title, text], index) => <article className="challenge-card" key={title}><p className="eyebrow">0{index + 1}</p><h3>{title}</h3><p>{text}</p></article>)}</div></section>
 
     <section className="section"><h2 className="section-heading">{t.results}</h2><p className="section-intro">{t.resultsText}</p><div className="result-showcase"><p className="eyebrow">{t.resultLabel}</p><table className="result-table"><tbody><tr><th>Cycles</th><td>29,825,900</td></tr><tr><th>Instructions retired</th><td>590,845</td></tr><tr><th>IPC</th><td>0.0198</td></tr></tbody></table><p className="resume-note">{zh ? "已完成 ISA 验证、差分测试、RT-Thread RTL 运行，以及综合和时序分析探索；当前不展示性能、面积或频率结论。": "Completed work includes ISA verification, differential testing, RT-Thread running on RTL, and synthesis/timing exploration. No performance, area, or frequency claim is made here."}</p></div></section>
 

@@ -57,8 +57,8 @@ export const projectSummaries: readonly ProjectSummary[] = [
   },
   {
     slug: "digital-ic-flow",
-    title: "Digital IC Design Lab — ASIC Design Flow Implementation",
-    titleZh: "Digital IC Design Lab — ASIC 设计流程实践",
+    title: "Digital IC Design Lab",
+    titleZh: "Digital IC Design Lab",
     direction: "ASIC Flow · RTL · Synthesis · Physical Design",
     directionZh: "ASIC 设计流程 · RTL · 综合 · 物理实现",
     summary:
