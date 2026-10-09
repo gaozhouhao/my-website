@@ -1,65 +1,41 @@
 import ProjectNavigation from "../../../components/ProjectNavigation";
 import type { Locale } from "../../../lib/i18n";
 import { pageMetadata } from "../../../lib/site";
+import styles from "./page.module.css";
 
-export const metadata = pageMetadata("INT8 Systolic NPU / Matrix Accelerator", "持续开发中的 INT8 脉动阵列 NPU：已完成矩阵计算数据通路与端到端 GEMM 验证。", "/projects/int8-systolic-npu", "zh");
+export const metadata = pageMetadata("自研 INT8 NPU", "基于 4×4 脉动阵列的 INT8 NPU，完成 MNIST CNN 逐层 RTL 验证；三次数据加载优化将整网周期从 531,563 降至 76,443。", "/projects/int8-systolic-npu", "zh");
 
-const copy = {
-  zh: {
-    label: "数字集成电路 · RTL · AI 加速器", title: "INT8 Systolic NPU / Matrix Accelerator", status: "状态：持续开发中 / Work in Progress",
-    lead: "从零实现面向神经网络矩阵计算的 INT8 Matrix Accelerator。当前核心为参数化二维 Systolic Array，采用 Output Stationary 数据流：INT8 乘法、INT32 累加，partial sum 保存在 PE 内部。",
-    overview: "项目概览", overviewText: "现阶段完成的是基础 Matrix Compute Datapath，不是完整 NPU Core。原始 A/B 矩阵输入由 Matrix Engine 内部完成 skew 和时序对齐，再送入 PE Array 计算。后续工作将围绕控制器和 GEMM 调度展开，让固定尺寸阵列能够执行更大、非固定尺寸的矩阵乘法。",
-    current: "已完成", verify: "验证", roadmap: "后续计划", target: "目标架构（规划中）",
-    currentItems: [
-      ["INT8 Processing Element", "Signed INT8 × INT8 乘法，INT16 product 经显式 sign extension 后累加到 INT32。每个 PE 每周期执行一次 MAC，保存自身 partial sum；A 水平传播、B 垂直传播，A/B valid 独立传播，并支持 accumulator clear/reset。"],
-      ["参数化 2D Systolic Array", "使用 SystemVerilog generate 构建 ROWS × COLS PE Array。当前默认 4×4，共 16 个 PE；每个 PE 独立维护 INT32 accumulator，ROWS 和 COLS 可参数化。"],
-      ["Input Skew Network", "第 i 个 A row 延迟 i 个周期，第 j 个 B column 延迟 j 个周期；data 和 valid 同步延迟。各 lane 使用不同深度的 delay line，lane 0 直接 bypass，只生成 N(N−1)/2 级必要寄存器。"],
-      ["Matrix Engine Datapath", "已连接 Raw Matrix Input → Input Skew → Systolic Array → INT32 Accumulator。Testbench 直接输入未 skew 的 A/B 矩阵，时序对齐在 Matrix Engine 内部完成。"],
-    ],
-    verifyText: "PE 通过 SystemVerilog self-checking testbench，覆盖正负数 MAC 和基础控制。Matrix Engine 使用 Verilator + SystemVerilog self-checking testbench 做首次端到端 GEMM 验证。",
-    example: "A = [[1, 2], [3, 4]]，B = [[5, 6], [7, 8]]，硬件输出 C = [[19, 22], [43, 50]]。该用例覆盖 Input Skew、Systolic 数据传播、A/B valid 对齐、Signed INT8 MAC 和 INT32 accumulation。",
-    roadmapItems: [
-      ["计算调度", "Matrix Controller / FSM、M/N/K 可配置 GEMM、Tiling / Blocking，以及大矩阵在固定尺寸阵列上的自动分块执行。"],
-      ["存储与数据搬运", "Local SRAM / Scratchpad、A/B/Output Buffer 和 DMA。"],
-      ["量化后处理", "Bias、Requantization、Saturation / Clamp、ReLU 和 INT8 output。"],
-      ["验证与系统集成", "Randomized Verification、Software Golden Model 自动比对、Regression Test、RV32 SoC 集成、AXI / MMIO、软件驱动，以及 RTL Synthesis / STA / PPA 分析。"],
-    ],
-    targetText: "RV32 / Host → Command / Register Interface → NPU Controller → DMA + Local Scratchpad → INT8 Matrix Engine → INT32 Accumulator → Bias / Requantization / ReLU → Output Buffer",
-    engineText: "Matrix Engine：A/B Input → Input Skew → 2D Systolic Array → PE Array",
-  },
-  en: {
-    label: "Digital IC · RTL · AI Accelerator", title: "INT8 Systolic NPU / Matrix Accelerator", status: "Status: Work in Progress / 持续开发中",
-    lead: "An INT8 matrix accelerator built from scratch for neural-network matrix compute. Its current core is a parameterized 2D systolic array using output-stationary dataflow: INT8 multiplication, INT32 accumulation, and partial sums held in each PE.",
-    overview: "Overview", overviewText: "The completed scope is the base matrix-compute datapath, not a complete NPU core. Raw A/B matrix inputs are skewed and aligned inside the Matrix Engine before entering the PE array. The next work focuses on controller and GEMM scheduling so a fixed physical array can execute larger, non-fixed-size matrix multiplications.",
-    current: "Current implementation", verify: "Verification", roadmap: "Roadmap", target: "Target architecture (planned)",
-    currentItems: [
-      ["INT8 Processing Element", "Signed INT8 × INT8 multiplication, with the INT16 product explicitly sign-extended into an INT32 accumulator. Each PE performs one MAC per cycle and retains its partial sum; A moves horizontally, B moves vertically, valid signals propagate independently, and the accumulator can be cleared or reset."],
-      ["Parameterized 2D Systolic Array", "A SystemVerilog generate implementation of a ROWS × COLS PE array. The default configuration is 4×4, or 16 PEs; each PE has an INT32 accumulator and ROWS/COLS are parameters."],
-      ["Input Skew Network", "A row i is delayed by i cycles and B column j by j cycles, with data and valid delayed together. Per-lane delay lines bypass lane 0 and instantiate only N(N−1)/2 required delay registers."],
-      ["Matrix Engine Datapath", "Raw Matrix Input → Input Skew → Systolic Array → INT32 Accumulator is connected end to end. The testbench supplies unskewed A/B matrices; alignment is performed inside the Matrix Engine."],
-    ],
-    verifyText: "The PE has a SystemVerilog self-checking testbench covering signed MAC cases and basic control. The Matrix Engine has its first end-to-end GEMM verification using Verilator and a SystemVerilog self-checking testbench.",
-    example: "For A = [[1, 2], [3, 4]] and B = [[5, 6], [7, 8]], hardware produces C = [[19, 22], [43, 50]]. This case exercises input skew, systolic propagation, A/B-valid alignment, signed INT8 MAC, and INT32 accumulation.",
-    roadmapItems: [
-      ["Compute scheduling", "Matrix Controller / FSM, configurable M/N/K GEMM, tiling/blocking, and automatic blocking for matrices larger than the fixed array."],
-      ["Storage and movement", "Local SRAM / scratchpad, A/B/output buffers, and DMA."],
-      ["Quantized post-processing", "Bias, requantization, saturation/clamp, ReLU, and INT8 output."],
-      ["Verification and integration", "Randomized verification, automatic software-golden-model comparison, regression, RV32 SoC integration, AXI / MMIO, software driver, and RTL synthesis / STA / PPA analysis."],
-    ],
-    targetText: "RV32 / Host → Command / Register Interface → NPU Controller → DMA + Local Scratchpad → INT8 Matrix Engine → INT32 Accumulator → Bias / Requantization / ReLU → Output Buffer",
-    engineText: "Matrix Engine: A/B Input → Input Skew → 2D Systolic Array → PE Array",
-  },
-} as const;
+const stages = [
+  { zh: "计算核心", en: "Compute core", name: "PE → Array → GEMM", textZh: "INT8 乘法、INT32 累加，完成输入对齐与阵列控制。", textEn: "INT8 MACs, INT32 accumulation, input alignment and array control." },
+  { zh: "存储与分块", en: "Storage & tiling", name: "SRAM + M/N/K Tiling", textZh: "矩阵按 M/N/K 分块，支持超出阵列和 Buffer 容量的计算。", textEn: "M/N/K tiling supports matrices larger than the array and operand buffers." },
+  { zh: "自主执行", en: "Task execution", name: "DMA + Descriptor", textZh: "按描述符搬运和执行任务，双缓冲预取与计算重叠。", textEn: "Descriptor-driven DMA and execution, with double-buffered prefetch." },
+  { zh: "CNN 算子", en: "CNN operators", name: "Conv + Pool + INT8", textZh: "加入隐式 GEMM 卷积、池化、Bias、重量化与 INT8 写回。", textEn: "Implicit-GEMM convolution, pooling, bias, requantization and INT8 writeback." },
+  { zh: "端到端验证", en: "End-to-end verification", name: "MNIST / Verilator", textZh: "导出量化模型和 DDR Image，逐层对比 RTL 与参考输出。", textEn: "Export the quantized model and DDR image; compare RTL outputs layer by layer." },
+] as const;
+const versions = [
+  { name: "V0", zh: "完整 CNN 基线", en: "Full CNN baseline", cycles: 531563, drop: null, speed: null, zhText: "加入周期、AXI 传输及 DMA/计算重叠统计，建立性能基线。", enText: "Establish a baseline with cycle, AXI traffic and DMA/compute overlap counters.", ar: "70,126", beats: "92,968", dma: "488,648", conv1: "109,966", conv2: "403,144" },
+  { name: "V1", zh: "A Tile Reuse", en: "A Tile Reuse", cycles: 202282, drop: "61.95%", speed: "2.63×", zhText: "多个 N Tile 复用驻留的 A 数据，减少相同 Tile 的 DDR 重复加载。", enText: "Reuse resident A data across N tiles to avoid repeated DDR loads.", ar: "25,002", beats: "≈47,764*", dma: "154,810*", conv1: "66,021", conv2: "117,808" },
+  { name: "V2", zh: "AXI Burst", en: "AXI Burst", cycles: 136375, drop: "32.58%", speed: "1.48×", zhText: "将卷积窗口内连续的 HWC 数据合并读取，减少 AXI 请求开销。", enText: "Combine contiguous HWC reads within convolution patches into AXI bursts.", ar: "8,334", beats: "34,800", dma: "88,903", conv1: "46,994", conv2: "70,928" },
+  { name: "V3", zh: "32-bit Word Assembler", en: "32-bit Word Assembler", cycles: 76443, drop: "43.95%", speed: "1.78×", zhText: "流式拼装 32-bit 数据并写入 SRAM，减少逐 Byte 处理和状态切换。", enText: "Assemble 32-bit words directly into SRAM, reducing byte-wise processing and FSM overhead.", ar: "8,334", beats: "34,800", dma: "28,971", conv1: "30,228", conv2: "27,762" },
+] as const;
 
 export function Int8SystolicNpuPage({ locale }: { locale: Locale }) {
-  const t = copy[locale];
-  return <main id="main-content" className="page-shell" lang={locale === "zh" ? "zh-CN" : "en"}>
-    <p className="eyebrow">{t.label}</p><h1 className="page-title">{t.title}</h1><p className="status-note" style={{ marginTop: "1.2rem" }}><strong>{t.status}</strong></p><p className="lead" style={{ marginTop: "1.5rem" }}>{t.lead}</p>
-    <section className="prose-section"><h2>{t.overview}</h2><p>{t.overviewText}</p></section>
-    <section className="section"><h2 className="section-heading">{t.current}</h2><div className="challenge-grid">{t.currentItems.map(([title, text], index) => <article className="challenge-card" key={title}><p className="eyebrow">0{index + 1}</p><h3>{title}</h3><p>{text}</p></article>)}</div></section>
-    <section className="section split"><div><h2 className="section-heading">{t.verify}</h2><p className="section-intro">{t.verifyText}</p><p className="section-intro">{t.example}</p></div><dl className="fact-panel"><dt>{locale === "zh" ? "当前配置" : "Current configuration"}</dt><dd>{locale === "zh" ? "4×4 Systolic Array · 16 PE" : "4×4 systolic array · 16 PEs"}</dd><dt>{locale === "zh" ? "数据类型" : "Datapath"}</dt><dd>Signed INT8 × INT8 → INT16 → INT32</dd><dt>{locale === "zh" ? "当前验证" : "Current verification"}</dt><dd>Verilator + SystemVerilog self-checking testbench</dd></dl></section>
-    <section className="section"><h2 className="section-heading">{t.roadmap}</h2><p className="status-note">{locale === "zh" ? "以下均为规划，尚未实现。" : "Everything below is planned work; it is not implemented yet."}</p><div className="challenge-grid">{t.roadmapItems.map(([title, text], index) => <article className="challenge-card" key={title}><p className="eyebrow">0{index + 1}</p><h3>{title}</h3><p>{text}</p></article>)}</div></section>
-    <section className="prose-section"><h2>{t.target}</h2><pre className="code-showcase"><code>{t.targetText}{"\n\n"}{t.engineText}</code></pre></section>
+  const zh = locale === "zh";
+  return <main id="main-content" className={`page-shell ${styles.page}`} lang={zh ? "zh-CN" : "en"}>
+    <p className="eyebrow">{zh ? "数字集成电路 · RTL · AI 加速器" : "Digital IC · RTL · AI Accelerator"}</p>
+    <div className={styles.heading}><div><h1 className="page-title">{zh ? "自研 INT8 NPU" : "INT8 Systolic NPU"}</h1><p className={styles.subtitle}>{zh ? "脉动阵列设计、CNN 推理与性能优化" : "Systolic array design, CNN inference and performance optimization"}</p></div><a className="button" href="https://github.com/gaozhouhao/npu" target="_blank" rel="noreferrer">{zh ? "查看 RTL 仓库 ↗" : "RTL repository ↗"}</a></div>
+    <p className={styles.intro}>{zh ? "我从 INT8 PE 开始搭建这颗 NPU，逐步完成矩阵分块、AXI DMA、描述符调度和 CNN 算子，并在 Verilator 中跑通 MNIST 五层网络。随后根据性能计数优化操作数加载，同一工作负载的执行周期从 531,563 降至 76,443。" : "I built this NPU from the INT8 PE up, adding matrix tiling, AXI DMA, descriptor scheduling and CNN operators. After verifying the five-layer MNIST network in Verilator, I optimized operand loading using performance counters, reducing cycles from 531,563 to 76,443 for the same workload."}</p>
+    <div className={styles.metrics}><div><strong>85.62%</strong><span>{zh ? "整网周期减少" : "Fewer total cycles"}</span></div><div><strong>6.95×</strong><span>{zh ? "整网加速比" : "Overall speedup"}</span></div><div><strong>14.52×</strong><span>{zh ? "Conv2 加速比" : "Conv2 speedup"}</span></div><div><strong>88.12%</strong><span>{zh ? "AXI 读请求减少" : "Fewer AXI read requests"}</span></div></div>
+    <p className={styles.note}>{zh ? "比较基于相同 MNIST CNN 与 4×4 PE 阵列。加速比按相同时钟频率下的执行周期计算。" : "Same MNIST CNN and 4×4 PE array. Speedup is the execution-cycle ratio at equal clock frequency."}</p>
+
+    <section className={styles.section} aria-labelledby="npu-development"><div className={styles.sectionTitle}><h2 id="npu-development">{zh ? "开发过程" : "Development"}</h2><span>4×4 PE · INT8 × INT8 → INT32</span></div><ol className={styles.flow}>{stages.map((s, i) => <li key={s.name}><span className={styles.stepNumber}>0{i + 1}</span><h3>{zh ? s.zh : s.en}</h3><div className={styles.technical}>{s.name}</div><p>{zh ? s.textZh : s.textEn}</p></li>)}</ol></section>
+
+    <section className={styles.section} aria-labelledby="npu-performance"><div className={styles.sectionTitle}><h2 id="npu-performance">{zh ? "性能优化" : "Performance optimization"}</h2><span>{zh ? "4 个版本 · 3 次主要优化" : "4 versions · 3 main optimizations"}</span></div><ol className={styles.performance}>{versions.map(v => <li key={v.name} className={v.name === "V3" ? styles.latest : undefined}><div className={styles.version}>{v.name}</div><h3>{zh ? v.zh : v.en}</h3><div className={styles.cycles}>{v.cycles.toLocaleString("en-US")} <span>cycles</span></div><div className={styles.track} aria-hidden="true"><div style={{ width: `${v.cycles / versions[0].cycles * 100}%` }} /></div><div className={styles.delta}>{v.drop ? <>{zh ? "较前版" : "vs. previous"} −{v.drop} <b> / {v.speed}</b></> : (zh ? "初始完整 CNN" : "Initial full CNN")}</div><p>{zh ? v.zhText : v.enText}</p></li>)}</ol>
+    <p className={styles.finding}>{zh ? "Word Assembler 优化前后，AXI AR 请求数均为 8,334，R Beats 均为 34,800；整网仍获得 1.78× 加速。这部分收益来自 Loader 内部数据通路和控制开销的降低。该版本还修复了完成脉冲可能被外层 FSM 漏接的问题。" : "The Word Assembler keeps AXI traffic unchanged at 8,334 AR requests and 34,800 R beats, yet improves total execution time by 1.78×. This gain comes from the loader datapath and control logic. The same version also fixes a completion pulse that the outer FSM could miss."}</p>
+    <details className={styles.details}><summary>{zh ? "逐层周期与性能计数" : "Layer cycles and performance counters"}</summary><div className={styles.tableScroll} tabIndex={0} role="region" aria-label={zh ? "性能计数表" : "Performance counter table"}><table className="result-table"><thead><tr><th scope="col">{zh ? "版本" : "Version"}</th><th scope="col">Conv1</th><th scope="col">Conv2</th><th scope="col">FC</th><th scope="col">AXI AR</th><th scope="col">R Beats</th><th scope="col">DMA-only</th></tr></thead><tbody>{versions.map(v => <tr key={v.name}><th scope="row">{v.name}</th><td>{v.conv1}</td><td>{v.conv2}</td><td>5,778</td><td>{v.ar}</td><td>{v.beats}</td><td>{v.dma}</td></tr>)}</tbody></table></div><p className={styles.note}>{zh ? "* V1 的 R Beats 和 DMA-only 为逐层记录合计，其余采用整网日志。DMA-only 为监视器定义的指标，不等于 DMA 模块独占工作时间。FC 使用普通 GEMM Operand DMA，三次优化均未改变其周期。" : "* V1 R beats and DMA-only are sums of layer records; the other figures come from whole-network logs. DMA-only is a monitor-defined counter, not exclusive DMA activity. FC uses the regular GEMM operand DMA and is unchanged."}</p><p className={styles.note}>{zh ? "初始与最终版本的 Matrix Cycles 均为 27,747，GEMM Tiles 为 600，PE MAC Events 为 319,872，PE Active Cycles 为 23,592，DMA/Compute Overlap 为 26,403，Bank Wait 为 0。PE 数量和 GEMM 计算工作量没有变化。" : "Initial and final versions share 27,747 matrix cycles, 600 GEMM tiles, 319,872 PE MAC events, 23,592 PE active cycles, 26,403 DMA/compute overlap cycles and zero bank-wait cycles. PE count and GEMM compute work are unchanged."}</p></details></section>
+
+    <section className={styles.section} aria-labelledby="npu-verification"><div className={styles.sectionTitle}><h2 id="npu-verification">{zh ? "验证结果" : "Verification"}</h2><span>Verilator · Golden Reference</span></div><div className={styles.verification}><div><h3>{zh ? "4 张测试图片，五层输出全部通过比对" : "Four test images, all five layers matched"}</h3><p className={styles.network}>Conv1 → Pool1 → Conv2 → Pool2 → FC</p><p>{zh ? "检查每层的实际输出，覆盖卷积、池化、量化、存储写回与任务调度。" : "Every layer output is checked, covering convolution, pooling, quantization, writeback and task scheduling."}</p></div><div><h3>{zh ? "FP32 → INT8 模型量化" : "FP32 → INT8 model quantization"}</h3><p className={styles.accuracy}>98.37% <span>→</span> 98.33%</p><p>{zh ? "模型准确率下降 0.04 个百分点。模型准确率与四张图片的 RTL 验证是两组独立结果。" : "Model accuracy drops by 0.04 percentage points. Model accuracy and the four-image RTL regression are separate results."}</p></div></div></section>
+    <aside className={styles.next}><span>{zh ? "开发中" : "In progress"}</span><div><h2>{zh ? "可配置 Dataflow 与 Partial Sum SRAM" : "Configurable dataflow and partial-sum SRAM"}</h2><p>{zh ? "正在实现 Output-stationary、A-stationary 和 B-stationary 三种模式，计划用 C SRAM 保存跨 K Tile 的 INT32 部分和，支持更灵活的 A/B 复用。独立测试已通过 30 Tiles/模式，尚未完成整网集成与回归，暂无可比的性能结果。" : "I am implementing output-, A- and B-stationary modes, with C SRAM planned to retain INT32 partial sums across K tiles and enable more flexible operand reuse. Standalone tests pass 30 tiles per mode; full-network integration and regression are pending, so no comparative speedup is reported."}</p></div></aside>
     <ProjectNavigation />
   </main>;
 }
