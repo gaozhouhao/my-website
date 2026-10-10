@@ -79,8 +79,24 @@
 .runResult > p { font-size: .8rem; line-height: 1.8; color: var(--muted); }
 .runResult .metrics strong { font-size: clamp(1.2rem,2.4vw,1.85rem); }
 .runResult .details { margin-top: 1rem; }
+.architecture { margin: 1.8rem 0; border: 1px solid var(--line); background: var(--surface); }
+.architecture img { display: block; width: 100%; height: auto; }
+.architecture figcaption { padding: .6rem 1rem; font-size: .7rem; color: var(--muted); line-height: 1.6; }
+.timeBar { display: flex; height: 22px; margin: 1rem 0; }
+.timeLegend { display: grid; grid-template-columns: repeat(4,1fr); gap: .75rem; font-size: .7rem; color: var(--muted); }
+.timeLegend b { display: block; color: var(--foreground); font-weight: 500; margin-top: .3rem; }
+.chartControls { display: flex; flex-wrap: wrap; gap: .5rem; margin: .75rem 0 1rem; }
+.chartControls button { border: 1px solid var(--line); background: transparent; padding: .5rem .7rem; color: var(--accent-strong); font-size: .75rem; cursor: pointer; }
+.chartControls button[aria-pressed=true] { background: var(--accent-strong); color: white; }
+.chartControls button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.layerRow { display: grid; grid-template-columns: 8rem minmax(0,1fr) 6rem; align-items: center; gap: .7rem; padding: .35rem 0; font-size: .75rem; }
+.layerRow b { text-align: right; font-weight: 500; font-variant-numeric: tabular-nums; }
+.layerTrack { height: 9px; background: #e4ded5; }
+.layerTrack i { display: block; height: 100%; background: var(--accent); }
 @media (max-width: 1000px) { .performance li { padding: 1rem; } .flow { gap: 1.2rem; } .flow li:not(:last-child)::after { right: -1rem; } .performance h3 { min-height: 2.4rem; } }
 @media (max-width: 640px) {
+  .timeLegend { grid-template-columns: repeat(2,1fr); }
+  .layerRow { grid-template-columns: 5.5rem minmax(0,1fr) 4.5rem; gap: .4rem; font-size: .65rem; }
   .descriptorStrip { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .descriptorStrip > span:nth-child(2) { border-right: 0; }
   .descriptorStrip > span:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
