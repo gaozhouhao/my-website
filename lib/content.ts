@@ -46,8 +46,8 @@ export const projectSummaries: readonly ProjectSummary[] = [
     titleZh: "自研 INT8 NPU",
     direction: "Digital IC · RTL · CNN Inference",
     directionZh: "数字集成电路 · RTL · CNN 推理",
-    summary: "Built a 4×4 INT8 NPU with tiling, AXI DMA and descriptor-driven CNN execution. Verified MNIST outputs layer by layer and reduced cycles from 531,563 to 74,527 through operand loading and multi-K reuse optimizations.",
-    summaryZh: "基于 4×4 脉动阵列，实现矩阵分块、AXI DMA 和描述符驱动的 CNN 推理。完成 MNIST 逐层 RTL 验证，通过操作数加载与多 K 复用优化将整网周期从 531,563 降至 74,527。",
+    summary: "Built a 4×4 INT8 NPU with tiling, AXI DMA and descriptor-driven CNN execution. Verified MNIST outputs layer by layer and reduced cycles from 531,563 to 74,527 through operand loading and multi-K reuse. Added per-channel quantization, a parameter slot bank and TFLite compilation; ResNet-8 runs with quantized-zero input, pending numerical validation.",
+    summaryZh: "基于 4×4 脉动阵列，实现矩阵分块、AXI DMA 和描述符驱动的 CNN 推理。完成 MNIST 逐层 RTL 验证，将整网周期从 531,563 降至 74,527。新增逐通道量化、参数 Slot Bank 和 TFLite 编译器，完成 ResNet-8 量化零输入功能运行，数值对比待完成。",
     featured: true,
   },
   {
