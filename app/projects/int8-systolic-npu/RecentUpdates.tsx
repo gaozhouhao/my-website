@@ -1,0 +1,38 @@
+import type { Locale } from "../../../lib/i18n";
+import styles from "./page.module.css";
+const source = "https://github.com/gaozhouhao/npu/blob/5567c077dde5ab09aeeb624ed3e3d7ca9a4ea8e0/";
+
+export default function RecentUpdates({ locale }: { locale: Locale }) {
+  const zh = locale === "zh";
+  return <section className={styles.section} aria-labelledby="npu-multi-k">
+    <div className={styles.sectionTitle}><h2 id="npu-multi-k">{zh ? "C SRAM 与多 K 分块复用" : "C SRAM and multi-K reuse"}</h2><span>2026-10-10 · V4 / V5</span></div>
+    <div className={styles.updateGrid}>
+      <article><span className={styles.version}>V4 · C SRAM</span><h3>{zh ? "跨 K Tile 保存部分和" : "Partial sums across K tiles"}</h3><div className={styles.cycles}>76,495 <span>cycles</span></div><p>{zh ? "增加 C SRAM 部分和通路，复用四路 INT32 Bias Adder 合并旧部分和与 PE 累加结果。FC 的 K=784 分成四段，输出通过 Golden 比对。" : "Add a C SRAM partial-sum path and reuse the four INT32 bias adders to combine stored sums with PE results. FC K=784 spans four tiles and matches the golden output."}</p><p className={styles.note}>{zh ? "比 V3 增加 52 cycles。此阶段提供后续复用所需的存储通路，本身没有降低执行周期。" : "52 cycles above V3. This stage supplies the storage path needed for reuse; it is not a speedup."}</p><a href="https://github.com/gaozhouhao/npu/commit/fb4545a2b15209ef1da50f4afd0ed967f22c87d6">fb4545a ↗</a></article>
+      <article className={styles.latest}><span className={styles.version}>V5 · MULTI-K A REUSE</span><h3>{zh ? "四个 C Slot 支持 A Tile 复用" : "Four C slots enable A tile reuse"}</h3><div className={styles.cycles}>74,527 <span>cycles</span></div><p>{zh ? "C SRAM 扩展为 4×64 B。同一 K Tile 内依次计算多个 N Tile，各自的部分和保存在独立 Slot。FC 的 A 加载次数从 12 次减少到 4 次。" : "Expand C SRAM to 4×64 B. Process multiple N tiles for each K tile, retaining each partial sum in its own slot. FC A loads fall from 12 to 4."}</p><p className={styles.note}>{zh ? "相对 V3 高速基线减少 1,916 cycles（2.51%）；相对 V4 减少 1,968 cycles。" : "1,916 fewer cycles than the V3 baseline (2.51%); 1,968 fewer than V4."}</p><a href="https://github.com/gaozhouhao/npu/commit/5ab663ad082f58825e26b823543a8eb6f680a4a0">5ab663a ↗</a></article>
+    </div>
+    <p className={styles.note}>{zh ? "V4/V5 为启用实验通路的测试记录：NPU_PSUM_EXPERIMENT；V5 另启用 NPU_AS_REUSE_EXPERIMENT。RTL 默认 N Block 大小为 4，标准 Makefile 的 MNIST 目标未默认启用上述选项。" : "V4/V5 use NPU_PSUM_EXPERIMENT, plus NPU_AS_REUSE_EXPERIMENT for V5. The RTL defaults to an N block of 4; the standard Makefile MNIST target does not enable these flags by default."}</p>
+    <div className={styles.tableScroll} tabIndex={0} role="region" aria-label={zh ? "最新性能对比" : "Latest performance comparison"}><table className="result-table"><thead><tr><th>{zh ? "指标" : "Metric"}</th><th>V0</th><th>V3</th><th>V5</th></tr></thead><tbody>{[
+      [zh ? "整网 cycles" : "Total cycles", "531,563", "76,443", "74,527"],
+      ["Conv1 cycles", "109,966", "30,228", "30,228"], ["Conv2 cycles", "403,144", "27,762", "27,762"],
+      ["FC cycles", "5,778", "5,778", "3,862"], ["FC R Beats", "—", "4,716", "3,148"],
+    ].map(row => <tr key={row[0]}><th scope="row">{row[0]}</th>{row.slice(1).map((v,i) => <td key={i}>{v}</td>)}</tr>)}</tbody></table></div>
+    <p className={styles.note}>{zh ? "相对 V3，FC 周期减少 33.16%，R Beats 减少 33.25%。Conv1、Conv2 周期不变。" : "Relative to V3, FC cycles fall 33.16% and R beats fall 33.25%. Conv1 and Conv2 cycles are unchanged."}</p>
+    <details className={styles.details}><summary>{zh ? "FC 分块与数据通路" : "FC blocking and datapath"}</summary>
+      <p className={styles.finding}>{zh ? "FC：M=4、N=12、K=784 → 1 个 M Tile、3 个 N Tile、4 个 K Tile。物理 C SRAM 有四个 Slot，本例使用其中三个。" : "FC: M=4, N=12, K=784 → 1 M tile, 3 N tiles and 4 K tiles. Three of the four physical C SRAM slots are used here."}</p>
+      <div className={styles.slotDiagram} aria-label={zh ? "每个 A K Tile 依次更新三个 C Slot" : "Each A K tile updates three C slots in sequence"}>
+        <div className={styles.slotHeader}><span>A(M,K)</span><span>C Slot 0 / N0</span><span>C Slot 1 / N1</span><span>C Slot 2 / N2</span></div>
+        {[256,256,256,16].map((k,i) => <div className={styles.slotRow} key={i}><strong>K{i} · {k}</strong>{[0,1,2].map(n => <span key={n}>A{i} × B{i},{n}<small>{i === 0 ? (zh ? "写入部分和" : "Store sum") : (zh ? "+ 原部分和" : "+ Stored sum")}</small></span>)}</div>)}
+      </div>
+      <p className={styles.note}>{zh ? "逐行执行：每个 A Tile 加载一次，依次参与三个 N Tile 的计算。PE ACC → 四路 INT32 加法器 ↔ C SRAM；最后一段 K 完成后进入后处理与写回。此图展示遍历顺序，不代表三个 N Tile 同时计算。" : "Execute row by row: load each A tile once and reuse it for three N tiles. PE ACC → four INT32 adders ↔ C SRAM; after the final K tile, proceed to post-processing and writeback. This shows traversal order, not simultaneous execution."}</p>
+      <p className={styles.note}>{zh ? "PE 内仍为 Output-stationary。已集成的是 SRAM 级 A 驻留与复用；独立 Tile Iterator 的三模式 Smoke Test 不代表已实现 PE-level Input-stationary / Weight-stationary。" : "PEs remain output-stationary. The integrated feature is SRAM-level A reuse; the independent three-mode iterator smoke test does not establish PE-level input- or weight-stationary execution."}</p>
+      <a href={source + "rtl/core/tile_policy.sv"}>{zh ? "Tile Policy 源码 ↗" : "Tile policy source ↗"}</a>
+    </details>
+    <details className={styles.details}><summary>{zh ? "DMA 完成脉冲丢失：定位与修复" : "Lost DMA completion pulse: diagnosis and fix"}</summary><dl className={styles.debugGrid}>
+      <div><dt>{zh ? "现象" : "Problem"}</dt><dd>{zh ? "加入多 K A Reuse 后 FC 超时。Deadlock Probe 显示调度器停在 LD_WAIT，A/B Bank 已 READY，完成条件却未满足。" : "FC timed out after multi-K reuse was added. A deadlock probe found LD_WAIT with A/B banks READY but the completion condition still false."}</dd></div>
+      <div><dt>{zh ? "原因" : "Root cause"}</dt><dd>{zh ? "A/B 请求独立接受，一个 DMA 可在 LD_REQ 阶段提前完成。原逻辑只在 LD_WAIT 记录单周期 load_done，导致完成事件丢失。" : "A/B requests are accepted independently. One DMA can finish in LD_REQ, but the original logic only recorded its one-cycle load_done in LD_WAIT."}</dd></div>
+      <div><dt>{zh ? "修改" : "Fix"}</dt><dd>{zh ? "在 LD_REQ 同样锁存 A/B 完成状态，并保留到两个操作数全部就绪，再交给计算阶段。" : "Latch A/B completion in LD_REQ as well, retaining both flags until the operands are ready for compute."}</dd></div>
+      <div><dt>{zh ? "验证" : "Validation"}</dt><dd>{zh ? "加入 early-done 调度器测试。修复后的实测记录中 FC Golden PASS，四张图片逐层比对通过，整网为 74,527 cycles。" : "Add an early-done scheduler test. Post-fix run records show FC golden PASS, layer-wise matches for four images and 74,527 total cycles."}</dd></div>
+    </dl><p className={styles.note}><a href={source + "rtl/core/tile_scheduler.sv#L501"}>Scheduler ↗</a> · <a href={source + "sim/tb/tile_scheduler_early_done_tb.sv"}>Early-done TB ↗</a> · <a href={source + "sim/tb/npu_fc_deadlock_probe.sv"}>Deadlock Probe ↗</a></p></details>
+    <details className={styles.details}><summary>{zh ? "最新整网计数与记录来源" : "Latest whole-network counters and sources"}</summary><p className={styles.finding}>Cycles 74,527 · AR 8,300 · R Beats 33,232 · AW 2,952 · W Beats 2,988<br/>Matrix Tiles 600 · PE MAC Events 319,872 · PE Active Cycles 23,592 · Bank Wait 0</p><p className={styles.note}>{zh ? "性能与 PASS 结果来自本项目 2026-10-10 的实测记录整理，完整运行日志未提交到仓库。实现、配置与检查逻辑对照以下固定版本源码；网站更新时未重新运行 RTL 仿真。" : "Performance and PASS results are from the project's 2026-10-10 run records; complete logs are not checked in. Implementation, configuration and checking logic were cross-checked against the pinned sources below. RTL simulation was not rerun for this website update."}</p><p className={styles.note}><a href={source + "rtl/core/gemm_executor.sv"}>GEMM Executor ↗</a> · <a href={source + "sim/tb/mnist_npu_tb.sv"}>MNIST TB ↗</a> · <a href={source + "compiler/README.md"}>{zh ? "工作负载与布局" : "Workload and layout"} ↗</a></p></details>
+  </section>;
+}
