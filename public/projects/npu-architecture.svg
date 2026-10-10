@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 320" role="img" aria-labelledby="title desc">
+<title id="title">INT8 NPU block-level architecture</title><desc id="desc">Descriptor frontend and tile scheduling control the DMA, operand buffers and systolic compute path. Partial sums and parameters use separate memories. Residual addition and pooling have independent datapaths sharing AXI.</desc>
+<defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7" fill="#705c8c"/></marker></defs>
+<rect width="1000" height="320" fill="#fbf9f4"/>
+<g stroke="#b7a9c8" fill="#eee8f3"><rect x="225" y="25" width="220" height="48"/><rect x="475" y="25" width="255" height="48"/></g>
+<g font-family="Arial,sans-serif" font-size="16" fill="#4f3e6c" text-anchor="middle"><text x="335" y="54">Command Frontend</text><text x="603" y="54">Executor / Tile Scheduler</text></g>
+<g stroke="#705c8c" fill="none" marker-end="url(#arrow)"><path d="M445 49H475"/><path stroke-dasharray="4 4" d="M603 73V109H550V135"/></g>
+<g fill="#fbf9f4" stroke="#d8d2c8"><rect x="20" y="135" width="120" height="76"/><rect x="165" y="135" width="125" height="76"/><rect x="315" y="135" width="150" height="76"/><rect x="490" y="135" width="145" height="76" fill="#eae4ef"/><rect x="660" y="135" width="140" height="76"/><rect x="825" y="135" width="155" height="76"/></g>
+<g fill="#1c1a1b" font-family="Arial,sans-serif" font-size="15" text-anchor="middle"><text x="80" y="164">DDR / AXI</text><text x="80" y="188" font-size="12">32-bit</text><text x="228" y="164">Operand DMA</text><text x="228" y="188" font-size="12">Conv Patch Loader</text><text x="390" y="164">A / B SRAM</text><text x="390" y="188" font-size="12">Ping-pong buffers</text><text x="562" y="164">4×4 PE Array</text><text x="562" y="188" font-size="12">INT8 MAC / INT32 ACC</text><text x="730" y="164">C Partial Sum</text><text x="730" y="188" font-size="12">SRAM / 4 slots</text><text x="902" y="164">Postprocess</text><text x="902" y="188" font-size="12">Bias / Requant / ReLU</text></g>
+<g stroke="#705c8c" fill="none" marker-end="url(#arrow)"><path d="M140 173H165"/><path d="M290 173H315"/><path d="M465 173H490"/><path d="M635 173H660"/><path d="M800 173H825"/><path d="M902 211V284H80V211"/><path d="M902 112V135"/></g>
+<g font-family="Arial,sans-serif" text-anchor="middle" fill="#6d6965" font-size="12"><text x="902" y="95">Parameter Slot Bank</text><text x="902" y="109">Bias / Multiplier / Shift</text><text x="520" y="276">INT8 / INT32 writeback via AXI</text></g>
+<rect x="165" y="239" width="260" height="30" fill="#eee6da" stroke="#d8d2c8"/><text x="295" y="259" fill="#66584c" font-family="Arial,sans-serif" text-anchor="middle" font-size="13">Residual Add / Pool · Shared AXI</text>
+<text x="980" y="310" text-anchor="end" font-family="Arial,sans-serif" font-size="10" fill="#6d6965">Block-level view; control muxes and bypass paths omitted</text>
+</svg>
