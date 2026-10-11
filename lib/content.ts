@@ -46,8 +46,8 @@ export const projectSummaries: readonly ProjectSummary[] = [
     titleZh: "自研 INT8 NPU",
     direction: "Digital IC · RTL · CNN Inference",
     directionZh: "数字集成电路 · RTL · CNN 推理",
-    summary: "Built a 4×4 INT8 NPU with tiling, AXI DMA and descriptor-driven CNN execution. Verified MNIST outputs layer by layer and reduced cycles from 531,563 to 74,527 through operand loading and multi-K reuse. Added per-channel quantization, a parameter slot bank and TFLite compilation; ResNet-8 fixed-sample layer regression and profiling are followed by descriptor-controlled A/B tile residency and prefetch, with per-layer cycle and load comparisons.",
-    summaryZh: "基于 4×4 脉动阵列，实现矩阵分块、AXI DMA 和描述符驱动的 CNN 推理。完成 MNIST 逐层 RTL 验证，将整网周期从 531,563 降至 74,527。新增逐通道量化、参数 Slot Bank 和 TFLite 编译器，完成 ResNet-8 固定样本逐层回归与性能分析；进一步实现 Descriptor 控制的 A/B Tile 驻留与预取，比较逐层周期与数据加载开销。",
+    summary: "Built a 4×4 INT8 NPU with tiling, AXI DMA and descriptor-driven CNN execution. Verified MNIST outputs layer by layer and reduced cycles from 531,563 to 74,527 through operand loading and multi-K reuse. Added per-channel quantization, a parameter slot bank and TFLite compilation; ResNet-8 fixed-sample layer regression and profiling are followed by A/B dataflow, native 64-bit DMA, Conv cache and lookahead. ResNet-8 runs in 1,255,817 cycles with zero added DDR read latency.",
+    summaryZh: "基于 4×4 脉动阵列，实现矩阵分块、AXI DMA 和描述符驱动的 CNN 推理。完成 MNIST 逐层 RTL 验证，将整网周期从 531,563 降至 74,527。新增逐通道量化、参数 Slot Bank 和 TFLite 编译器，完成 ResNet-8 固定样本逐层回归与性能分析；新增 A/B 数据流、原生 64-bit DMA、Conv Cache 与 Lookahead；零额外 DDR 读取延迟下，ResNet-8 为 1,255,817 cycles。",
     featured: true,
   },
   {

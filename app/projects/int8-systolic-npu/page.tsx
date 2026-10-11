@@ -6,6 +6,7 @@ import RecentUpdates from "./RecentUpdates";
 import ResnetUpdates from "./ResnetUpdates";
 import ResnetProfile from "./ResnetProfile";
 import DataflowUpdates from "./DataflowUpdates";
+import MemoryUpdates from "./MemoryUpdates";
 import Image from "next/image";
 
 export const metadata = pageMetadata("自研 INT8 NPU", "基于 4×4 脉动阵列的 INT8 NPU，完成 MNIST CNN 逐层 RTL 验证；MNIST 周期降至 74,527，新增 ResNet-8 固定样本逐层回归与性能基线。", "/projects/int8-systolic-npu", "zh");
@@ -33,7 +34,8 @@ export function Int8SystolicNpuPage({ locale }: { locale: Locale }) {
     <div className={styles.metrics}><div><strong>85.98%</strong><span>{zh ? "整网周期减少" : "Fewer total cycles"}</span></div><div><strong>7.13×</strong><span>{zh ? "整网加速比" : "Overall speedup"}</span></div><div><strong>14.52×</strong><span>{zh ? "Conv2 加速比" : "Conv2 speedup"}</span></div><div><strong>88.16%</strong><span>{zh ? "AXI 读请求减少" : "Fewer AXI read requests"}</span></div></div>
     <p className={styles.note}>{zh ? "以上为 MNIST V5 实验配置指标，比较基于相同 MNIST CNN 与 4×4 PE 阵列。加速比按相同时钟频率下的执行周期计算。" : "The metrics above are for MNIST V5, using the same MNIST CNN and 4×4 PE array with the experimental configuration. Speedup is the execution-cycle ratio at equal clock frequency."}</p>
 
-    <figure className={styles.architecture}><Image src="/projects/npu-architecture.svg" alt={zh ? "NPU 模块级架构：控制、数据搬运、阵列、部分和与独立算子" : "NPU block architecture: control, DMA, array, partial sums and independent operators"} width={1000} height={320} /><figcaption>{zh ? "模块级示意，省略控制复用与旁路；Add/Pool 使用独立计算路径并共享 AXI。" : "Block-level schematic; control muxes and bypasses omitted. Add/Pool use independent compute paths sharing AXI."}</figcaption></figure>
+    <figure className={styles.architecture}><Image src="/projects/npu-architecture.svg" alt={zh ? "NPU 模块级架构：控制、数据搬运、阵列、部分和与独立算子" : "NPU block architecture: control, DMA, array, partial sums and independent operators"} width={1000} height={320} /><figcaption>{zh ? "主数据通路示意，省略 Conv Cache、结果缓冲、控制复用与旁路；Add/Pool 使用独立计算路径并共享 AXI。" : "Main datapath schematic; Conv cache, result buffering, control muxes and bypasses omitted. Add/Pool use independent compute paths sharing AXI."}</figcaption></figure>
+    <MemoryUpdates locale={locale} />
     <section className={styles.section} aria-labelledby="npu-development"><div className={styles.sectionTitle}><h2 id="npu-development">{zh ? "开发过程" : "Development"}</h2><span>4×4 PE · INT8 × INT8 → INT32</span></div><ol className={styles.flow}>{stages.map((s, i) => <li key={s.name}><span className={styles.stepNumber}>0{i + 1}</span><h3>{zh ? s.zh : s.en}</h3><div className={styles.technical}>{s.name}</div><p>{zh ? s.textZh : s.textEn}</p></li>)}</ol></section>
 
     <section className={styles.section} aria-labelledby="npu-performance"><div className={styles.sectionTitle}><h2 id="npu-performance">{zh ? "性能优化" : "Performance optimization"}</h2><span>{zh ? "V0–V3 · 早期加载优化" : "V0–V3 · Initial loading optimizations"}</span></div><ol className={styles.performance}>{versions.map(v => <li key={v.name} className={v.name === "V3" ? styles.latest : undefined}><div className={styles.version}>{v.name}</div><h3>{zh ? v.zh : v.en}</h3><div className={styles.cycles}>{v.cycles.toLocaleString("en-US")} <span>cycles</span></div><div className={styles.track} aria-hidden="true"><div style={{ width: `${v.cycles / versions[0].cycles * 100}%` }} /></div><div className={styles.delta}>{v.drop ? <>{zh ? "较前版" : "vs. previous"} −{v.drop} <b> / {v.speed}</b></> : (zh ? "初始完整 CNN" : "Initial full CNN")}</div><p>{zh ? v.zhText : v.enText}</p></li>)}</ol>
@@ -45,7 +47,7 @@ export function Int8SystolicNpuPage({ locale }: { locale: Locale }) {
     <ResnetUpdates locale={locale} />
     <ResnetProfile locale={locale} />
     <DataflowUpdates locale={locale} />
-    <aside className={styles.next}><span>{zh ? "后续计划" : "Future work"}</span><div><h2>{zh ? "DMA / Compute / Writeback 三级流水线" : "DMA / compute / writeback pipeline"}</h2><p>{zh ? "架构设计已确定，RTL 尚未实现。计划在阵列后加入 C Result Buffer，通过结果快照、Valid/Ready 和反压，将当前 Tile 的计算与前一 Tile 的后处理、AXI 写回重叠。实现时需同步管理 PSUM、量化参数、输出地址和写回完成状态；吞吐收益待集成后测量。" : "Architecture defined; RTL not yet implemented. A planned C Result Buffer will use result snapshots, valid/ready handshakes and backpressure to overlap a tile’s compute with the previous tile’s postprocessing and AXI writeback. PSUM lifetime, quantization parameters, output addresses and writeback completion must remain synchronized. Throughput gains will be measured after integration."}</p></div></aside>
+    <aside className={styles.next}><span>{zh ? "后续计划" : "Future work"}</span><div><h2>{zh ? "Conv 输入准备与 PPA 评估" : "Conv input preparation and PPA evaluation"}</h2><p>{zh ? "继续优化 Padding 批量生成、地址递增、Segment 预计算和拼装流水线，并检查 Bank 释放与 A 预取之间的等待。后续通过综合、布局布线和时序分析评估面积、频率与功耗；当前结果仅为 RTL 仿真周期，不换算 ASIC TOPS 或能效。" : "Next: batched padding, incremental addressing, segment precomputation and assembly pipelining, plus bank-release and A-prefetch timing. Synthesis, place-and-route and timing analysis remain future work for area, frequency and power evaluation. Current RTL cycle measurements are not ASIC TOPS or energy-efficiency results."}</p></div></aside>
     <ProjectNavigation />
   </main>;
 }
