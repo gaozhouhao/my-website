@@ -1,54 +1,6 @@
-import ProjectNavigation from "../../../components/ProjectNavigation";
+import Overview from "./Overview";
 import type { Locale } from "../../../lib/i18n";
 import { pageMetadata } from "../../../lib/site";
-import styles from "./page.module.css";
-import RecentUpdates from "./RecentUpdates";
-import ResnetUpdates from "./ResnetUpdates";
-import ResnetProfile from "./ResnetProfile";
-import DataflowUpdates from "./DataflowUpdates";
-import MemoryUpdates from "./MemoryUpdates";
-import Image from "next/image";
-
-export const metadata = pageMetadata("自研 INT8 NPU", "基于 4×4 脉动阵列的 INT8 NPU，完成 MNIST CNN 逐层 RTL 验证；MNIST 周期降至 74,527，新增 ResNet-8 固定样本逐层回归与性能基线。", "/projects/int8-systolic-npu", "zh");
-
-const stages = [
-  { zh: "计算核心", en: "Compute core", name: "PE → Array → GEMM", textZh: "INT8 乘法、INT32 累加，完成输入对齐与阵列控制。", textEn: "INT8 MACs, INT32 accumulation, input alignment and array control." },
-  { zh: "存储与分块", en: "Storage & tiling", name: "SRAM + M/N/K Tiling", textZh: "矩阵按 M/N/K 分块，支持超出阵列和 Buffer 容量的计算。", textEn: "M/N/K tiling supports matrices larger than the array and operand buffers." },
-  { zh: "自主执行", en: "Task execution", name: "DMA + Descriptor", textZh: "按描述符搬运和执行任务，双缓冲预取与计算重叠。", textEn: "Descriptor-driven DMA and execution, with double-buffered prefetch." },
-  { zh: "CNN 算子", en: "CNN operators", name: "Conv + Pool + INT8", textZh: "加入隐式 GEMM 卷积、池化、Bias、重量化与 INT8 写回。", textEn: "Implicit-GEMM convolution, pooling, bias, requantization and INT8 writeback." },
-  { zh: "端到端验证", en: "End-to-end verification", name: "MNIST / Verilator", textZh: "导出量化模型和 DDR Image，逐层对比 RTL 与参考输出。", textEn: "Export the quantized model and DDR image; compare RTL outputs layer by layer." },
-] as const;
-const versions = [
-  { name: "V0", zh: "完整 CNN 基线", en: "Full CNN baseline", cycles: 531563, drop: null, speed: null, zhText: "加入周期、AXI 传输及 DMA/计算重叠统计，建立性能基线。", enText: "Establish a baseline with cycle, AXI traffic and DMA/compute overlap counters.", ar: "70,126", beats: "92,968", dma: "488,648", conv1: "109,966", conv2: "403,144" },
-  { name: "V1", zh: "A Tile Reuse", en: "A Tile Reuse", cycles: 202282, drop: "61.95%", speed: "2.63×", zhText: "多个 N Tile 复用驻留的 A 数据，减少相同 Tile 的 DDR 重复加载。", enText: "Reuse resident A data across N tiles to avoid repeated DDR loads.", ar: "25,002", beats: "≈47,764*", dma: "154,810*", conv1: "66,021", conv2: "117,808" },
-  { name: "V2", zh: "AXI Burst", en: "AXI Burst", cycles: 136375, drop: "32.58%", speed: "1.48×", zhText: "将卷积窗口内连续的 HWC 数据合并读取，减少 AXI 请求开销。", enText: "Combine contiguous HWC reads within convolution patches into AXI bursts.", ar: "8,334", beats: "34,800", dma: "88,903", conv1: "46,994", conv2: "70,928" },
-  { name: "V3", zh: "32-bit Word Assembler", en: "32-bit Word Assembler", cycles: 76443, drop: "43.95%", speed: "1.78×", zhText: "流式拼装 32-bit 数据并写入 SRAM，减少逐 Byte 处理和状态切换。", enText: "Assemble 32-bit words directly into SRAM, reducing byte-wise processing and FSM overhead.", ar: "8,334", beats: "34,800", dma: "28,971", conv1: "30,228", conv2: "27,762" },
-] as const;
-
-export function Int8SystolicNpuPage({ locale }: { locale: Locale }) {
-  const zh = locale === "zh";
-  return <main id="main-content" className={`page-shell ${styles.page}`} lang={zh ? "zh-CN" : "en"}>
-    <p className="eyebrow">{zh ? "数字集成电路 · RTL · AI 加速器" : "Digital IC · RTL · AI Accelerator"}</p>
-    <div className={styles.heading}><div><h1 className="page-title">{zh ? "自研 INT8 NPU" : "INT8 Systolic NPU"}</h1><p className={styles.subtitle}>{zh ? "脉动阵列、ResNet-8 推理与性能分析" : "Systolic arrays, ResNet-8 inference and performance analysis"}</p></div><a className="button" href="https://github.com/gaozhouhao/npu" target="_blank" rel="noreferrer">{zh ? "查看 RTL 仓库 ↗" : "RTL repository ↗"}</a></div>
-    <p className={styles.intro}>{zh ? "我从 INT8 PE 开始搭建这颗 NPU，逐步完成矩阵分块、AXI DMA、描述符调度和 CNN 算子，并在 Verilator 中跑通 MNIST 五层网络。随后根据性能计数优化操作数加载，加入 C SRAM 与多 K A 复用后，同一工作负载的执行周期从 531,563 降至 74,527。" : "I built this NPU from the INT8 PE up, adding matrix tiling, AXI DMA, descriptor scheduling and CNN operators. After verifying the five-layer MNIST network in Verilator, I optimized operand loading using performance counters, reducing cycles from 531,563 to 74,527 for the same workload with C SRAM and multi-K A reuse."}</p>
-    <div className={styles.metrics}><div><strong>85.98%</strong><span>{zh ? "整网周期减少" : "Fewer total cycles"}</span></div><div><strong>7.13×</strong><span>{zh ? "整网加速比" : "Overall speedup"}</span></div><div><strong>14.52×</strong><span>{zh ? "Conv2 加速比" : "Conv2 speedup"}</span></div><div><strong>88.16%</strong><span>{zh ? "AXI 读请求减少" : "Fewer AXI read requests"}</span></div></div>
-    <p className={styles.note}>{zh ? "以上为 MNIST V5 实验配置指标，比较基于相同 MNIST CNN 与 4×4 PE 阵列。加速比按相同时钟频率下的执行周期计算。" : "The metrics above are for MNIST V5, using the same MNIST CNN and 4×4 PE array with the experimental configuration. Speedup is the execution-cycle ratio at equal clock frequency."}</p>
-
-    <figure className={styles.architecture}><Image src="/projects/npu-architecture.svg" alt={zh ? "NPU 模块级架构：控制、数据搬运、阵列、部分和与独立算子" : "NPU block architecture: control, DMA, array, partial sums and independent operators"} width={1000} height={320} /><figcaption>{zh ? "主数据通路示意，省略 Conv Cache、结果缓冲、控制复用与旁路；Add/Pool 使用独立计算路径并共享 AXI。" : "Main datapath schematic; Conv cache, result buffering, control muxes and bypasses omitted. Add/Pool use independent compute paths sharing AXI."}</figcaption></figure>
-    <MemoryUpdates locale={locale} />
-    <section className={styles.section} aria-labelledby="npu-development"><div className={styles.sectionTitle}><h2 id="npu-development">{zh ? "开发过程" : "Development"}</h2><span>4×4 PE · INT8 × INT8 → INT32</span></div><ol className={styles.flow}>{stages.map((s, i) => <li key={s.name}><span className={styles.stepNumber}>0{i + 1}</span><h3>{zh ? s.zh : s.en}</h3><div className={styles.technical}>{s.name}</div><p>{zh ? s.textZh : s.textEn}</p></li>)}</ol></section>
-
-    <section className={styles.section} aria-labelledby="npu-performance"><div className={styles.sectionTitle}><h2 id="npu-performance">{zh ? "性能优化" : "Performance optimization"}</h2><span>{zh ? "V0–V3 · 早期加载优化" : "V0–V3 · Initial loading optimizations"}</span></div><ol className={styles.performance}>{versions.map(v => <li key={v.name} className={v.name === "V3" ? styles.latest : undefined}><div className={styles.version}>{v.name}</div><h3>{zh ? v.zh : v.en}</h3><div className={styles.cycles}>{v.cycles.toLocaleString("en-US")} <span>cycles</span></div><div className={styles.track} aria-hidden="true"><div style={{ width: `${v.cycles / versions[0].cycles * 100}%` }} /></div><div className={styles.delta}>{v.drop ? <>{zh ? "较前版" : "vs. previous"} −{v.drop} <b> / {v.speed}</b></> : (zh ? "初始完整 CNN" : "Initial full CNN")}</div><p>{zh ? v.zhText : v.enText}</p></li>)}</ol>
-    <p className={styles.finding}>{zh ? "Word Assembler 优化前后，AXI AR 请求数均为 8,334，R Beats 均为 34,800；整网仍获得 1.78× 加速。这部分收益来自 Loader 内部数据通路和控制开销的降低。该版本还修复了完成脉冲可能被外层 FSM 漏接的问题。" : "The Word Assembler keeps AXI traffic unchanged at 8,334 AR requests and 34,800 R beats, yet improves total execution time by 1.78×. This gain comes from the loader datapath and control logic. The same version also fixes a completion pulse that the outer FSM could miss."}</p>
-    <details className={styles.details}><summary>{zh ? "逐层周期与性能计数" : "Layer cycles and performance counters"}</summary><div className={styles.tableScroll} tabIndex={0} role="region" aria-label={zh ? "性能计数表" : "Performance counter table"}><table className="result-table"><thead><tr><th scope="col">{zh ? "版本" : "Version"}</th><th scope="col">Conv1</th><th scope="col">Conv2</th><th scope="col">FC</th><th scope="col">AXI AR</th><th scope="col">R Beats</th><th scope="col">DMA-only</th></tr></thead><tbody>{versions.map(v => <tr key={v.name}><th scope="row">{v.name}</th><td>{v.conv1}</td><td>{v.conv2}</td><td>5,778</td><td>{v.ar}</td><td>{v.beats}</td><td>{v.dma}</td></tr>)}</tbody></table></div><p className={styles.note}>{zh ? "* V1 的 R Beats 和 DMA-only 为逐层记录合计，其余采用整网日志。DMA-only 为监视器定义的指标，不等于 DMA 模块独占工作时间。FC 使用普通 GEMM Operand DMA，三次优化均未改变其周期。" : "* V1 R beats and DMA-only are sums of layer records; the other figures come from whole-network logs. DMA-only is a monitor-defined counter, not exclusive DMA activity. FC uses the regular GEMM operand DMA and is unchanged."}</p><p className={styles.note}>{zh ? "V0 与 V3 的 Matrix Cycles 均为 27,747，GEMM Tiles 为 600，PE MAC Events 为 319,872，PE Active Cycles 为 23,592，DMA/Compute Overlap 为 26,403，Bank Wait 为 0。PE 数量和 GEMM 计算工作量没有变化。" : "V0 and V3 share 27,747 matrix cycles, 600 GEMM tiles, 319,872 PE MAC events, 23,592 PE active cycles, 26,403 DMA/compute overlap cycles and zero bank-wait cycles. PE count and GEMM compute work are unchanged."}</p></details></section>
-
-    <RecentUpdates locale={locale} />
-    <section className={styles.section} aria-labelledby="npu-verification"><div className={styles.sectionTitle}><h2 id="npu-verification">{zh ? "MNIST 验证结果" : "MNIST verification"}</h2><span>Verilator · Golden Reference</span></div><div className={styles.verification}><div><h3>{zh ? "4 张测试图片，五层输出全部通过比对" : "Four test images, all five layers matched"}</h3><p className={styles.network}>Conv1 → Pool1 → Conv2 → Pool2 → FC</p><p>{zh ? "最新四张图片的五层输出全部通过 Golden 比对，预测分别为 7、2、1、0。验证使用 Verilator、SystemVerilog Testbench、DPI-C 和 Python Reference。" : "The latest four-image run matches all five golden outputs, with predictions 7, 2, 1 and 0. Verification uses Verilator, SystemVerilog testbenches, DPI-C and a Python reference."}</p></div><div><h3>{zh ? "FP32 → INT8 模型量化" : "FP32 → INT8 model quantization"}</h3><p className={styles.accuracy}>98.37% <span>→</span> 98.33%</p><p>{zh ? "模型准确率下降 0.04 个百分点。模型准确率与四张图片的 RTL 验证是两组独立结果。" : "Model accuracy drops by 0.04 percentage points. Model accuracy and the four-image RTL regression are separate results."}</p></div></div></section>
-    <ResnetUpdates locale={locale} />
-    <ResnetProfile locale={locale} />
-    <DataflowUpdates locale={locale} />
-    <aside className={styles.next}><span>{zh ? "后续计划" : "Future work"}</span><div><h2>{zh ? "Conv 输入准备与 PPA 评估" : "Conv input preparation and PPA evaluation"}</h2><p>{zh ? "继续优化 Padding 批量生成、地址递增、Segment 预计算和拼装流水线，并检查 Bank 释放与 A 预取之间的等待。后续通过综合、布局布线和时序分析评估面积、频率与功耗；当前结果仅为 RTL 仿真周期，不换算 ASIC TOPS 或能效。" : "Next: batched padding, incremental addressing, segment precomputation and assembly pipelining, plus bank-release and A-prefetch timing. Synthesis, place-and-route and timing analysis remain future work for area, frequency and power evaluation. Current RTL cycle measurements are not ASIC TOPS or energy-efficiency results."}</p></div></aside>
-    <ProjectNavigation />
-  </main>;
-}
-export default function Page() { return <Int8SystolicNpuPage locale="zh" />; }
+export const metadata = pageMetadata("自研 INT8 NPU", "从乘加单元到完整神经网络推理：基于 SystemVerilog 设计 4×4 脉动阵列，完成模型编译、RTL 验证与存储优化。", "/projects/int8-systolic-npu", "zh");
+export function Int8SystolicNpuPage({locale}:{locale:Locale}) { return <Overview locale={locale}/>; }
+export default function Page() { return <Overview locale="zh"/>; }
