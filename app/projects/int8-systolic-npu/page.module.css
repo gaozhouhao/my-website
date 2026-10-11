@@ -126,3 +126,7 @@
   .verification > div + div { border-left: 0; border-top: 1px solid var(--line); padding: 1.1rem 0 0; }
   .next { flex-direction: column; gap: .6rem; padding: 1rem; }
 }
+
+.resultNumbers { font-size: clamp(1.15rem, 2.2vw, 1.8rem); font-variant-numeric: tabular-nums; color: var(--accent-strong); }
+.details p { max-width: 65rem; font-size: .9rem; line-height: 1.9; color: #4d4946; }
+.section [id], .verification [id] { scroll-margin-top: 7rem; }

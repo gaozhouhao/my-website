@@ -46,8 +46,8 @@ export const projectSummaries: readonly ProjectSummary[] = [
     titleZh: "自研 INT8 NPU",
     direction: "Digital IC · RTL · CNN Inference",
     directionZh: "数字集成电路 · RTL · CNN 推理",
-    summary: "Built a 4×4 INT8 NPU with tiling, AXI DMA and descriptor-driven CNN execution. Verified MNIST outputs layer by layer and reduced cycles from 531,563 to 74,527 through operand loading and multi-K reuse. Added per-channel quantization, a parameter slot bank and TFLite compilation; ResNet-8 fixed-sample layer regression and profiling are followed by A/B dataflow, native 64-bit DMA, Conv cache and lookahead. ResNet-8 runs in 1,255,817 cycles with zero added DDR read latency.",
-    summaryZh: "基于 4×4 脉动阵列，实现矩阵分块、AXI DMA 和描述符驱动的 CNN 推理。完成 MNIST 逐层 RTL 验证，将整网周期从 531,563 降至 74,527。新增逐通道量化、参数 Slot Bank 和 TFLite 编译器，完成 ResNet-8 固定样本逐层回归与性能分析；新增 A/B 数据流、原生 64-bit DMA、Conv Cache 与 Lookahead；零额外 DDR 读取延迟下，ResNet-8 为 1,255,817 cycles。",
+    summary: "Designed an INT8 neural network accelerator in SystemVerilog, from the compute array and memory system to model compilation. Runs MNIST and ResNet-8 in RTL simulation. Data reuse and memory optimizations deliver a 7.13× MNIST speedup over the initial version.",
+    summaryZh: "用 SystemVerilog 从零设计 INT8 神经网络加速器，完成计算阵列、片上存储、任务调度和模型编译。已在 RTL 仿真中运行 MNIST 与 ResNet-8，通过数据复用和存储优化，将 MNIST 推理速度提高至初始版本的 7.13 倍。",
     featured: true,
   },
   {
