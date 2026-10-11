@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import RecentUpdates from "./RecentUpdates";
 import ResnetUpdates from "./ResnetUpdates";
 import ResnetProfile from "./ResnetProfile";
+import DataflowUpdates from "./DataflowUpdates";
 import Image from "next/image";
 
 export const metadata = pageMetadata("自研 INT8 NPU", "基于 4×4 脉动阵列的 INT8 NPU，完成 MNIST CNN 逐层 RTL 验证；MNIST 周期降至 74,527，新增 ResNet-8 固定样本逐层回归与性能基线。", "/projects/int8-systolic-npu", "zh");
@@ -43,7 +44,8 @@ export function Int8SystolicNpuPage({ locale }: { locale: Locale }) {
     <section className={styles.section} aria-labelledby="npu-verification"><div className={styles.sectionTitle}><h2 id="npu-verification">{zh ? "MNIST 验证结果" : "MNIST verification"}</h2><span>Verilator · Golden Reference</span></div><div className={styles.verification}><div><h3>{zh ? "4 张测试图片，五层输出全部通过比对" : "Four test images, all five layers matched"}</h3><p className={styles.network}>Conv1 → Pool1 → Conv2 → Pool2 → FC</p><p>{zh ? "最新四张图片的五层输出全部通过 Golden 比对，预测分别为 7、2、1、0。验证使用 Verilator、SystemVerilog Testbench、DPI-C 和 Python Reference。" : "The latest four-image run matches all five golden outputs, with predictions 7, 2, 1 and 0. Verification uses Verilator, SystemVerilog testbenches, DPI-C and a Python reference."}</p></div><div><h3>{zh ? "FP32 → INT8 模型量化" : "FP32 → INT8 model quantization"}</h3><p className={styles.accuracy}>98.37% <span>→</span> 98.33%</p><p>{zh ? "模型准确率下降 0.04 个百分点。模型准确率与四张图片的 RTL 验证是两组独立结果。" : "Model accuracy drops by 0.04 percentage points. Model accuracy and the four-image RTL regression are separate results."}</p></div></div></section>
     <ResnetUpdates locale={locale} />
     <ResnetProfile locale={locale} />
-    <aside className={styles.next}><span>{zh ? "后续计划" : "Future work"}</span><div><h2>{zh ? "模型数值验证与架构优化" : "Model validation and architecture optimization"}</h2><p>{zh ? "后续扩大数值兼容性与准确率测试，按 Activation、Weight、参数和写回细分 AXI 流量，并比较窗口复用、B 复用、Prefetch 与分块调度。综合面积、STA、工作频率、FPGA/流片和功耗均未完成，不报告 MHz、GOPS 或 FPS。已有 MNIST 优化结果与尚未完成的 ResNet-8 优化分开记录。" : "Next: broader numerical and accuracy testing, AXI traffic attribution, window/weight reuse, prefetch and tile scheduling. Synthesis area, STA, operating frequency, FPGA/silicon and power validation remain unfinished; no MHz, GOPS or FPS are reported. Proven MNIST gains are separate from future ResNet-8 optimization."}</p></div></aside>
+    <DataflowUpdates locale={locale} />
+    <aside className={styles.next}><span>{zh ? "后续计划" : "Future work"}</span><div><h2>{zh ? "DMA / Compute / Writeback 三级流水线" : "DMA / compute / writeback pipeline"}</h2><p>{zh ? "架构设计已确定，RTL 尚未实现。计划在阵列后加入 C Result Buffer，通过结果快照、Valid/Ready 和反压，将当前 Tile 的计算与前一 Tile 的后处理、AXI 写回重叠。实现时需同步管理 PSUM、量化参数、输出地址和写回完成状态；吞吐收益待集成后测量。" : "Architecture defined; RTL not yet implemented. A planned C Result Buffer will use result snapshots, valid/ready handshakes and backpressure to overlap a tile’s compute with the previous tile’s postprocessing and AXI writeback. PSUM lifetime, quantization parameters, output addresses and writeback completion must remain synchronized. Throughput gains will be measured after integration."}</p></div></aside>
     <ProjectNavigation />
   </main>;
 }
