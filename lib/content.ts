@@ -106,6 +106,16 @@ export const projectSummaries: readonly ProjectSummary[] = [
     featured: false,
   },
   {
+    slug: "dual-vehicle-following",
+    title: "Dual-Vehicle Following System",
+    titleZh: "双车跟随系统",
+    direction: "2022 TI Cup · Embedded Control",
+    directionZh: "2022 TI 杯 · 嵌入式控制",
+    summary: "Jiangsu First Prize. Team captain responsible for MCU, power and driver circuits, the PID framework, vehicle tuning, and integration.",
+    summaryZh: "江苏省一等奖。担任队长，负责 MCU、电源与驱动电路、PID 框架、实车调参与系统集成。",
+    featured: false,
+  },
+  {
     slug: "smart-car",
     title: "Multi-Vehicle Smart Car Hardware",
     titleZh: "多车编队智能车硬件系统",

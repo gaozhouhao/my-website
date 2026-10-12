@@ -32,7 +32,7 @@ export function ProjectsPage({ locale }: { locale: Locale }) {
         </article>
         <article className="showcase-card">
           <CompetitionVideo bvid="BV1QXQQBbEMi" title={locale === "zh" ? "TI 杯双车跟随系统比赛演示" : "TI Cup dual-vehicle following demo"} />
-          <div className="showcase-copy"><h3>{locale === "zh" ? "TI 杯双车跟随系统" : "TI Cup: Dual-Vehicle Following"}</h3><p>{locale === "zh" ? "通过灰度传感器循迹、超声测距和蓝牙通信，实现双车协同跟随。获江苏省一等奖。" : "Two cars coordinate their movement using line sensors, ultrasonic ranging, and Bluetooth. Awarded First Prize in Jiangsu."}</p></div>
+          <div className="showcase-copy"><h3>{locale === "zh" ? "TI 杯双车跟随系统" : "TI Cup: Dual-Vehicle Following"}</h3><p>{locale === "zh" ? "通过灰度传感器循迹、超声测距和蓝牙通信，实现双车协同跟随。获江苏省一等奖。" : "Two cars coordinate their movement using line sensors, ultrasonic ranging, and Bluetooth. Awarded First Prize in Jiangsu."}</p><Link className="card-link" href={localizedPath("/projects/dual-vehicle-following", locale)}>{t.open}</Link></div>
         </article>
       </div>
     </section>

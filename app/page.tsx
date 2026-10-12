@@ -95,7 +95,7 @@ export function HomePage({ locale }: { locale: Locale }) {
             <p className="eyebrow">{zh ? "电子设计竞赛 · 江苏省一等奖" : "TI Cup · Jiangsu First Prize"}</p>
             <h3>{zh ? "双车跟随系统" : "Dual-Vehicle Following System"}</h3>
             <p>{zh ? "采用 MSP430F5529 控制器，通过灰度传感器循迹、超声测距和蓝牙通信，实现两辆车的协同跟随。" : "Built around the MSP430F5529, the two cars follow a track and maintain their spacing using line sensors, ultrasonic ranging, and Bluetooth communication."}</p>
-            <a className="card-link" href="/certificates/awards/previews/ti-cup-2022.webp" target="_blank" rel="noreferrer">{zh ? "查看奖状" : "View certificate"} ↗</a>
+            <Link className="card-link" href={href("/projects/dual-vehicle-following")}>{t.view} →</Link>{" · "}<a className="card-link" href="/certificates/awards/previews/ti-cup-2022.webp" target="_blank" rel="noreferrer">{zh ? "查看奖状" : "View certificate"} ↗</a>
           </div>
         </article>
         <article className="showcase-card">
