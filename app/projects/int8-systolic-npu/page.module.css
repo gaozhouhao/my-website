@@ -130,3 +130,15 @@
 .resultNumbers { font-size: clamp(1.15rem, 2.2vw, 1.8rem); font-variant-numeric: tabular-nums; color: var(--accent-strong); }
 .details p { max-width: 65rem; font-size: .9rem; line-height: 1.9; color: #4d4946; }
 .section [id], .verification [id] { scroll-margin-top: 7rem; }
+
+.techTags { color: var(--accent-strong); font-size: .8rem; margin: 0 0 1.5rem; }
+.cover { margin: 0 auto 2.5rem; max-width: 760px; }
+.cover a { display: block; border-radius: 16px; overflow: hidden; }
+.cover a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.cover img { display: block; width: 100%; height: auto; }
+.cover figcaption { text-align: center; margin-top: .6rem; font-size: .75rem; color: var(--muted); }
+.workGrid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.5rem 2.5rem; }
+.workGrid article { border-top: 1px solid var(--line); padding-top: 1rem; }
+.workGrid h3 { margin: 0 0 .6rem; font-size: 1.05rem; }
+.workGrid p { margin: 0; font-size: .9rem; line-height: 1.9; color: #4d4946; }
+@media (max-width:640px) { .workGrid { grid-template-columns: 1fr; gap: 1.2rem; } }
