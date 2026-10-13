@@ -10,6 +10,7 @@ export type ProjectSummary = {
   summaryZh: string;
   image?: string;
   imageAlt?: string;
+  imageFit?: "cover" | "contain";
   width?: number;
   height?: number;
   featured: boolean;
@@ -48,6 +49,11 @@ export const projectSummaries: readonly ProjectSummary[] = [
     directionZh: "数字集成电路 · RTL · CNN 推理",
     summary: "Designed an INT8 neural network accelerator in SystemVerilog, from the compute array and memory system to model compilation. Runs a CNN for MNIST digit recognition and ResNet-8 for CIFAR-10 image classification in RTL simulation. Data reuse and memory optimizations deliver a 7.13× speedup for the MNIST CNN over the initial version.",
     summaryZh: "用 SystemVerilog 从零设计 INT8 神经网络加速器，完成计算阵列、片上存储、任务调度和模型编译。已在 RTL 仿真中运行用于 MNIST 手写数字识别的 CNN 和用于 CIFAR-10 图像分类的 ResNet-8，通过数据复用和存储优化，将 MNIST CNN 的推理速度提高至初始版本的 7.13 倍。",
+    image: "/projects/npu-project-cover.svg",
+    imageAlt: "INT8 NPU block architecture",
+    imageFit: "contain",
+    width: 1080,
+    height: 1000,
     featured: true,
   },
   {
@@ -124,6 +130,11 @@ export const projectSummaries: readonly ProjectSummary[] = [
     summary:
       "Verified personal contribution in PCB work, assembly, communication integration, PID tuning, and system-level debugging.",
     summaryZh: "主要负责印制电路板、装配焊接、车辆通信、PID 参数整定与整车联调。",
+    image: "/projects/smart-car-team.jpeg",
+    imageAlt: "Three competition smart cars beside the track",
+    imageFit: "contain",
+    width: 1440,
+    height: 1080,
     featured: false,
   },
   {

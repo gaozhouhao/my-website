@@ -19,7 +19,7 @@ export function ProjectsPage({ locale }: { locale: Locale }) {
     <p className="eyebrow">{t.title}</p><h1 className="page-title">{t.heading}</h1><p className="lead" style={{ marginTop: "1.5rem" }}>{t.intro}</p>
     <div className="card-grid section" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(18rem, 1fr))" }}>
       {projectSummaries.map(project => <article className="card" key={project.slug}>
-        {project.image && project.width && project.height && <Image src={project.image} alt={locale === "zh" ? project.titleZh : project.imageAlt ?? project.title} width={project.width} height={project.height} sizes="(max-width: 800px) 100vw, 33vw" style={{ width: "100%", height: "12rem", objectFit: "cover", borderRadius: ".65rem" }} />}
+        {project.image && project.width && project.height && <Image src={project.image} alt={locale === "zh" ? project.titleZh : project.imageAlt ?? project.title} width={project.width} height={project.height} sizes="(max-width: 800px) 100vw, 33vw" style={{ width: "100%", height: "12rem", objectFit: project.imageFit ?? "cover", borderRadius: ".65rem" }} />}
         <p className="eyebrow" style={{ marginTop: project.image ? "1rem" : 0 }}>{locale === "zh" ? project.directionZh : project.direction}</p><h2 style={{ fontSize: "1.35rem", margin: ".7rem 0" }}>{locale === "zh" ? project.titleZh : project.title}</h2><p>{locale === "zh" ? project.summaryZh : project.summary}</p><Link className="card-link" href={localizedPath(`/projects/${project.slug}`, locale)}>{t.open}</Link>
       </article>)}
     </div>
