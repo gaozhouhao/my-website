@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "../components/Navbar";
+import VisitorSurvey from "../components/VisitorSurvey";
 import SiteFooter from "../components/SiteFooter";
 import { site } from "../lib/site";
 
@@ -41,6 +42,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <SiteFooter />
+        <VisitorSurvey />
       </body>
     </html>
   );
