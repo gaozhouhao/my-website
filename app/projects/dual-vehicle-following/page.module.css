@@ -1,0 +1,17 @@
+.diagram { margin: 1.5rem 0; border: 1px solid var(--line); padding: clamp(1rem, 3vw, 2rem); background: var(--surface); }
+.flow { display: flex; align-items: center; gap: .8rem; }
+.node { flex: 1; padding: 1.1rem .8rem; border: 1px solid var(--line); text-align: center; line-height: 1.65; min-width: 0; }
+.arrow { color: var(--accent); font-size: 1.4rem; }
+.step { display: flex; flex: 1; gap: .8rem; align-items: center; min-width: 0; }
+.feedback { border-bottom: 2px solid var(--accent); margin: 1rem 0; padding: .7rem; text-align: center; color: var(--accent-strong); line-height: 1.6; }
+.power { text-align: center; padding: .6rem; line-height: 1.7; }
+.diagram figcaption { font-size: .85rem; color: var(--muted); line-height: 1.65; margin-top: 1rem; }
+.circuits { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.5rem; }
+.circuit { margin: 0; border: 1px solid var(--line); background: var(--surface); min-width: 0; }
+.circuit:first-child { grid-row: span 2; }
+.circuit a { display: flex; justify-content: center; padding: 1rem; background: white; }
+.circuitImage { width: 100%; height: auto; object-fit: contain; max-width: 554px; }
+.circuit:first-child .circuitImage { max-width: 356px; }
+.circuit figcaption { padding: 0 1.2rem .5rem; }
+.circuit h3 { font-size: 1.15rem; }
+@media(max-width:700px) { .flow { flex-direction: column; align-items: stretch; } .arrow { align-self: center; transform: rotate(90deg); } .step { flex-direction: column; align-items: stretch; } .circuits { grid-template-columns: 1fr; } .circuit:first-child { grid-row: auto; } }
