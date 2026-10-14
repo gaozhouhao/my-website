@@ -9,7 +9,7 @@ export default function SiteFooter() {
   const locale = localeFromPathname(usePathname());
   const copy = ui[locale];
   return (
-    <footer className="site-footer">
+    <footer className="site-footer" lang={locale === "zh" ? "zh-CN" : "en"}>
       <div>
         <strong>{locale === "zh" ? "郜周豪" : "Gao Zhouhao"}</strong>
         <p>{copy.footer}</p>

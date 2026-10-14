@@ -1,4 +1,4 @@
-import { TextileHmsicAntennaPage } from "../../../projects/textile-hmsic-antenna/page";
+import { TextileHmsicAntennaPage } from "../../../projects/textile-hmsic-antenna/Content";
 import { pageMetadata } from "../../../../lib/site";
 export const metadata = pageMetadata("Textile HMSIC Antenna with Embroidered Vias", "Textile bandwidth-enhanced half-mode substrate-integrated cavity antenna research published in Micromachines.", "/projects/textile-hmsic-antenna", "en");
 export default function Page() { return <TextileHmsicAntennaPage locale="en" />; }

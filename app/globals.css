@@ -14,7 +14,13 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; background: var(--background); color: var(--foreground); font-family: Arial, Helvetica, sans-serif; }
+body { margin: 0; background: var(--background); color: var(--foreground); font-family: Arial, "Microsoft YaHei", "PingFang SC", Helvetica, sans-serif; }
+a, button, summary { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 4px; }
+main { overflow-wrap: anywhere; }
+main :is(h1, h2, h3) { text-wrap: pretty; }
+main :is(section, article, figure, dl, .education-copy) { min-width: 0; }
+main[id], main [id] { scroll-margin-top: 7rem; }
 a { color: inherit; }
 ::selection { background: #dcd3e6; }
 
@@ -225,3 +231,71 @@ a { color: inherit; }
 main[lang="zh-CN"] .page-title { line-height: 1.25; }
 
 .code-showcase { margin-top: 1.25rem; padding: 1.15rem; overflow-x: auto; border: 1px solid var(--line); border-radius: .65rem; background: #1c1b1a; color: #f8f3eb; font: .84rem/1.6 ui-monospace, SFMono-Regular, Consolas, monospace; tab-size: 2; }
+
+/* Shared reading and navigation rules apply to both language versions. */
+.page-title { line-height: 1.12; }
+main[lang="zh-CN"] :is(.page-title, .section-heading, .home-heading) { letter-spacing: -.025em; line-height: 1.35; }
+.prose-section > p, .prose-section > ul { max-width: 72ch; }
+.button { max-width: 100%; min-height: 44px; }
+.footer-links { flex-wrap: wrap; }
+.footer-links a, .card-link, .project-navigation a { min-height: 44px; display: inline-flex; align-items: center; }
+.site-name { flex-shrink: 0; }
+.nav-controls { display: flex; align-items: center; gap: .75rem; order: 3; }
+.nav-links { order: 2; margin-left: auto; align-items: center; gap: .25rem 1rem; }
+.nav-links a, .locale-switch a { display: inline-flex; align-items: center; min-height: 44px; }
+.nav-links a[aria-current="page"] { color: var(--accent-strong); border-bottom-color: currentColor; }
+.locale-switch { align-items: center; white-space: nowrap; font-size: .85rem; }
+.locale-switch a { padding-inline: .25rem; }
+.menu-toggle { display: none; border: 1px solid var(--line); padding: .45rem .7rem; background: var(--surface); color: var(--foreground); font: inherit; min-height: 44px; }
+.education-logos, .school-logo-row { flex-wrap: wrap; }
+.education-logo, .school-logo { max-width: 100%; }
+.compact-title { flex-wrap: wrap; }
+.compact-title > span { flex-shrink: 0; }
+.project-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1px; background: var(--line); }
+.project-grid .card { background: var(--background); border: 0; display: flex; flex-direction: column; }
+.project-grid .card > .card-link { margin-top: auto; align-self: flex-start; }
+.project-grid .card > p { margin-bottom: 1rem; }
+.mini-project > a { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; flex-shrink: 0; }
+.result-table { font-variant-numeric: tabular-nums; }
+.result-table td { overflow-wrap: normal; }
+.dual-media img { object-fit: contain; }
+
+@media (min-width: 801px) and (max-width: 1050px) {
+  .site-nav { flex-wrap: wrap; gap: .25rem 1rem; }
+  .nav-controls { margin-left: auto; order: 2; }
+  .nav-links { order: 3; width: 100%; justify-content: flex-start; }
+  .education-strip { grid-template-columns: 1fr 1fr; }
+  .education-strip > .eyebrow { grid-column: 1 / -1; }
+}
+@media (max-width: 800px) {
+  .site-nav { flex-direction: row; flex-wrap: wrap; align-items: center; gap: .25rem .75rem; padding: .5rem 1rem; }
+  .nav-controls { order: 2; margin-left: auto; }
+  .menu-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  .nav-links { display: none; order: 3; width: 100%; margin: .4rem 0 0; padding-top: .4rem; border-top: 1px solid var(--line); }
+  .nav-links.is-open { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .25rem; }
+  .nav-links a { justify-content: center; padding: .3rem .2rem; text-align: center; }
+  .education-strip > .education-entry { grid-template-columns: 1fr; gap: .5rem; }
+  .education-logo-ntu { max-width: min(13rem, 100%); }
+  .school-logo-ntu { max-width: min(10rem, 100%); }
+  .page-title { font-size: clamp(2rem, 7vw, 3rem); }
+  .page-shell { padding-top: 2.5rem; }
+  .hero-compact { padding-top: 2.4rem; }
+  .home-section { padding-top: 1.3rem; }
+  .education-strip { padding-top: 1.4rem; }
+  .site-header { max-height: 70dvh; overflow-y: auto; }
+  .site-name span { font-size: .65rem; letter-spacing: .04em; }
+}
+@media (max-width: 360px) {
+  .site-name span { max-width: 8rem; }
+  .nav-controls { gap: .25rem; }
+  .nav-links.is-open { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .school-profile, .card, .compact-panel { padding: 1rem; }
+  .result-table th, .result-table td { padding: .6rem .3rem; font-size: .82rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+.evidence > a { display: block; cursor: zoom-in; }
+.table-scroll { max-width: 100%; overflow-x: auto; }
+.eyebrow { text-transform: none; }
