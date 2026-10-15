@@ -1,3 +1,4 @@
+import ReadingText from "../../components/ReadingText";
 import Image from "next/image";
 import type { Locale } from "../../lib/i18n";
 import { pageMetadata } from "../../lib/site";
@@ -32,15 +33,15 @@ export function BeyondPage({ locale }: { locale: Locale }) {
   const zh = locale === "zh";
   return (
     <main id="main-content" className="page-shell" lang={zh ? "zh-CN" : "en"}>
-      <p className="eyebrow">{zh ? "个人兴趣" : "Beyond Engineering"}</p>
-      <h1 className="page-title">{zh ? "动手制作与日常兴趣" : "Making, music, and life outside IC design."}</h1>
-      <p className="lead" style={{ marginTop: "1.5rem" }}>
+      <ReadingText as="p" className="eyebrow">{zh ? "个人兴趣" : "Beyond Engineering"}</ReadingText>
+      <ReadingText as="h1" className="page-title">{zh ? "动手制作与日常兴趣" : "Making, music, and life outside IC design."}</ReadingText>
+      <ReadingText as="p" className="lead" style={{ marginTop: "1.5rem" }}>
         {zh ? "记录三维打印、橡皮章雕刻、音乐和部分校园活动。" : "A few things I enjoy outside work: making models, carving stamps, playing music, and spending time with friends."}
-      </p>
+      </ReadingText>
 
       <section className="section">
-        <h2 className="section-heading">{zh ? "动手制作" : "Hands-on making"}</h2>
-        <p className="section-intro">{zh ? "平时喜欢做三维打印模型、刻橡皮章，也会尝试一些小手工。" : "I like turning ideas into physical objects, from 3D-printed figures to hand-carved stamps and bead art."}</p>
+        <ReadingText as="h2" className="section-heading">{zh ? "动手制作" : "Hands-on making"}</ReadingText>
+        <ReadingText as="p" className="section-intro">{zh ? "平时喜欢做三维打印模型、刻橡皮章，也会尝试一些小手工。" : "I like turning ideas into physical objects, from 3D-printed figures to hand-carved stamps and bead art."}</ReadingText>
         <div className="masonry-gallery">
           {making.map(([file, alt, width, height]) => (
             <Image key={file} src={`/beyond/making/${file}`} alt={zh ? imageLabelsZh[alt] : alt} width={width} height={height} sizes="(max-width: 800px) 50vw, 30vw" />
@@ -49,8 +50,8 @@ export function BeyondPage({ locale }: { locale: Locale }) {
       </section>
 
       <section className="section">
-        <h2 className="section-heading">{zh ? "其他记录" : "Selected moments"}</h2>
-        <p className="section-intro">{zh ? "演讲、弹琴、游泳，还有和朋友一起度过的时光。" : "Snapshots from university events, music, and everyday life."}</p>
+        <ReadingText as="h2" className="section-heading">{zh ? "其他记录" : "Selected moments"}</ReadingText>
+        <ReadingText as="p" className="section-intro">{zh ? "演讲、弹琴、游泳，还有和朋友一起度过的时光。" : "Snapshots from university events, music, and everyday life."}</ReadingText>
         <div className="personal-gallery">
           {gallery.map(([file, alt, width, height]) => (
             <Image key={file} src={`/beyond/${file}`} alt={zh ? imageLabelsZh[alt] : alt} width={width} height={height} sizes="(max-width: 800px) 50vw, 30vw" />

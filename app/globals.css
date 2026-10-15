@@ -319,3 +319,98 @@ main[lang="zh-CN"] :is(.page-title, .section-heading, .home-heading) { letter-sp
 .survey-thanks { margin: 1.5rem 0; line-height: 1.7; }
 .survey-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 @media (max-width: 480px) { .visitor-survey { padding: 1.5rem; } }
+
+/* Editorial rhythm: quiet headings, open project spreads, and readable measures. */
+:root { --heading-font: var(--font-editorial), "Songti SC", "STSong", "SimSun", Georgia, serif; }
+body { font-family: Arial, "PingFang SC", "Microsoft YaHei", sans-serif; }
+main { font-size: .9375rem; line-height: 1.85; overflow-wrap: break-word; }
+main :is(h1,h2,h3) { font-family: var(--heading-font); font-weight: 400; text-wrap: balance; line-height: 1.5; }
+main :is(p,li,dd,figcaption) { text-wrap: pretty; line-break: strict; }
+.text-ending { white-space: nowrap; }
+.page-shell { max-width: 69rem; padding-top: 5rem; padding-bottom: 5rem; }
+.page-narrow { max-width: 48rem; }
+.page-title { max-width: 24ch; font-size: clamp(2rem,4vw,3.25rem); letter-spacing: -.02em; }
+main[lang="zh-CN"] :is(.page-title,.section-heading,.home-heading) { letter-spacing: .035em; line-height: 1.6; }
+.lead { max-width: 42rem; margin-top: 1.5rem; font-size: 1rem; line-height: 1.95; }
+.eyebrow { font-weight: 500; font-size: .7rem; letter-spacing: .1em; line-height: 1.8; }
+.section-heading, .home-heading { font-size: 1.55rem; }
+.hero-compact { display: grid; grid-template-columns: 1fr 1.4fr; gap: 0 5rem; padding-top: 6rem; padding-bottom: 5rem; }
+.hero-compact > .eyebrow { grid-column: 1 / -1; margin: 0 0 1.5rem; }
+.hero-compact .display-title { font-size: clamp(2.8rem,5vw,4rem); letter-spacing: .06em; margin: 0; align-self: start; }
+.hero-facts { margin: .25rem 0 0; gap: .9rem; font-size: .9rem; }
+.hero-facts p { line-height: 1.9; }
+.hero-facts p:last-child { color: var(--accent-strong); font-size: .8rem; }
+.hero-compact .button-row { grid-column: 2; margin-top: 2rem; }
+.button { font-weight: 500; font-size: .78rem; border-color: var(--line); padding-inline: 1rem; }
+.button-primary { background: var(--accent-strong); border-color: var(--accent-strong); }
+.button-muted { border-color: transparent; }
+.home-section { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+.section-bar { margin-bottom: 2.5rem; }
+.section-bar .eyebrow { margin: 0 0 .55rem; }
+.section-bar > p { max-width: 25rem; font-size: .85rem; }
+.showcase-grid { border: 0; gap: 3.5rem 3rem; }
+.showcase-card { border: 0; padding-bottom: 2rem; border-bottom: 1px solid var(--line); }
+.showcase-wide { grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); gap: 3.5rem; align-items: center; padding-bottom: 3.5rem; }
+.showcase-media { background: var(--surface); min-height: 0; }
+.showcase-media img { height: 20rem; max-height: none; object-fit: contain; padding: 1rem; }
+.showcase-wide .showcase-media img { height: 23rem; padding: 1.5rem; }
+.showcase-copy { padding: 1.8rem 0 0; }
+.showcase-wide .showcase-copy { padding: 0; }
+.showcase-copy h3 { margin: .8rem 0 1.15rem; font-size: 1.4rem; max-width: 100%; }
+.showcase-copy p { font-size: .9rem; line-height: 1.9; max-width: 38rem; }
+.showcase-copy .eyebrow { font-size: .68rem; }
+.project-facts { display: flex; flex-wrap: wrap; gap: .5rem 1rem; border-top: 1px solid var(--line); margin-top: 1.5rem; padding-top: 1rem; color: var(--accent-strong); font-size: .78rem; }
+.project-facts span { text-wrap: balance; }
+.card-link { font-size: .8rem; font-weight: 500; border: 0; gap: .5rem; }
+.card-link:hover { text-decoration: underline; text-underline-offset: .35em; }
+.dual-media { height: 20rem; background: var(--surface); }
+.dual-media img { object-fit: contain; padding: .75rem; }
+.compact-grid { border: 0; border-top: 1px solid var(--line); gap: 4rem; }
+.compact-panel { border: 0; padding: 0; }
+.compact-title h2 { font-size: 1.2rem; }
+.compact-panel > p, .support-card p { font-size: .9rem; line-height: 1.85; }
+.mini-project { padding-block: 1.1rem; }
+.mini-project h3 { font-size: 1rem; }
+.support-grid { gap: 4rem; }
+.support-card h3 { font-size: 1.15rem; margin-block: 1rem; }
+.education-strip { padding-block: 2.5rem 4rem; }
+.prose-section { margin-top: 4.5rem; }
+.prose-section h2 { font-size: 1.45rem; margin-bottom: 1.5rem; }
+.prose-section > p, .prose-section > ul { max-width: 44rem; }
+.prose-section p, .prose-section li { line-height: 1.95; }
+.prose-section li + li { margin-top: .8rem; }
+.split { gap: 4rem; }
+.fact-panel { border-top: 1px solid var(--line); font-size: .85rem; }
+.fact-panel dd { line-height: 1.9; margin-bottom: 1.5rem; }
+.card-grid.project-grid { border: 0; gap: 2.5rem; background: transparent; }
+.project-grid .card { padding: 1.5rem 0; border-top: 1px solid var(--line); }
+.project-grid .card h3 { font-size: 1.25rem; margin-block: 1rem; }
+.project-grid .card p { font-size: .9rem; line-height: 1.9; }
+.timeline, .challenge-grid { border: 0; gap: 2rem; }
+.timeline > div, .challenge-card { border: 0; border-top: 1px solid var(--line); padding: 1.25rem 0; }
+.challenge-card h3 { margin-bottom: 1rem; }
+.site-footer { max-width: 69rem; }
+@media (max-width: 800px) {
+  .page-shell { width: calc(100% - 2.5rem); padding-block: 3rem; }
+  .hero-compact { display: block; padding-block: 3.5rem; }
+  .hero-compact .display-title { font-size: 3rem; }
+  .hero-facts { margin-top: 2rem; }
+  .hero-compact .button-row { margin-top: 1.5rem; }
+  .page-title { font-size: clamp(1.8rem,6vw,2.5rem); }
+  .home-heading, .section-heading { font-size: 1.4rem; }
+  .section-bar { gap: 1rem; margin-bottom: 2rem; }
+  .showcase-grid { gap: 2.5rem; }
+  .showcase-wide { display: block; padding-bottom: 2rem; }
+  .showcase-media img, .showcase-wide .showcase-media img { height: auto; max-height: 21rem; padding: 1rem; }
+  .showcase-copy, .showcase-wide .showcase-copy { padding: 1.5rem 0 0; }
+  .showcase-copy h3 { font-size: 1.25rem; }
+  .showcase-copy p { font-size: .9rem; }
+  .dual-media { height: 13rem; }
+  .compact-grid, .support-grid, .split { gap: 2.5rem; }
+  .compact-panel, .compact-panel:last-child { border: 0; }
+  .prose-section { margin-top: 3.25rem; }
+  .prose-section h2 { font-size: 1.3rem; }
+  .timeline > div, .challenge-card { border: 0; border-top: 1px solid var(--line); }
+  .education-strip { gap: 2rem; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

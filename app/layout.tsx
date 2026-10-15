@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
+import { Noto_Serif_SC } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/Navbar";
 import VisitorSurvey from "../components/VisitorSurvey";
 import SiteFooter from "../components/SiteFooter";
 import { site } from "../lib/site";
+
+const editorial = Noto_Serif_SC({ weight: "400", subsets: ["latin"], display: "swap", preload: false, variable: "--font-editorial" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -37,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="en" className={`h-full antialiased ${editorial.variable}`}>
       <body className="min-h-full flex flex-col">
         <Navbar />
         {children}

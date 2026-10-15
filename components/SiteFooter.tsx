@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import ReadingText from "./ReadingText";
 import { usePathname } from "next/navigation";
 import { localeFromPathname, localizedPath, ui } from "../lib/i18n";
 import { site } from "../lib/site";
@@ -12,7 +13,7 @@ export default function SiteFooter() {
     <footer className="site-footer" lang={locale === "zh" ? "zh-CN" : "en"}>
       <div>
         <strong>{locale === "zh" ? "郜周豪" : "Gao Zhouhao"}</strong>
-        <p>{copy.footer}</p>
+        <ReadingText>{copy.footer}</ReadingText>
       </div>
       <div className="footer-links">
         <Link href={localizedPath("/projects", locale)}>{copy.nav.projects}</Link>

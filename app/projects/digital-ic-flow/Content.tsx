@@ -1,3 +1,4 @@
+import ReadingText from "../../../components/ReadingText";
 import ProjectNavigation from "../../../components/ProjectNavigation";
 import type { Locale } from "../../../lib/i18n";
 import { pageMetadata } from "../../../lib/site";
@@ -26,9 +27,9 @@ const copy = {
 export function DigitalIcFlowPage({ locale }: { locale: Locale }) {
   const t = copy[locale];
   return <main id="main-content" className="page-shell" lang={locale === "zh" ? "zh-CN" : "en"}>
-    <p className="eyebrow">{t.label}</p><h1 className="page-title">{t.title}</h1><p className="lead" style={{ marginTop: "1.5rem" }}>{t.lead}</p>
-    <section className="section split"><div className="prose-section"><h2>{t.work}</h2><p>{t.workText}</p><h2>{t.takeaway}</h2><p>{t.takeawayText}</p></div><dl className="fact-panel"><dt>{t.scope}</dt><dd>{t.scopeValue}</dd><dt>{t.tools}</dt><dd>Cadence Virtuoso, Calibre, VCS/DVE, Verilog, Design Compiler, Innovus</dd><dt>{t.result}</dt><dd>{t.resultValue}</dd></dl></section>
-    <p className="status-note prose-section">{t.boundary}</p><ProjectNavigation />
+    <ReadingText as="p" className="eyebrow">{t.label}</ReadingText><ReadingText as="h1" className="page-title">{t.title}</ReadingText><ReadingText as="p" className="lead" style={{ marginTop: "1.5rem" }}>{t.lead}</ReadingText>
+    <section className="section split"><div className="prose-section"><ReadingText as="h2">{t.work}</ReadingText><ReadingText as="p">{t.workText}</ReadingText><ReadingText as="h2">{t.takeaway}</ReadingText><ReadingText as="p">{t.takeawayText}</ReadingText></div><dl className="fact-panel"><dt>{t.scope}</dt><ReadingText as="dd">{t.scopeValue}</ReadingText><dt>{t.tools}</dt><ReadingText as="dd">Cadence Virtuoso, Calibre, VCS/DVE, Verilog, Design Compiler, Innovus</ReadingText><dt>{t.result}</dt><ReadingText as="dd">{t.resultValue}</ReadingText></dl></section>
+    <ReadingText as="p" className="status-note prose-section">{t.boundary}</ReadingText><ProjectNavigation />
   </main>;
 }
 export default function Page() { return <DigitalIcFlowPage locale="zh" />; }
