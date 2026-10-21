@@ -132,6 +132,12 @@
 .section [id], .verification [id] { scroll-margin-top: 7rem; }
 
 .techTags { color: var(--accent-strong); font-size: .8rem; margin: 0 0 1.5rem; }
+.diagramIntro { max-width: 46rem; font-size: .95rem; line-height: 1.9; color: #4d4946; margin-bottom: 2rem; }
+.diagramFigure { max-width: 900px; margin: 2rem auto 2.5rem; }
+.diagramFigure a { display: block; background: white; }
+.diagramFigure a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.diagramFigure img { display: block; width: 100%; height: auto; }
+.diagramFigure figcaption { margin-top: .85rem; font-size: .875rem; line-height: 1.85; color: var(--muted); }
 .cover { margin: 0 auto 2.5rem; max-width: 760px; }
 .cover a { display: block; border-radius: 16px; overflow: hidden; }
 .cover a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }

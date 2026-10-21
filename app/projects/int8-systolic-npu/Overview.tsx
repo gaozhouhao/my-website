@@ -17,17 +17,33 @@ export default function Overview({locale}:{locale:Locale}) {
       <div><dt>{t("优化重点", "Optimization")}</dt><ReadingText as="dd">{t("通过仿真计数器定位瓶颈，优化数据复用与访存，并比较改动前后的执行周期。", "Simulation counters guide data-reuse and memory-access changes, with inference cycles compared before and after.")}</ReadingText></div>
     </dl>
     <ReadingText as="p" className={styles.techTags}>SystemVerilog · Verilator · Python · AXI4 · TFLite</ReadingText>
-    <figure className={styles.cover}>
-      <a href="/projects/npu-project-cover.svg" target="_blank" rel="noreferrer" aria-label={t("放大查看 NPU 架构图（新窗口）","Open full-size NPU architecture in a new tab")}><Image src="/projects/npu-project-cover.svg" alt={t("NPU 架构：任务控制、DMA、双缓冲、4×4 脉动阵列、量化后处理与结果写回","NPU architecture: command control, DMA, double buffering, 4×4 array, quantization and writeback")} width={1080} height={1000} sizes="(max-width: 800px) 100vw, 760px" priority /></a>
-      <ReadingText as="figcaption">{t("整体架构 · 点击放大。图中省略部分旁路和控制连接。","System architecture · Click to enlarge. Some bypass and control connections are omitted.")}</ReadingText>
-    </figure>
+    <section className={styles.section} aria-labelledby="npu-system">
+      <div className={styles.sectionTitle}><ReadingText as="h2" id="npu-system">{t("系统架构","System architecture")}</ReadingText></div>
+      <ReadingText as="p" className={styles.diagramIntro}>{t("主机给出任务描述符的起始地址与数量，NPU 读取并逐层分派任务。矩阵乘法、卷积和全连接共用计算引擎；池化与残差加法由各自的 AXI 引擎执行，共享结果写回通路。", "The host supplies a descriptor base address and count, and the NPU reads and dispatches tasks one layer at a time. GEMM, convolution and fully connected layers share the matrix engine; pooling and residual addition use their own AXI engines, with a shared writeback path.")}</ReadingText>
+      <figure className={styles.diagramFigure}>
+        <a href="/projects/npu-system-architecture.png" target="_blank" rel="noreferrer" aria-label={t("查看系统架构原图（新窗口）", "Open the full-size system architecture in a new tab")}><Image src="/projects/npu-system-architecture.png" alt={t("NPU 系统架构：64 位读取互连、32 位适配通路、任务读取与分派、矩阵及池化和残差加法引擎、共享写回", "NPU system architecture showing the 64-bit read interconnect, 32-bit adapter, command dispatch, matrix, pooling and residual-add engines, and shared writeback")} width={1492} height={1790} sizes="(max-width: 900px) 100vw, 900px" priority /></a>
+        <ReadingText as="figcaption">{t("系统架构 · 实线为数据，虚线为控制与配置。点击查看原图。", "System architecture · Solid lines carry data; dashed lines carry control and configuration. Open the full-size image for detail.")}</ReadingText>
+      </figure>
+    </section>
     <section className={styles.section} aria-labelledby="npu-development"><div className={styles.sectionTitle}><ReadingText as="h2" id="npu-development">{t("核心工作","Design and implementation")}</ReadingText></div>
       <div className={styles.workGrid}>{[
         ["计算核心","Compute core","从 INT8 乘加单元搭建 4×4 脉动阵列，实现输入对齐、矩阵运算和多维分块，支持超过阵列与片上缓存容量的矩阵。","Designed the INT8 MAC, input skew network and 4×4 systolic array. M/N/K tiling supports matrices that exceed the physical array size or operand SRAM capacity."],
-        ["存储与调度","Memory and scheduling","实现 DMA、输入双缓冲、中间结果存储和输出缓冲，让数据加载、计算与写回重叠；支持逐层选择输入或权重的复用策略。","Built AXI DMA, ping-pong operand buffers, partial-sum SRAM and output buffering to overlap transfers with computation. The scheduler supports per-layer selection of activation or weight reuse."],
+        ["存储与调度","Memory and scheduling","输入 A、B 各使用 2 KiB 双缓冲 SRAM，通过原生 64 位通路加载。任务描述符与辅助算子使用 32 位适配通路；调度器逐层选择输入或权重复用策略，协调加载、计算与写回。","A and B each use 2 KiB of double-buffered SRAM, loaded through a native 64-bit path. Descriptors and auxiliary engines use a 32-bit adapted path. Per-layer scheduling selects activation or weight reuse and coordinates loading, computation and writeback."],
         ["算子与量化","Operators and quantization","实现卷积、池化、残差加法和逐通道量化。卷积输入按需生成，32 位累加结果完成偏置、缩放和饱和处理后，以 8 位整数输出。","Added implicit-GEMM convolution, pooling, residual addition and per-channel requantization. The postprocessing path applies bias and fixed-point scaling to INT32 accumulators, then saturates the results to INT8."],
         ["模型编译","Model compiler","解析 TensorFlow Lite（TFLite）模型，转换权重与量化参数，生成内存布局和任务描述符。ResNet-8 被编译为 14 条硬件任务，交由 NPU 自动执行。","Built a TFLite compiler that packs weights, converts quantization parameters and allocates DDR memory. It emits 14 descriptors for ResNet-8, which the command frontend executes without per-layer testbench control."],
       ].map(([cn,en,bodyCn,bodyEn])=><article key={en}><ReadingText as="h3">{t(cn,en)}</ReadingText><ReadingText as="p">{t(bodyCn,bodyEn)}</ReadingText></article>)}</div>
+    </section>
+    <section className={styles.section} aria-labelledby="npu-compute">
+      <div className={styles.sectionTitle}><ReadingText as="h2" id="npu-compute">{t("计算与存储","Compute and memory")}</ReadingText></div>
+      <ReadingText as="p" className={styles.diagramIntro}>{t("4×4 阵列以 INT8 数据做乘法、INT32 做累加，沿 K 维按 256 分块。卷积输入缓存减少重复读取，A/B 双缓冲为阵列持续供数；偏置、重新量化与 ReLU 在后处理通路中完成。", "The 4×4 array multiplies INT8 operands and accumulates in INT32, with K tiles of 256. A convolution-input cache reduces repeated reads, while double-buffered A/B memories feed the array. The postprocessing path applies bias, requantization and ReLU.")}</ReadingText>
+      <figure className={styles.diagramFigure}>
+        <a href="/projects/npu-compute-memory.png" target="_blank" rel="noreferrer" aria-label={t("查看计算与存储原图（新窗口）", "Open the full-size compute and memory diagram in a new tab")}><Image src="/projects/npu-compute-memory.png" alt={t("GEMM 与卷积计算数据流：操作数读取、A/B 双缓冲 SRAM、4×4 PE 阵列、独立 C 和 PSUM 存储、后处理与结果 DMA", "GEMM and convolution dataflow: operand fetch, double-buffered A/B SRAM, 4×4 PE array, separate C and PSUM memories, postprocessing and result DMA")} width={1492} height={2030} sizes="(max-width: 900px) 100vw, 900px" /></a>
+        <ReadingText as="figcaption">{t("计算与存储数据通路 · C SRAM 与 PSUM SRAM 分别服务两种分块累加路径。点击查看原图。", "Compute and memory dataflow · Separate C and PSUM SRAMs serve the two tiled accumulation paths. Open the full-size image for detail.")}</ReadingText>
+      </figure>
+      <div className={styles.workGrid}>
+        <article><ReadingText as="h3">{t("分块累加与输入复用", "Tiled accumulation and input reuse")}</ReadingText><ReadingText as="p">{t("常规 K 分块使用 4 KiB C SRAM；跨 K 分块复用输入 A 时，独立的 256 B PSUM SRAM 保存四组部分和。两条路径共用后处理中的四个 INT32 加法器。", "Ordinary K tiling uses 4 KiB of C SRAM. Reusing A across K tiles uses a separate 256 B PSUM SRAM with four partial-sum slots. Both paths share the four INT32 adders in postprocessing.")}</ReadingText></article>
+        <article><ReadingText as="h3">{t("后处理与结果写回", "Postprocessing and writeback")}</ReadingText><ReadingText as="p">{t("常规结果经 128 B 双缓冲送入写回 DMA，PSUM 路径可直接送入 DMA。写通路宽 32 位，每行 INT8 结果用一次传输写回，INT32 结果用四次传输写回。", "The ordinary result path feeds DMA through a 128 B double buffer; the PSUM path can feed DMA directly. On the 32-bit write interface, each INT8 result row takes one beat and each INT32 row takes four.")}</ReadingText></article>
+      </div>
     </section>
     <section className={styles.section} aria-labelledby="npu-performance"><div className={styles.sectionTitle}><ReadingText as="h2" id="npu-performance">{t("性能成果","Performance results")}</ReadingText></div>
       <div className={styles.updateGrid}>

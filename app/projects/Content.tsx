@@ -20,7 +20,7 @@ export function ProjectsPage({ locale }: { locale: Locale }) {
     <ReadingText as="p" className="eyebrow">{t.title}</ReadingText><ReadingText as="h1" className="page-title">{t.heading}</ReadingText><ReadingText as="p" className="lead" style={{ marginTop: "1.5rem" }}>{t.intro}</ReadingText>
     <div className="card-grid project-grid section">
       {projectSummaries.map(project => <article className="card" key={project.slug}>
-        {project.image && project.width && project.height && <Link href={localizedPath(`/projects/${project.slug}`, locale)}><Image src={project.image} alt={locale === "zh" ? project.titleZh : project.imageAlt ?? project.title} width={project.width} height={project.height} sizes="(max-width: 800px) 100vw, 33vw" style={{ width: "100%", height: "12rem", objectFit: project.imageFit ?? "cover", borderRadius: ".65rem" }} /></Link>}
+        {project.image && project.width && project.height && <Link href={localizedPath(`/projects/${project.slug}`, locale)}><Image src={project.image} alt={locale === "zh" ? project.titleZh : project.imageAlt ?? project.title} width={project.width} height={project.height} sizes="(max-width: 800px) 100vw, 33vw" style={{ width: "100%", height: "auto", display: "block" }} /></Link>}
         <ReadingText as="p" className="eyebrow" style={{ marginTop: project.image ? "1rem" : 0 }}>{locale === "zh" ? project.directionZh : project.direction}</ReadingText><ReadingText as="h2" style={{ fontSize: "1.35rem", margin: ".7rem 0" }}>{locale === "zh" ? project.titleZh : project.title}</ReadingText><ReadingText as="p">{locale === "zh" ? project.summaryZh : project.summary}</ReadingText><Link className="card-link" href={localizedPath(`/projects/${project.slug}`, locale)}>{t.open}</Link>
       </article>)}
     </div>
