@@ -52,8 +52,8 @@ export const projectSummaries: readonly ProjectSummary[] = [
     imageFit: "contain",
     width: 1492,
     height: 1492,
-    summary: "Built a SystemVerilog accelerator and model compiler for CNN inference. Runs an MNIST digit classifier and a CIFAR-10 ResNet-8 in RTL simulation. Memory and data-reuse optimizations reduced MNIST CNN inference cycles by 86% (7.13× speedup over the initial implementation).",
-    summaryZh: "从零设计计算阵列、存储和调度模块，并编写模型编译工具。在 RTL 仿真中运行 MNIST 手写数字识别 CNN 和 CIFAR-10 分类模型 ResNet-8。通过数据复用和访存优化，将 MNIST CNN 的推理周期减少约 86%，相同频率下加速 7.13 倍。",
+    summary: "Designed a 4×4 INT8 NPU and TFLite/ONNX compiler. All 72 ResNet-50 hardware tasks pass numerical checks in RTL simulation. Memory and scheduling optimizations reduce cycles by 59.65% versus a serial-loading baseline with Burst enabled.",
+    summaryZh: "独立设计 4×4 INT8 NPU 与 TFLite/ONNX 编译工具，ResNet-50 的 72 条硬件任务全部通过 RTL 数值校验。通过存储与调度优化，相比保留 Burst 的串行基线，整网周期减少 59.65%。",
     featured: true,
   },
   {
