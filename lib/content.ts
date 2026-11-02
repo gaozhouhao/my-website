@@ -33,8 +33,8 @@ export const projectSummaries: readonly ProjectSummary[] = [
     direction: "Digital IC · RTL · SoC · Verification",
     directionZh: "数字 IC · RTL 设计 · SoC 集成",
     summary:
-      "Developed an RV32E processor with a five-stage pipeline and 2-bit branch prediction. The project includes AXI/APB integration, memory models and reference-model comparisons for debugging execution and bus interactions.",
-    summaryZh: "设计 RV32E 处理器，已完成五级流水线与 2-bit 分支预测。项目包括 AXI/APB 总线集成、存储器建模与参考模型比对，用于检查指令执行并调试控制和总线交互。",
+      "Independently designed and implemented an RV32E processor with a five-stage pipeline and 2-bit branch prediction. The project includes AXI/APB integration, memory models and reference-model comparisons for debugging execution and bus interactions.",
+    summaryZh: "独立设计与实现 RV32E 处理器，已完成五级流水线与 2-bit 分支预测。项目包括 AXI/APB 总线集成、存储器建模与参考模型比对，用于检查指令执行并调试控制和总线交互。",
     image: "/projects/riscv32-layout.png",
     imageAlt: "RV32E RISC-V processor layout",
     width: 765,
@@ -44,7 +44,7 @@ export const projectSummaries: readonly ProjectSummary[] = [
   {
     slug: "int8-systolic-npu",
     title: "4×4 INT8 Systolic NPU",
-    titleZh: "自研 INT8 NPU · 4×4 脉动阵列",
+    titleZh: "INT8 NPU · 4×4 脉动阵列",
     direction: "Digital IC · RTL · CNN Inference",
     directionZh: "数字集成电路 · RTL · CNN 推理",
     image: "/projects/npu-project-cover.png",
@@ -52,8 +52,8 @@ export const projectSummaries: readonly ProjectSummary[] = [
     imageFit: "contain",
     width: 1492,
     height: 1492,
-    summary: "Designed a 4×4 INT8 NPU and TFLite/ONNX compiler. All 72 ResNet-50 hardware tasks pass numerical checks in RTL simulation. Memory and scheduling optimizations reduce cycles by 59.65% versus a serial-loading baseline with Burst enabled.",
-    summaryZh: "独立设计 4×4 INT8 NPU 与 TFLite/ONNX 编译工具，ResNet-50 的 72 条硬件任务全部通过 RTL 数值校验。通过存储与调度优化，相比保留 Burst 的串行基线，整网周期减少 59.65%。",
+    summary: "Independently designed and implemented a 4×4 INT8 NPU and TFLite/ONNX compiler. All 72 ResNet-50 hardware tasks pass numerical checks in RTL simulation. Memory and scheduling optimizations reduce cycles by 59.65% versus a serial-loading baseline with Burst enabled.",
+    summaryZh: "独立设计与实现 4×4 INT8 NPU 及 TFLite/ONNX 编译工具，ResNet-50 的 72 条硬件任务全部通过 RTL 数值校验。通过存储与调度优化，相比保留 Burst 的串行基线，整网周期减少 59.65%。",
     featured: true,
   },
   {

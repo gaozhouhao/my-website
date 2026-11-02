@@ -16,9 +16,9 @@ export default function Overview({ locale }: { locale: Locale }) {
   return <main id="main-content" className={`page-shell ${styles.page}`} lang={zh ? "zh-CN" : "en"}>
     <ReadingText as="p" className="eyebrow">{t("数字集成电路 · RTL · 模型编译", "Digital IC · RTL · Model compilation")}</ReadingText>
     <header className={styles.heading}>
-      <ReadingText as="h1" className="page-title">{t("自研 INT8 NPU", "Custom INT8 NPU")}</ReadingText>
+      <ReadingText as="h1" className="page-title">{t("INT8 NPU", "INT8 NPU")}</ReadingText>
       <ReadingText as="p" className={styles.subtitle}>{t("从模型编译到 ResNet-50 整数执行", "From model compilation to integer execution of ResNet-50")}</ReadingText>
-      <ReadingText as="p" className={styles.intro}>{t("独立设计基于 4×4 脉动阵列的 INT8 NPU，配套 TFLite/ONNX 模型编译工具链，完成模型转换、硬件任务生成与 RTL 执行。已在完整 ResNet-50 整数工作负载上完成逐层数值验证，并通过存储与调度优化减少整网执行周期。", "Independently designed a 4×4 systolic INT8 NPU and a TFLite/ONNX compiler toolchain, covering model conversion, hardware task generation and RTL execution. Validated the complete ResNet-50 integer workload layer by layer, then reduced execution cycles through memory and scheduling improvements.")}</ReadingText>
+      <ReadingText as="p" className={styles.intro}>{t("独立设计与实现基于 4×4 脉动阵列的 INT8 NPU 及 TFLite/ONNX 模型编译工具链，涵盖模型转换、硬件任务生成与 RTL 执行。项目持续迭代中，当前版本已在完整 ResNet-50 整数工作负载上完成逐层数值验证，并通过存储与调度优化减少整网执行周期。", "An ongoing personal project in which I independently designed and implemented a 4×4 systolic INT8 NPU and a TFLite/ONNX compiler toolchain, covering model conversion, hardware task generation and RTL execution. The current version passes layer-by-layer numerical checks on the complete ResNet-50 integer workload, with memory and scheduling improvements reducing execution cycles.")}</ReadingText>
     </header>
     <dl className={styles.metrics}>
       <div><dt>4×4</dt><ReadingText as="dd">{t("INT8 脉动阵列", "INT8 systolic array")}</ReadingText></div>

@@ -10,7 +10,7 @@ const copy = {
   zh: {
     label: "数字集成电路 · RTL · SoC",
     title: "RV32E RISC-V 处理器与片上系统实现",
-    lead: "自研 RV32E 处理器，已完成五级流水线与 2-bit 分支预测。项目还包括验证环境、SoC 集成、指令缓存，以及综合和静态时序分析实践。",
+    lead: "独立设计与实现 RV32E 处理器，已完成五级流水线与 2-bit 分支预测。项目还包括验证环境、SoC 集成、指令缓存，以及综合和静态时序分析实践。",
     repo: "RISCV32 代码仓库",
     socRepo: "ysyxSoC 代码仓库",
     overview: "项目概览",
@@ -43,7 +43,7 @@ const copy = {
   en: {
     label: "Digital IC · RTL · SoC",
     title: "RV32E RISC-V Processor & SoC Implementation",
-    lead: "An RV32E processor with a completed five-stage pipeline and 2-bit branch prediction. The project also covers verification, SoC integration, instruction caching, synthesis and static timing analysis.",
+    lead: "I independently designed and implemented an RV32E processor with a five-stage pipeline and 2-bit branch prediction. The project also covers verification, SoC integration, instruction caching, synthesis and static timing analysis.",
     repo: "RISCV32 repository",
     socRepo: "ysyxSoC repository",
     overview: "Project overview",
