@@ -33,15 +33,15 @@ export function BeyondPage({ locale }: { locale: Locale }) {
   const zh = locale === "zh";
   return (
     <main id="main-content" className="page-shell" lang={zh ? "zh-CN" : "en"}>
-      <ReadingText as="p" className="eyebrow">{zh ? "个人兴趣" : "Beyond Engineering"}</ReadingText>
-      <ReadingText as="h1" className="page-title">{zh ? "动手制作与日常兴趣" : "Making, music, and life outside IC design."}</ReadingText>
+      <ReadingText as="p" className="eyebrow">{zh ? "个人兴趣" : "Interests"}</ReadingText>
+      <ReadingText as="h1" className="page-title">{zh ? "动手制作与日常兴趣" : "Making, music & life"}</ReadingText>
       <ReadingText as="p" className="lead" style={{ marginTop: "1.5rem" }}>
-        {zh ? "记录三维打印、橡皮章雕刻、音乐和部分校园活动。" : "A few things I enjoy outside work: making models, carving stamps, playing music, and spending time with friends."}
+        {zh ? "三维打印、橡皮章、音乐与校园生活。" : "3D-printed models, hand-carved stamps, music, and university life."}
       </ReadingText>
 
       <section className="section">
         <ReadingText as="h2" className="section-heading">{zh ? "动手制作" : "Hands-on making"}</ReadingText>
-        <ReadingText as="p" className="section-intro">{zh ? "平时喜欢做三维打印模型、刻橡皮章，也会尝试一些小手工。" : "I like turning ideas into physical objects, from 3D-printed figures to hand-carved stamps and bead art."}</ReadingText>
+        <ReadingText as="p" className="section-intro">{zh ? "三维打印模型、橡皮章雕刻和拼豆作品。" : "3D-printed figures, hand-carved stamps, and bead art."}</ReadingText>
         <div className="masonry-gallery">
           {making.map(([file, alt, width, height]) => (
             <Image key={file} src={`/beyond/making/${file}`} alt={zh ? imageLabelsZh[alt] : alt} width={width} height={height} sizes="(max-width: 800px) 50vw, 30vw" />

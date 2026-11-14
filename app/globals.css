@@ -326,6 +326,8 @@ main :is(p,li,dd,figcaption) { text-wrap: pretty; line-break: strict; }
 .page-shell { max-width: 69rem; padding-top: 5rem; padding-bottom: 5rem; }
 .page-narrow { max-width: 48rem; }
 .page-title { max-width: 24ch; font-size: clamp(2rem,4vw,3.25rem); letter-spacing: -.02em; }
+main[lang="zh-CN"] .page-title { max-width: 100%; }
+.section-intro { line-height: 1.9; }
 main[lang="zh-CN"] :is(.page-title,.section-heading,.home-heading) { letter-spacing: .035em; line-height: 1.6; }
 .lead { max-width: 42rem; margin-top: 1.5rem; font-size: 1rem; line-height: 1.95; }
 .eyebrow { font-weight: 500; font-size: .7rem; letter-spacing: .1em; line-height: 1.8; }
@@ -376,6 +378,12 @@ main[lang="zh-CN"] :is(.page-title,.section-heading,.home-heading) { letter-spac
 .split { gap: 4rem; }
 .fact-panel { border-top: 1px solid var(--line); font-size: .85rem; }
 .fact-panel dd { line-height: 1.9; margin-bottom: 1.5rem; }
+.experience-location { margin: .5rem 0 0; color: var(--muted); font-size: .9rem; }
+.experience-page .lead { margin-top: .75rem; }
+.experience-overview { margin-top: 3rem; }
+.experience-work { margin-top: 2rem; }
+.experience-work h3 { font-size: 1.1rem; }
+.experience-work ul { padding-left: 1.2rem; }
 .card-grid.project-grid { border: 0; gap: 2.5rem; background: transparent; }
 .project-grid .card { padding: 1.5rem 0; border-top: 1px solid var(--line); }
 .project-grid .card h3 { font-size: 1.25rem; margin-block: 1rem; }

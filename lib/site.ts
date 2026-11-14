@@ -6,7 +6,7 @@ export const site = {
   name: "Gao Zhouhao",
   title: "Gao Zhouhao | IC Design Portfolio",
   description:
-    "Engineering portfolio of Gao Zhouhao, a 2027 M.Sc. candidate working across analog IC, RTL, SoC, ASIC flow, verification, and hardware.",
+    "IC design portfolio of Gao Zhouhao, a 2027 M.Sc. candidate focused on digital IC, RTL, and SoC design, with projects in analog circuits and embedded hardware.",
   url: "https://gaozhouhao.com",
   email: "ZhouhaoG.ICD2526@tum-asia.edu.sg",
   github: "https://github.com/gaozhouhao",

@@ -4,27 +4,27 @@ import ProjectNavigation from "../../../components/ProjectNavigation";
 import type { Locale } from "../../../lib/i18n";
 import { pageMetadata } from "../../../lib/site";
 
-export const metadata = pageMetadata("RV32E RISC-V 处理器与片上系统实现", "已实现五级流水线与 2-bit 分支预测的 RV32E 处理器项目，涵盖 RTL 设计、SoC 集成、验证与后端流程探索。", "/projects/riscv-cpu", "zh");
+export const metadata = pageMetadata("五级流水线 RISC-V 处理器与 SoC", "已实现五级流水线与 2-bit 分支预测的 RV32E 处理器项目，涵盖 RTL 设计、SoC 集成、验证与后端流程探索。", "/projects/riscv-cpu", "zh");
 
 const copy = {
   zh: {
     label: "数字集成电路 · RTL · SoC",
-    title: "RV32E RISC-V 处理器与片上系统实现",
+    title: "五级流水线 RISC-V 处理器与 SoC",
     lead: "独立设计与实现 RV32E 处理器，已完成五级流水线与 2-bit 分支预测。项目还包括验证环境、SoC 集成、指令缓存，以及综合和静态时序分析实践。",
     repo: "RISCV32 代码仓库",
     socRepo: "ysyxSoC 代码仓库",
     overview: "项目概览",
-    overviewText: "项目先完成 NEMU 指令级模拟器，再实现 RV32E 处理器 RTL。NEMU 负责执行程序、提供寄存器和内存状态，用作后续差分测试的参考模型；RTL 处理器从取指、译码、执行、访存到写回逐步实现。",
-    overviewText2: "处理器从多周期版本起步，经过两级流水探索，目前已完成五级流水线与 2-bit 分支预测。调试时用 NEMU 差分测试定位指令执行差异，再结合 Verilator 波形检查握手、总线返回和控制流。RTL CPU 接入 ysyxSoC 后，继续调试启动程序、存储器和外设访问。",
+    overviewText: "先实现 NEMU 指令级模拟器，再设计 RV32E 处理器 RTL。NEMU 执行程序并提供寄存器与内存状态，作为差分测试的参考模型；RTL 覆盖取指、译码、执行、访存和写回。",
+    overviewText2: "处理器从多周期版本起步，经过两级流水探索，逐步演进为当前实现。接入 ysyxSoC 后，结合 NEMU 差分测试与 Verilator 波形，调试启动程序、存储器、外设访问及控制流。",
     architecture: "处理器微架构",
-    architectureText: "当前版本采用五级流水线，分为取指、译码、执行、访存和写回五个阶段，并已实现 2-bit 分支预测。处理器从早期多周期结构逐步演进到当前流水线实现。",
-    architectureText2: "此前的控制逻辑调试重点包括停顿、跳转和可变延迟访存：分别保存取指请求的程序计数器（PC）与已接收指令的 PC，并跟踪请求和响应，避免指令与地址错配。",
+    architectureText: "当前版本采用取指、译码、执行、访存和写回五级流水线，并已实现 2-bit 分支预测。",
+    architectureText2: "控制逻辑重点处理停顿、跳转和可变延迟访存。分别保存取指请求的 PC 与已接收指令的 PC，并跟踪请求和响应，避免指令与地址错配。",
     isa: "ISA 与控制实现",
     isaText: "RV32E 基础整数运算、逻辑、移位、分支和跳转指令由译码逻辑生成控制信号，再在 EXU 中完成运算与条件判断。加载与存储指令通过 LSU 将访问请求转为总线事务；写回阶段根据指令类别选择算术结果、加载数据或 PC 相关结果。",
     isaText2: "控制与状态寄存器（CSR）访问、ECALL 环境调用、MRET 异常返回和异常处理共用控制流管理逻辑，统一处理寄存器读写、异常入口与返回地址。FENCE.I 用于同步指令流；本实现通过使指令缓存（ICache）失效，保证修改代码后能取到更新的指令。",
     verification: "验证环境",
     verificationText: "我实现的 NEMU 指令集模拟器作为差分测试参考模型，将 RTL 与参考模型的寄存器和执行状态逐条比对。使用指令集测试、riscv-tests 和自定义程序检查算术、控制流、访存与异常；发现差异后，用 GTKWave 查看 Verilator 生成的 FST 波形，定位握手、总线响应或寄存器更新问题。",
-    verificationText2: "除裸机测试外，项目还在 RTL CPU 上运行 RT-Thread。RTOS 启动让验证从单条指令推进到中断、串口、内存布局和外设协同，能够暴露仅靠小型测试程序难以触及的控制和集成问题。",
+    verificationText2: "已在 RTL CPU 上运行 RT-Thread，验证启动、中断、串口、内存布局与外设访问。",
     soc: "SoC 集成与缓存",
     socText: "处理器通过 AXI4-Lite 总线互连接入片上系统，访问 SRAM、核心本地中断控制器（CLINT）和串口（UART）等模块。互连负责仲裁取指与访存请求、解析地址并返回响应；启动程序和外设驱动使用一致的地址映射。",
     cacheText: "指令侧加入直接映射缓存，将地址划分为标记、索引和偏移。命中时直接返回指令；未命中时，回填状态机发起访存并更新缓存行。FENCE.I 会触发缓存失效处理。",
@@ -33,7 +33,7 @@ const copy = {
     challenges: "关键工程问题",
     challengesIntro: "",
     results: "结果与当前状态",
-    resultsText: "当前处理器采用五级流水线与 2-bit 分支预测。下表展示早期多周期版本运行 RT-Thread 的周期数与 IPC。",
+    resultsText: "下表记录早期多周期版本运行 RT-Thread 时的执行周期、指令数与 IPC。",
     future: "后续工作",
     futureText: "后续探索方向包括数据缓存（DCache）、片上网络（NoC）与多核扩展。新增模块将接入现有片上系统与差分测试流程。",
     layoutCaption: "此前版本的 RV32E RISC-V 处理器版图。",
@@ -42,15 +42,15 @@ const copy = {
   },
   en: {
     label: "Digital IC · RTL · SoC",
-    title: "RV32E RISC-V Processor & SoC Implementation",
+    title: "Five-Stage RISC-V CPU / SoC",
     lead: "I independently designed and implemented an RV32E processor with a five-stage pipeline and 2-bit branch prediction. The project also covers verification, SoC integration, instruction caching, synthesis and static timing analysis.",
     repo: "RISCV32 repository",
     socRepo: "ysyxSoC repository",
     overview: "Project overview",
-    overviewText: "The project started with an implementation of the NEMU instruction-set simulator, followed by an RV32E RTL processor. NEMU executes programs and exposes register and memory state; it is the reference model for later differential testing. The RTL core was then built from fetch, decode, execute, load/store, and writeback logic.",
-    overviewText2: "The CPU evolved from a multi-cycle design through a two-stage pipeline experiment. The current implementation has a five-stage pipeline and 2-bit branch prediction. Differential testing against NEMU, Verilator waveforms, and software running after ysyxSoC integration were used to debug control logic, memory access, boot code, and peripheral access.",
+    overviewText: "I implemented the NEMU instruction-set simulator as a differential-testing reference, then built the RV32E core in RTL. NEMU provides register and memory state for checking RTL execution. The core covers fetch, decode, execute, load/store and writeback.",
+    overviewText2: "The core evolved from a multi-cycle design through a two-stage pipeline experiment. After integration with ysyxSoC, differential testing and Verilator waveforms helped debug boot code, memory accesses, peripherals and control flow.",
     architecture: "Processor architecture",
-    architectureText: "The current core implements five pipeline stages: instruction fetch, decode, execute, memory access and writeback. It also includes 2-bit branch prediction, extending the earlier multi-cycle design.",
+    architectureText: "The current core implements five pipeline stages—fetch, decode, execute, memory access and writeback—with 2-bit branch prediction.",
     architectureText2: "Earlier control-path debugging focused on stalls, redirects and variable-latency memory accesses. Fetch-request PCs and instruction-buffer PCs were stored separately, with explicit request and response tracking to keep instructions paired with the correct addresses.",
     isa: "ISA and control implementation",
     isaText: "RV32E integer arithmetic, logical, shift, branch, and jump instructions are decoded into control signals and executed in EXU. LSU turns load/store operations into bus transactions, while WBU selects arithmetic, load, or PC-related results.",
@@ -66,7 +66,7 @@ const copy = {
     challenges: "Key engineering challenges",
     challengesIntro: "Debugging across RTL, bus transactions and software integration.",
     results: "Results and current status",
-    resultsText: "The current core implements a five-stage pipeline and 2-bit branch prediction. The table shows cycle counts and IPC from an RT-Thread run on the earlier multi-cycle core.",
+    resultsText: "The table records cycles, retired instructions and IPC from an RT-Thread run on the earlier multi-cycle core.",
     future: "Future work",
     futureText: "Further exploration includes a data cache (DCache), a network-on-chip (NoC) and multicore extensions, using the existing SoC and differential-testing environment.",
     layoutCaption: "RV32E RISC-V processor layout from an earlier version.",
@@ -111,7 +111,7 @@ export function RiscvCpuPage({ locale }: { locale: Locale }) {
 
     <section className="section"><ReadingText as="h2" className="section-heading">{t.challenges}</ReadingText><div className="challenge-grid">{challenges[locale].map(([title, text], index) => <article className="challenge-card" key={title}><ReadingText as="p" className="eyebrow">0{index + 1}</ReadingText><ReadingText as="h3">{title}</ReadingText><ReadingText as="p">{text}</ReadingText></article>)}</div></section>
 
-    <section className="section"><ReadingText as="h2" className="section-heading">{t.results}</ReadingText><ReadingText as="p" className="section-intro">{t.resultsText}</ReadingText><div className="result-showcase"><ReadingText as="p" className="eyebrow">{t.resultLabel}</ReadingText><table className="result-table"><tbody><tr><th>{zh ? "执行周期" : "Cycles"}</th><td>29,825,900</td></tr><tr><th>{zh ? "已提交指令数" : "Instructions retired"}</th><td>590,845</td></tr><tr><th>{zh ? "平均每周期指令数（IPC）" : "Instructions per cycle (IPC)"}</th><td>0.0198</td></tr></tbody></table><ReadingText as="p" className="resume-note">{zh ? "已完成 ISA 验证、差分测试、RT-Thread RTL 运行，以及综合和时序分析探索；当前不展示性能、面积或频率结论。": "Completed work includes ISA verification, differential testing, RT-Thread running on RTL, and synthesis/timing exploration. No performance, area, or frequency claim is made here."}</ReadingText></div></section>
+    <section className="section"><ReadingText as="h2" className="section-heading">{t.results}</ReadingText><ReadingText as="p" className="section-intro">{t.resultsText}</ReadingText><div className="result-showcase"><ReadingText as="p" className="eyebrow">{t.resultLabel}</ReadingText><table className="result-table"><tbody><tr><th>{zh ? "执行周期" : "Cycles"}</th><td>29,825,900</td></tr><tr><th>{zh ? "已提交指令数" : "Instructions retired"}</th><td>590,845</td></tr><tr><th>{zh ? "平均每周期指令数（IPC）" : "Instructions per cycle (IPC)"}</th><td>0.0198</td></tr></tbody></table></div></section>
 
     <section className="prose-section"><ReadingText as="h2">{t.future}</ReadingText><ReadingText as="p">{t.futureText}</ReadingText></section>
     <ProjectNavigation />

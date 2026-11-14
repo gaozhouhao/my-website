@@ -22,15 +22,15 @@ export const ui = {
     nav: { experience: "实习经历", projects: "项目经历", publications: "论文与专利", awards: "奖项荣誉", about: "教育背景", contact: "联系方式" },
     allProjects: "← 返回全部项目",
     discuss: "联系方式 →",
-    footer: "数字集成电路 · 寄存器传输级与片上系统设计 · 混合信号设计",
+    footer: "数字 IC · RTL 与 SoC 设计 · 混合信号设计",
     skip: "跳转到正文",
   },
   en: {
     portfolio: "IC Design Portfolio",
     nav: { experience: "Experience", projects: "Projects", publications: "Publications", awards: "Awards", about: "About", contact: "Contact" },
     allProjects: "← All projects",
-    discuss: "Discuss this work →",
-    footer: "Analog / Mixed-Signal IC · Digital IC / RTL · SoC Design",
+    discuss: "Contact →",
+    footer: "Digital IC / RTL · SoC Design · Mixed-Signal Design",
     skip: "Skip to content",
   },
 } as const;

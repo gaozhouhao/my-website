@@ -19,7 +19,7 @@ export type ProjectSummary = {
 export const profileBoundary = {
   authority: "job-hunting/profile",
   publicInternshipScope:
-    "Energy-harvesting chip design, including startup and operation at an input voltage of 0.1 V.",
+    "TSMC 22 nm energy-harvesting chip specification and system architecture development; completed startup-circuit schematic design and PVT simulations, achieving startup from a 0.1 V supply. Boost-converter design is planned next.",
   privateInternshipScope:
     "Internal architecture, circuit implementation, and detailed simulation or measurement data.",
   resumeStatus: "under-review",
@@ -29,12 +29,12 @@ export const projectSummaries: readonly ProjectSummary[] = [
   {
     slug: "riscv-cpu",
     title: "Five-Stage RISC-V CPU / SoC",
-    titleZh: "五级流水 RISC-V 处理器与片上系统",
+    titleZh: "五级流水线 RISC-V 处理器与 SoC",
     direction: "Digital IC · RTL · SoC · Verification",
     directionZh: "数字 IC · RTL 设计 · SoC 集成",
     summary:
-      "Independently designed and implemented an RV32E processor with a five-stage pipeline and 2-bit branch prediction. The project includes AXI/APB integration, memory models and reference-model comparisons for debugging execution and bus interactions.",
-    summaryZh: "独立设计与实现 RV32E 处理器，已完成五级流水线与 2-bit 分支预测。项目包括 AXI/APB 总线集成、存储器建模与参考模型比对，用于检查指令执行并调试控制和总线交互。",
+      "Independently designed and implemented an RV32E CPU with a five-stage pipeline and 2-bit branch prediction, supported by SoC integration, memory models, and differential testing against NEMU.",
+    summaryZh: "独立设计与实现 RV32E 处理器，完成五级流水线与 2-bit 分支预测，并进行总线与 SoC 集成、存储器建模和 NEMU 差分测试。",
     image: "/projects/riscv32-layout.png",
     imageAlt: "RV32E RISC-V processor layout",
     width: 765,
@@ -53,7 +53,7 @@ export const projectSummaries: readonly ProjectSummary[] = [
     width: 1492,
     height: 1492,
     summary: "Independently designed and implemented a 4×4 INT8 NPU and TFLite/ONNX compiler. All 72 ResNet-50 hardware tasks pass numerical checks in RTL simulation. Memory and scheduling optimizations reduce cycles by 59.65% versus a serial-loading baseline with Burst enabled.",
-    summaryZh: "独立设计与实现 4×4 INT8 NPU 及 TFLite/ONNX 编译工具，ResNet-50 的 72 条硬件任务全部通过 RTL 数值校验。通过存储与调度优化，相比保留 Burst 的串行基线，整网周期减少 59.65%。",
+    summaryZh: "独立设计与实现 4×4 INT8 NPU 及 TFLite/ONNX 编译工具，ResNet-50 的 72 条硬件任务全部通过 RTL 数值校验。通过存储与调度优化，相比启用 Burst 的串行供数基线，整网执行周期减少 59.65%。",
     featured: true,
   },
   {
@@ -74,7 +74,7 @@ export const projectSummaries: readonly ProjectSummary[] = [
   {
     slug: "digital-ic-flow",
     title: "Digital IC Design Lab",
-    titleZh: "数字 IC 设计流程实践",
+    titleZh: "数字集成电路设计实验",
     direction: "ASIC Flow · RTL · Synthesis · Physical Design",
     directionZh: "ASIC 设计流程 · RTL · 综合 · 物理实现",
     summary:
@@ -90,7 +90,7 @@ export const projectSummaries: readonly ProjectSummary[] = [
     directionZh: "射频硬件 · 仿真 · 测量",
     summary:
       "Designed and simulated an SSPP low-pass filter in CST, then fabricated a PCB prototype and measured its response with a VNA. Published the results as first author in Micromachines.",
-    summaryZh: "使用 CST 完成结构设计与仿真，制作印制电路板样机并进行矢量网络分析仪测量，成果发表于 Micromachines。",
+    summaryZh: "使用 CST 完成结构设计与仿真，制作 PCB 样机并用矢量网络分析仪测试。成果以第一作者发表于 Micromachines。",
     image: "/papers/SSPP.webp",
     imageAlt: "SSPP filter design, PCB prototype and frequency response",
     width: 1105,
@@ -103,8 +103,8 @@ export const projectSummaries: readonly ProjectSummary[] = [
     titleZh: "基于刺绣短路过孔的纺织 HMSIC 天线",
     direction: "Wearable Antenna · EM Simulation · Paper",
     directionZh: "可穿戴天线 · 电磁仿真 · 论文",
-    summary: "Investigated embroidered shorting vias as a way to couple resonant modes and broaden the impedance bandwidth of a textile HMSIC antenna. Published in Micromachines in 2024.",
-    summaryZh: "研究在纺织 HMSIC 天线中加入刺绣短路过孔，通过调节谐振模式拓宽阻抗带宽。成果于 2024 年发表于 Micromachines。",
+    summary: "Contributed to validation as fourth author of a 2024 Micromachines paper on embroidered shorting vias for a wider-bandwidth textile HMSIC antenna.",
+    summaryZh: "作为第四作者参与纺织 HMSIC 天线的验证工作。论文通过刺绣短路过孔调节谐振模式、拓宽阻抗带宽，于 2024 年发表于 Micromachines。",
     image: "/papers/HMSIC.webp",
     imageAlt: "Textile HMSIC antenna from the published paper",
     width: 1071,
@@ -126,7 +126,7 @@ export const projectSummaries: readonly ProjectSummary[] = [
     title: "Multi-Car Formation: Hardware and Integration",
     titleZh: "多车编队智能车硬件系统",
     direction: "Embedded · PCB · Hardware Bring-Up",
-    directionZh: "嵌入式 · 印制电路板 · 硬件调试",
+    directionZh: "嵌入式 · PCB · 硬件调试",
     summary:
       "Handled PCB design, soldering and assembly for a student competition team. Integrated inter-vehicle communication, tuned PID controllers and debugged the assembled cars.",
       summaryZh: "在多车编队竞赛项目中，主要负责 PCB 设计、焊接装配、车辆间通信和 PID 参数调试，并参与整车联调。",

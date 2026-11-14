@@ -7,7 +7,7 @@ import styles from "./page.module.css";
 const runs = [
   { zh: "Burst，串行供数", en: "Burst · Serial loading", cycles: 1212904532 },
   { zh: "Burst，双缓冲", en: "Burst · Double buffering", cycles: 948269129 },
-  { zh: "当前精简优化版", en: "Current streamlined design", cycles: 489351345 },
+  { zh: "当前版本", en: "Current design", cycles: 489351345 },
 ];
 
 export default function Overview({ locale }: { locale: Locale }) {
@@ -17,13 +17,13 @@ export default function Overview({ locale }: { locale: Locale }) {
     <ReadingText as="p" className="eyebrow">{t("数字集成电路 · RTL · 模型编译", "Digital IC · RTL · Model compilation")}</ReadingText>
     <header className={styles.heading}>
       <ReadingText as="h1" className="page-title">{t("INT8 NPU", "INT8 NPU")}</ReadingText>
-      <ReadingText as="p" className={styles.subtitle}>{t("从模型编译到 ResNet-50 整数执行", "From model compilation to integer execution of ResNet-50")}</ReadingText>
-      <ReadingText as="p" className={styles.intro}>{t("独立设计与实现基于 4×4 脉动阵列的 INT8 NPU 及 TFLite/ONNX 模型编译工具链，涵盖模型转换、硬件任务生成与 RTL 执行。项目持续迭代中，当前版本已在完整 ResNet-50 整数工作负载上完成逐层数值验证，并通过存储与调度优化减少整网执行周期。", "An ongoing personal project in which I independently designed and implemented a 4×4 systolic INT8 NPU and a TFLite/ONNX compiler toolchain, covering model conversion, hardware task generation and RTL execution. The current version passes layer-by-layer numerical checks on the complete ResNet-50 integer workload, with memory and scheduling improvements reducing execution cycles.")}</ReadingText>
+      <ReadingText as="p" className={styles.subtitle}>{t("4×4 脉动阵列与 ResNet-50 整数推理", "4×4 systolic array and ResNet-50 integer inference")}</ReadingText>
+      <ReadingText as="p" className={styles.intro}>{t("独立设计与实现 4×4 脉动阵列 INT8 NPU 及 TFLite/ONNX 模型编译工具链，完成模型转换、硬件任务生成与 RTL 执行。项目持续迭代中，当前版本已通过完整 ResNet-50 整数工作负载的逐层数值验证，并通过存储与调度优化减少整网执行周期。", "I independently designed and implemented a 4×4 systolic INT8 NPU and a TFLite/ONNX compiler toolchain for model conversion, hardware task generation and RTL execution. This ongoing project now passes layer-by-layer numerical checks on the complete ResNet-50 integer workload, with memory and scheduling improvements reducing execution cycles.")}</ReadingText>
     </header>
     <dl className={styles.metrics}>
       <div><dt>4×4</dt><ReadingText as="dd">{t("INT8 脉动阵列", "INT8 systolic array")}</ReadingText></div>
       <div><dt>72</dt><ReadingText as="dd">{t("条硬件任务全部通过数值校验", "hardware tasks, all numerically verified")}</ReadingText></div>
-      <div><dt>2.48×</dt><ReadingText as="dd">{t("同频等效加速 · 相比串行基线", "equivalent speedup at equal clock frequency vs. serial baseline")}</ReadingText></div>
+      <div><dt>2.48×</dt><ReadingText as="dd">{t("同频加速比 · 相比串行供数基线", "speedup at equal clock frequency vs. serial-loading baseline")}</ReadingText></div>
     </dl>
 
     <section className={styles.section} aria-labelledby="npu-system">
@@ -52,8 +52,8 @@ export default function Overview({ locale }: { locale: Locale }) {
           <div className={styles.track} aria-hidden="true"><div className={index === 2 ? styles.current : styles.baseline} style={{ width: `${run.cycles / runs[0].cycles * 100}%` }} /></div>
         </li>)}</ol>
       </figure>
-      <ReadingText as="p" className={styles.conclusion}>{t("相比保留 Burst 的串行供数基线，当前版本整网周期减少 59.65%，同频等效加速 2.48 倍。", "Compared with the serial-loading baseline with Burst enabled, the current design uses 59.65% fewer cycles, equivalent to a 2.48× speedup at equal clock frequency.")}</ReadingText>
-      <ReadingText as="p" className={styles.note}>{t("数据来自统一条件的 RTL 周期仿真；使用真实 ONNX 权重和合成 INT8 输入，尚未验收 ImageNet 分类精度。", "Measured in RTL cycle simulation under matched conditions, using real ONNX weights and synthetic INT8 input. ImageNet classification accuracy has not been evaluated.")}</ReadingText>
+      <ReadingText as="p" className={styles.conclusion}>{t("相比启用 Burst 的串行供数基线，当前版本整网周期减少 59.65%，同频加速比为 2.48 倍。", "Compared with the serial-loading baseline with Burst enabled, the current design uses 59.65% fewer cycles, equivalent to a 2.48× speedup at equal clock frequency.")}</ReadingText>
+      <ReadingText as="p" className={styles.note}>{t("测试使用 ONNX 模型权重与合成 INT8 输入，在相同条件下比较整数计算结果和 RTL 执行周期。", "The tests use ONNX model weights and synthetic INT8 inputs to check integer results and compare RTL execution cycles under matched conditions.")}</ReadingText>
     </section>
 
     <div className={styles.records}>
@@ -67,11 +67,11 @@ export default function Overview({ locale }: { locale: Locale }) {
             ["当前有用吞吐为 8.0683 MAC/周期；整网有效利用率为 50.43%，包含搬运及辅助算子开销。", "Useful throughput is 8.0683 MAC/cycle. Effective utilization is 50.43% over the full run, including transfers and auxiliary operators."],
             ["DDR 读取量：2,093,158,512 → 1,278,406,224 字节，减少 38.92%。", "DDR reads fall from 2,093,158,512 to 1,278,406,224 bytes, a 38.92% reduction."],
           ].map(([cn, en]) => <ReadingText as="li" key={en}>{t(cn, en)}</ReadingText>)}</ul>
-          <ReadingText as="p">{t("两段周期降幅采用不同基线，不能直接相加。后续收益为多项优化的组合结果；三组均保留 Burst，本次对照不单独测量 Burst 的收益。", "The two reductions use different baselines and are not additive. Later gains reflect the combined optimizations. All three designs retain Burst; this comparison does not isolate its contribution.")}</ReadingText>
+          <ReadingText as="p">{t("21.82% 的降幅相对串行供数基线，48.40% 的降幅相对双缓冲版本。三组均启用 Burst，当前版本的进一步降幅来自多项组合优化。", "The 21.82% reduction is relative to the serial-loading baseline; the 48.40% reduction is relative to the double-buffered design. All three runs enable Burst, and the current design's additional gains come from the combined optimizations.")}</ReadingText>
           <ReadingText as="h3">{t("完整网络数值验证", "Full-network numerical validation")}</ReadingText>
           <ul>{[
             ["输入为 224×224×3；72 条任务包括 53 Conv、16 Add、1 MaxPool、1 GAP、1 FC。", "The input is 224×224×3. The 72 tasks comprise 53 Conv, 16 Add, one MaxPool, one GAP and one FC."],
-            ["三组全部通过逐层数值核对，完整 29,404,672 字节 DDR 均与独立 NumPy 整数参考一致。", "All three runs pass every layer comparison; the complete 29,404,672-byte DDR image matches the independent NumPy integer reference."],
+            ["三组全部通过逐层数值核对，29,404,672 字节的完整 DDR 数据镜像均与独立 NumPy 整数参考一致。", "All three runs pass every layer comparison; the complete 29,404,672-byte DDR image matches the independent NumPy integer reference."],
             ["三组共用模型、输入、量化参数与 DDR 时序。外部读 64 bit、写 32 bit；读 Burst 首拍等待 20 周期。", "All runs share the model, input, quantization parameters and DDR timing: 64-bit reads, 32-bit writes and a 20-cycle first-beat read delay."],
             ["串行和双缓冲基线由历史代码组合并作必要功能回补，不是未经修改的早期完整版本。", "The serial and double-buffered baselines combine historical code with necessary functional backports; they are not unmodified early full-system revisions."],
           ].map(([cn, en]) => <ReadingText as="li" key={en}>{t(cn, en)}</ReadingText>)}</ul>
@@ -102,7 +102,7 @@ export default function Overview({ locale }: { locale: Locale }) {
           <ReadingText as="p">{t("完成 16 条扫描链插入，覆盖 75,137 个触发器；开展 stuck-at ATPG，故障覆盖率（Fault coverage）为 78.58%。另完成单个 SRAM 宏的 MBIST 正常运行与故障注入验证。", "Inserted 16 scan chains covering 75,137 flip-flops and ran stuck-at ATPG, achieving 78.58% fault coverage. A separate single-SRAM MBIST experiment passed normal-operation and fault-injection checks.")}</ReadingText>
           <ReadingText as="p">{t("共保存 16,502 条图样，Test coverage 为 92.19%。覆盖率采用未折叠故障统计，部分检测按 50% 计分：Fault coverage 以全部 2,747,638 个故障为分母，Test coverage 扣除 405,530 个不可检测故障。", "The run produced 16,502 patterns with 92.19% test coverage. Uncollapsed fault statistics give 50% credit to possibly detected faults: fault coverage uses all 2,747,638 faults, while test coverage excludes 405,530 undetectable faults.")}</ReadingText>
           <ReadingText as="p">{t("MBIST 使用 DW_mbist_ctrl 与 DW_mbist_apg，连接一块 32×64 单端口 SRAM。正常存储器通过，读数据 bit0 固定为 0 的注入故障被检出，全部 32 个地址均有读写访问。", "MBIST connects DW_mbist_ctrl and DW_mbist_apg to a 32×64 single-port SRAM. The healthy memory passes; a forced-zero fault on read-data bit 0 is detected, with reads and writes to all 32 addresses.")}</ReadingText>
-          <ReadingText as="p" className={styles.note}>{t("以上 DFT 结果来自旧版网表。当前精简版尚未更新工艺映射后的面积、频率、功耗与 DFT 数据。", "These DFT results belong to an earlier netlist. Technology-mapped area, frequency, power and DFT results have not been updated for the current streamlined design.")}</ReadingText>
+          <ReadingText as="p" className={styles.note}>{t("本节 DFT 数据来自旧版综合网表。", "These DFT results come from an earlier synthesized netlist.")}</ReadingText>
         </div>
       </details>
     </div>

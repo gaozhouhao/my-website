@@ -8,8 +8,8 @@ import { localizedPath } from "../../lib/i18n";
 import { pageMetadata } from "../../lib/site";
 
 const copy = {
-  zh: { title: "项目经历", heading: "代表项目", intro: "我的项目主要涉及芯片设计与硬件开发。这里记录各项目中负责的工作、设计过程和测试结果。", open: "查看项目 →", meta: "郜周豪的芯片设计与硬件开发项目，包括模拟电路、处理器、神经网络加速器和嵌入式系统。" },
-  en: { title: "Portfolio", heading: "Selected Projects", intro: "Circuit design, processor RTL and embedded hardware, with a look at my contributions, design decisions and test results.", open: "Explore project →", meta: "Analog IC, processor RTL, neural accelerator and embedded hardware projects by Gao Zhouhao." },
+  zh: { title: "项目经历", heading: "代表项目", intro: "数字 IC、模拟电路与嵌入式硬件项目，包含个人工作、设计过程及仿真或测试结果。", open: "查看项目 →", meta: "郜周豪的芯片设计与硬件开发项目，包括模拟电路、处理器、神经网络加速器和嵌入式系统。" },
+  en: { title: "Portfolio", heading: "Selected Projects", intro: "Projects in digital ICs, analog circuits, and embedded hardware, with my contributions, design decisions, and simulation or test results.", open: "Explore project →", meta: "Analog IC, processor RTL, neural accelerator and embedded hardware projects by Gao Zhouhao." },
 } as const;
 
 export const metadata = pageMetadata("项目经历", copy.zh.meta, "/projects", "zh");
