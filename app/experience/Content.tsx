@@ -12,14 +12,9 @@ const copy = {
     place: "新加坡亚太总部",
     lead: "混合信号设计工程师 · 全职实习",
     project: "超低压能量收集芯片",
-    overview: "参与 TSMC 22 nm 能量收集芯片设计，工作包括规格制定、系统架构规划与启动电路设计。",
-    scope: "工作进展",
-    work: [
-      { title: "规格与系统架构", text: "参与芯片规格制定与系统架构规划。" },
-      { title: "启动电路原理图", text: "完成启动电路原理图设计，实现 0.1 V 供电启动。" },
-      { title: "PVT 仿真", text: "完成启动电路的 PVT 仿真，分析不同工艺角、电压和温度下的启动特性。" },
-      { title: "后续计划", text: "下一阶段将开展 Boost 升压电路设计。" },
-    ],
+    role: "我参与制定芯片规格、规划系统架构，具体负责超低压启动电路设计。",
+    result: "我完成了启动电路的原理图设计，实现了 0.1 V 供电启动，并通过 PVT 仿真分析工艺角、电源电压和温度变化对启动过程的影响。",
+    next: "下一阶段将设计 Boost 升压电路。",
     status: "项目状态",
     wip: "进行中",
     process: "工艺",
@@ -33,14 +28,9 @@ const copy = {
     place: "Asia-Pacific headquarters · Singapore",
     lead: "Mixed-Signal Design Engineer · Full-time internship",
     project: "Ultra-low-voltage energy-harvesting chip",
-    overview: "Contributing to specifications, system architecture, and startup-circuit design for a TSMC 22 nm energy-harvesting chip.",
-    scope: "Work and progress",
-    work: [
-      { title: "Specifications and system architecture", text: "Contributing to chip specifications and system architecture." },
-      { title: "Startup-circuit schematic", text: "Completed the startup-circuit schematic, achieving startup from a 0.1 V supply." },
-      { title: "PVT simulations", text: "Completed startup-circuit simulations to examine startup behavior across process, voltage, and temperature variations." },
-      { title: "Next stage", text: "Boost-converter design is planned next." },
-    ],
+    role: "I helped define the chip specifications and system architecture. My circuit design work focuses on startup at ultra-low supply voltages.",
+    result: "I completed the schematic and achieved startup from a 0.1 V supply. I then ran PVT simulations to study how process, supply voltage and temperature affect startup.",
+    next: "The next stage is to design the boost converter.",
     status: "Project status",
     wip: "In progress",
     process: "Process",
@@ -68,15 +58,9 @@ export function ExperiencePage({ locale }: { locale: Locale }) {
     <section className="section split experience-overview" aria-labelledby="experience-project">
       <div>
         <ReadingText as="h2" id="experience-project" className="section-heading">{t.project}</ReadingText>
-        <ReadingText as="p" className="section-intro">{t.overview}</ReadingText>
-        <section className="prose-section experience-work" aria-labelledby="experience-work">
-          <ReadingText as="h3" id="experience-work">{t.scope}</ReadingText>
-          <ul>
-            {t.work.map(item => <ReadingText as="li" key={item.title}>
-              <strong>{item.title}</strong>{locale === "zh" ? "：" : ": "}{item.text}
-            </ReadingText>)}
-          </ul>
-        </section>
+        <ReadingText>{t.role}</ReadingText>
+        <ReadingText>{t.result}</ReadingText>
+        <ReadingText>{t.next}</ReadingText>
       </div>
       <dl className="fact-panel">
         <dt>{t.status}</dt><ReadingText as="dd">{t.wip}</ReadingText>

@@ -18,7 +18,10 @@ export default function Overview({ locale }: { locale: Locale }) {
     <header className={styles.heading}>
       <ReadingText as="h1" className="page-title">{t("INT8 NPU", "INT8 NPU")}</ReadingText>
       <ReadingText as="p" className={styles.subtitle}>{t("4×4 脉动阵列与 ResNet-50 整数推理", "4×4 systolic array and ResNet-50 integer inference")}</ReadingText>
-      <ReadingText as="p" className={styles.intro}>{t("独立设计与实现 4×4 脉动阵列 INT8 NPU 及 TFLite/ONNX 模型编译工具链，完成模型转换、硬件任务生成与 RTL 执行。项目持续迭代中，当前版本已通过完整 ResNet-50 整数工作负载的逐层数值验证，并通过存储与调度优化减少整网执行周期。", "I independently designed and implemented a 4×4 systolic INT8 NPU and a TFLite/ONNX compiler toolchain for model conversion, hardware task generation and RTL execution. This ongoing project now passes layer-by-layer numerical checks on the complete ResNet-50 integer workload, with memory and scheduling improvements reducing execution cycles.")}</ReadingText>
+      <ReadingText className={styles.intro}>{t(
+        "我独立设计并实现了这款 NPU 和配套的 TFLite/ONNX 编译工具。编译器将模型转换为硬件任务，由 NPU 读取并执行。项目仍在迭代，当前版本已在 RTL 仿真中跑通 ResNet-50，各层的整数输出均与参考模型一致。",
+        "I independently designed and implemented the NPU and its TFLite/ONNX compiler. The compiler turns a model into tasks that the NPU fetches and executes. Development is ongoing. The current RTL runs the full ResNet-50 workload in simulation and matches the integer reference at every layer."
+      )}</ReadingText>
     </header>
     <dl className={styles.metrics}>
       <div><dt>4×4</dt><ReadingText as="dd">{t("INT8 脉动阵列", "INT8 systolic array")}</ReadingText></div>
@@ -46,7 +49,6 @@ export default function Overview({ locale }: { locale: Locale }) {
     <section className={styles.section} aria-labelledby="npu-performance">
       <ReadingText as="h2" id="npu-performance">{t("ResNet-50 整网执行周期", "ResNet-50 full-network execution cycles")}</ReadingText>
       <figure className={styles.chart}>
-        <ReadingText as="figcaption">{t("柱长按执行周期等比例绘制", "Bar lengths are proportional to execution cycles")}</ReadingText>
         <ol>{runs.map((run, index) => <li key={run.en}>
           <div className={styles.barLabel}><ReadingText as="p">{t(run.zh, run.en)}</ReadingText><span>{run.cycles.toLocaleString("en-US")} {t("周期", "cycles")}</span></div>
           <div className={styles.track} aria-hidden="true"><div className={index === 2 ? styles.current : styles.baseline} style={{ width: `${run.cycles / runs[0].cycles * 100}%` }} /></div>
@@ -62,18 +64,17 @@ export default function Overview({ locale }: { locale: Locale }) {
         <div className={styles.detailBody}>
           <ReadingText as="h3">{t("性能指标与对照条件", "Metrics and comparison setup")}</ReadingText>
           <ul>{[
-            ["双缓冲及对应预取调度：周期减少 21.82%。", "Double buffering and its prefetch scheduling reduce cycles by 21.82%."],
+            ["双缓冲及预取调度：相对串行供数基线，周期减少 21.82%。", "Double buffering and prefetch scheduling reduce cycles by 21.82% relative to the serial-loading baseline."],
             ["后续组合优化：在双缓冲基础上再减少 48.40%。", "Subsequent optimizations together reduce cycles by a further 48.40% relative to the double-buffered design."],
-            ["当前有用吞吐为 8.0683 MAC/周期；整网有效利用率为 50.43%，包含搬运及辅助算子开销。", "Useful throughput is 8.0683 MAC/cycle. Effective utilization is 50.43% over the full run, including transfers and auxiliary operators."],
+            ["整网有效吞吐率为 8.0683 MAC/周期，有效利用率为 50.43%；统计包含数据搬运与辅助算子开销。", "Effective throughput is 8.0683 MAC/cycle, with 50.43% utilization over the full run, including data transfers and auxiliary operators."],
             ["DDR 读取量：2,093,158,512 → 1,278,406,224 字节，减少 38.92%。", "DDR reads fall from 2,093,158,512 to 1,278,406,224 bytes, a 38.92% reduction."],
           ].map(([cn, en]) => <ReadingText as="li" key={en}>{t(cn, en)}</ReadingText>)}</ul>
-          <ReadingText as="p">{t("21.82% 的降幅相对串行供数基线，48.40% 的降幅相对双缓冲版本。三组均启用 Burst，当前版本的进一步降幅来自多项组合优化。", "The 21.82% reduction is relative to the serial-loading baseline; the 48.40% reduction is relative to the double-buffered design. All three runs enable Burst, and the current design's additional gains come from the combined optimizations.")}</ReadingText>
           <ReadingText as="h3">{t("完整网络数值验证", "Full-network numerical validation")}</ReadingText>
           <ul>{[
             ["输入为 224×224×3；72 条任务包括 53 Conv、16 Add、1 MaxPool、1 GAP、1 FC。", "The input is 224×224×3. The 72 tasks comprise 53 Conv, 16 Add, one MaxPool, one GAP and one FC."],
             ["三组全部通过逐层数值核对，29,404,672 字节的完整 DDR 数据镜像均与独立 NumPy 整数参考一致。", "All three runs pass every layer comparison; the complete 29,404,672-byte DDR image matches the independent NumPy integer reference."],
-            ["三组共用模型、输入、量化参数与 DDR 时序。外部读 64 bit、写 32 bit；读 Burst 首拍等待 20 周期。", "All runs share the model, input, quantization parameters and DDR timing: 64-bit reads, 32-bit writes and a 20-cycle first-beat read delay."],
-            ["串行和双缓冲基线由历史代码组合并作必要功能回补，不是未经修改的早期完整版本。", "The serial and double-buffered baselines combine historical code with necessary functional backports; they are not unmodified early full-system revisions."],
+            ["三组均启用 Burst，共用模型、输入、量化参数与 DDR 时序。外部读 64 bit、写 32 bit；读 Burst 首拍等待 20 周期。", "All three runs enable Burst and share the model, input, quantization parameters and DDR timing: 64-bit reads, 32-bit writes and a 20-cycle first-beat read delay."],
+            ["串行与双缓冲基线由历史代码重建，并补入对照测试所需的功能。", "The serial and double-buffered baselines were reconstructed from historical code with the functional backports needed for this comparison."],
           ].map(([cn, en]) => <ReadingText as="li" key={en}>{t(cn, en)}</ReadingText>)}</ul>
           <ReadingText as="h3">{t("当前计算与存储路径", "Current compute and memory paths")}</ReadingText>
           <ReadingText as="p">{t("当前版保留原生 64 位操作数读取、A/B 双 Bank、输出驻留累加、跨 K 输入复用与部分和槽，并已删除卷积读取缓存。硬件支持局部卷积与池化融合；本次 ResNet-50 的 72 条任务仍逐条执行，通过 DDR 交接。", "The current design retains native 64-bit operand reads, A/B double banks, output-stationary accumulation, cross-K input reuse and partial-sum slots. The convolution read cache has been removed. The hardware supports local convolution/pooling fusion; this ResNet-50 workload executes its 72 tasks separately, exchanging data through DDR.")}</ReadingText>
@@ -90,9 +91,9 @@ export default function Overview({ locale }: { locale: Locale }) {
             <ReadingText as="h3">MNIST CNN</ReadingText>
             <ReadingText as="p">{t("历史版本通过输入分块复用、AXI Burst 与数据拼装，将整网周期由 531,563 降至 74,527，减少 85.98%。四张测试图片的五层输出全部与软件参考一致。", "An earlier design reduced cycles from 531,563 to 74,527 (85.98%) through input-tile reuse, AXI Burst and word assembly. All five layer outputs matched the software reference for four test images.")}</ReadingText>
             <ReadingText as="h3">CIFAR-10 ResNet-8</ReadingText>
-            <ReadingText as="p">{t("历史原生 64 位通路与卷积缓存优化将周期由 1,486,468 降至 1,255,817，减少 15.52%。另一版固定配置完成十张图片、140 组层输出核对。以上为历史版本与各自测试条件下的记录。", "Earlier native 64-bit and convolution-cache optimizations reduced cycles from 1,486,468 to 1,255,817 (15.52%). A separate fixed configuration passed 140 layer checks across ten images. These records describe earlier revisions under their respective test conditions.")}</ReadingText>
+            <ReadingText as="p">{t("历史原生 64 位通路与卷积缓存优化将周期由 1,486,468 降至 1,255,817，减少 15.52%。另一版固定配置完成十张图片、140 组层输出核对。", "Earlier native 64-bit and convolution-cache optimizations reduced cycles from 1,486,468 to 1,255,817 (15.52%). A separate fixed configuration passed 140 layer checks across ten images.")}</ReadingText>
             <ReadingText as="h3">{t("DMA 完成信号漏接", "Missed DMA completion pulse")}</ReadingText>
-            <ReadingText as="p">{t("增加输入复用后，全连接层因漏接提前结束的单周期 DMA 完成信号而超时。改为从请求阶段记录完成状态，直至两路输入就绪；修复后通过输出比对与整网回归。", "After input reuse was added, the fully connected layer timed out when it missed an early one-cycle DMA completion pulse. Latching completion from the request phase until both inputs were ready resolved the issue; output checks and full-network regression passed.")}</ReadingText>
+            <ReadingText as="p">{t("增加输入复用后，DMA 可能提前完成，导致全连接层漏接单周期完成脉冲而超时。改为从发出请求时开始锁存完成状态，直到两路输入都就绪；修复后通过输出比对和整网回归。", "After input reuse was added, an early DMA completion could leave the fully connected layer waiting for a one-cycle completion pulse it had already missed. Latching completion from the request phase until both inputs were ready resolved the timeout; output checks and full-network regression passed.")}</ReadingText>
           </details>
         </div>
       </details>
@@ -101,8 +102,7 @@ export default function Overview({ locale }: { locale: Locale }) {
         <div className={styles.detailBody}>
           <ReadingText as="p">{t("完成 16 条扫描链插入，覆盖 75,137 个触发器；开展 stuck-at ATPG，故障覆盖率（Fault coverage）为 78.58%。另完成单个 SRAM 宏的 MBIST 正常运行与故障注入验证。", "Inserted 16 scan chains covering 75,137 flip-flops and ran stuck-at ATPG, achieving 78.58% fault coverage. A separate single-SRAM MBIST experiment passed normal-operation and fault-injection checks.")}</ReadingText>
           <ReadingText as="p">{t("共保存 16,502 条图样，Test coverage 为 92.19%。覆盖率采用未折叠故障统计，部分检测按 50% 计分：Fault coverage 以全部 2,747,638 个故障为分母，Test coverage 扣除 405,530 个不可检测故障。", "The run produced 16,502 patterns with 92.19% test coverage. Uncollapsed fault statistics give 50% credit to possibly detected faults: fault coverage uses all 2,747,638 faults, while test coverage excludes 405,530 undetectable faults.")}</ReadingText>
-          <ReadingText as="p">{t("MBIST 使用 DW_mbist_ctrl 与 DW_mbist_apg，连接一块 32×64 单端口 SRAM。正常存储器通过，读数据 bit0 固定为 0 的注入故障被检出，全部 32 个地址均有读写访问。", "MBIST connects DW_mbist_ctrl and DW_mbist_apg to a 32×64 single-port SRAM. The healthy memory passes; a forced-zero fault on read-data bit 0 is detected, with reads and writes to all 32 addresses.")}</ReadingText>
-          <ReadingText as="p" className={styles.note}>{t("本节 DFT 数据来自旧版综合网表。", "These DFT results come from an earlier synthesized netlist.")}</ReadingText>
+          <ReadingText as="p">{t("MBIST 使用 DW_mbist_ctrl 与 DW_mbist_apg，连接一块 32×64 单端口 SRAM。无故障存储器通过测试；将读数据 bit0 固定为 0 后，MBIST 检出故障；全部 32 个地址均有读写访问。", "MBIST connects DW_mbist_ctrl and DW_mbist_apg to a 32×64 single-port SRAM. The fault-free memory passes; forcing read-data bit 0 to zero produces a detected fault, with reads and writes to all 32 addresses.")}</ReadingText>
         </div>
       </details>
     </div>

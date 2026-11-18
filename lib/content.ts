@@ -33,8 +33,8 @@ export const projectSummaries: readonly ProjectSummary[] = [
     direction: "Digital IC · RTL · SoC · Verification",
     directionZh: "数字 IC · RTL 设计 · SoC 集成",
     summary:
-      "Independently designed and implemented an RV32E CPU with a five-stage pipeline and 2-bit branch prediction, supported by SoC integration, memory models, and differential testing against NEMU.",
-    summaryZh: "独立设计与实现 RV32E 处理器，完成五级流水线与 2-bit 分支预测，并进行总线与 SoC 集成、存储器建模和 NEMU 差分测试。",
+      "Independently designed and implemented an RV32E CPU with a five-stage pipeline and 2-bit branch prediction. Completed bus and SoC integration, memory modeling, and differential testing against NEMU.",
+    summaryZh: "独立设计与实现 RV32E 五级流水线处理器与 2-bit 分支预测，完成总线与 SoC 集成、存储器建模和 NEMU 差分测试。",
     image: "/projects/riscv32-layout.png",
     imageAlt: "RV32E RISC-V processor layout",
     width: 765,
@@ -78,8 +78,8 @@ export const projectSummaries: readonly ProjectSummary[] = [
     direction: "ASIC Flow · RTL · Synthesis · Physical Design",
     directionZh: "ASIC 设计流程 · RTL · 综合 · 物理实现",
     summary:
-      "Introductory course exercises using GF 22 nm libraries: basic logic cells, Verilog, synthesis, timing analysis, and place and route.",
-    summaryZh: "使用 GF 22 nm 工艺库完成课程实验，练习基础单元设计、Verilog 编写、逻辑综合、时序分析和布局布线。",
+      "Completed GF 22 nm coursework covering logic-cell design, Verilog, synthesis, timing analysis, and place and route.",
+    summaryZh: "基于 GF 22 nm 工艺库完成课程实验，包括基础单元设计、Verilog 编写、逻辑综合、时序分析与布局布线。",
     featured: false,
   },
   {
@@ -90,7 +90,7 @@ export const projectSummaries: readonly ProjectSummary[] = [
     directionZh: "射频硬件 · 仿真 · 测量",
     summary:
       "Designed and simulated an SSPP low-pass filter in CST, then fabricated a PCB prototype and measured its response with a VNA. Published the results as first author in Micromachines.",
-    summaryZh: "使用 CST 完成结构设计与仿真，制作 PCB 样机并用矢量网络分析仪测试。成果以第一作者发表于 Micromachines。",
+    summaryZh: "使用 CST 完成结构设计与仿真，制作 PCB 样机并用矢量网络分析仪测试，以第一作者在 Micromachines 发表论文。",
     image: "/papers/SSPP.webp",
     imageAlt: "SSPP filter design, PCB prototype and frequency response",
     width: 1105,
@@ -117,8 +117,8 @@ export const projectSummaries: readonly ProjectSummary[] = [
     titleZh: "双车跟随系统",
     direction: "2022 TI Cup · Embedded Control",
     directionZh: "2022 TI 杯 · 嵌入式控制",
-    summary: "Jiangsu First Prize. Team captain responsible for MCU, power and driver circuits, the PID framework, vehicle tuning, and integration.",
-    summaryZh: "江苏省一等奖。担任队长，负责 MCU、电源与驱动电路、PID 框架、实车调参与系统集成。",
+    summary: "As captain of a three-person team, handled MCU, power and motor-driver circuits, the PID framework, vehicle tuning, and integration. The team won First Prize in Jiangsu.",
+    summaryZh: "担任三人团队队长，负责 MCU、电源与电机驱动电路、PID 框架、实车调参与系统集成。团队获江苏省一等奖。",
     featured: false,
   },
   {
@@ -128,8 +128,8 @@ export const projectSummaries: readonly ProjectSummary[] = [
     direction: "Embedded · PCB · Hardware Bring-Up",
     directionZh: "嵌入式 · PCB · 硬件调试",
     summary:
-      "Handled PCB design, soldering and assembly for a student competition team. Integrated inter-vehicle communication, tuned PID controllers and debugged the assembled cars.",
-      summaryZh: "在多车编队竞赛项目中，主要负责 PCB 设计、焊接装配、车辆间通信和 PID 参数调试，并参与整车联调。",
+      "Handled PCB design, assembly, and hardware debugging, and contributed to Bluetooth-UART communication, PID tuning, and vehicle integration. The team won Second Prize at the national finals.",
+      summaryZh: "主要负责 PCB 设计、焊接装配与硬件调试，参与车辆间蓝牙串口通信、PID 参数整定和整车联调。团队获全国总决赛二等奖。",
       image: "/projects/smart-car-team.jpeg",
       imageAlt: "Three smart cars beside the test track",
       imageFit: "contain",
@@ -144,8 +144,8 @@ export const projectSummaries: readonly ProjectSummary[] = [
     direction: "Analog IC · Circuit Simulation",
     directionZh: "模拟 IC · 电路仿真",
     summary:
-      "A TSMC 0.18 µm coursework project covering schematic design and pre-layout simulation of a bandgap reference, including temperature sweeps.",
-    summaryZh: "基于 TSMC 0.18 µm 工艺的课程项目，完成带隙基准电路的原理图设计和前仿真，通过温度扫描检查输出电压的变化。",
+      "A TSMC 0.18 µm course project covering bandgap-reference schematic design, pre-layout simulation, and temperature sweeps.",
+    summaryZh: "基于 TSMC 0.18 µm 工艺的课程项目，完成带隙基准电路原理图设计、前仿真与温度扫描。",
     image: "/projects/bandgap-schematic.webp",
     imageAlt: "Bandgap-based reference circuit schematic",
     width: 1920,

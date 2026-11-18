@@ -34,7 +34,7 @@ export function AwardsPage({ locale }: { locale: Locale }) {
                   <ReadingText as="p" className="eyebrow">{award.date && `${award.date} · `}{level}</ReadingText>
                   <ReadingText as="h3">
                     <a className="award-title-link" href={award.certificate} target="_blank" rel="noreferrer" aria-label={zh ? `查看${name}的${level}奖状（新窗口）` : `View certificate: ${name}, ${level} (new tab)`}>
-                      <span>{name}</span><span className="award-link-icon" aria-hidden="true">↗</span>
+                      <ReadingText as="span">{name}</ReadingText><span className="award-link-icon" aria-hidden="true">↗</span>
                     </a>
                   </ReadingText>
                 </article>

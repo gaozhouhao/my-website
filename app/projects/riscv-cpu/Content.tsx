@@ -23,7 +23,7 @@ const copy = {
     isaText: "RV32E 基础整数运算、逻辑、移位、分支和跳转指令由译码逻辑生成控制信号，再在 EXU 中完成运算与条件判断。加载与存储指令通过 LSU 将访问请求转为总线事务；写回阶段根据指令类别选择算术结果、加载数据或 PC 相关结果。",
     isaText2: "控制与状态寄存器（CSR）访问、ECALL 环境调用、MRET 异常返回和异常处理共用控制流管理逻辑，统一处理寄存器读写、异常入口与返回地址。FENCE.I 用于同步指令流；本实现通过使指令缓存（ICache）失效，保证修改代码后能取到更新的指令。",
     verification: "验证环境",
-    verificationText: "我实现的 NEMU 指令集模拟器作为差分测试参考模型，将 RTL 与参考模型的寄存器和执行状态逐条比对。使用指令集测试、riscv-tests 和自定义程序检查算术、控制流、访存与异常；发现差异后，用 GTKWave 查看 Verilator 生成的 FST 波形，定位握手、总线响应或寄存器更新问题。",
+    verificationText: "运行指令集测试、riscv-tests 和自定义程序时，我逐条比对 RTL 与 NEMU 的寄存器和执行状态，检查算术、控制流、访存和异常处理。遇到不一致的指令，再用 GTKWave 查看 Verilator 生成的 FST 波形，定位握手、总线响应或寄存器更新问题。",
     verificationText2: "已在 RTL CPU 上运行 RT-Thread，验证启动、中断、串口、内存布局与外设访问。",
     soc: "SoC 集成与缓存",
     socText: "处理器通过 AXI4-Lite 总线互连接入片上系统，访问 SRAM、核心本地中断控制器（CLINT）和串口（UART）等模块。互连负责仲裁取指与访存请求、解析地址并返回响应；启动程序和外设驱动使用一致的地址映射。",
@@ -56,7 +56,7 @@ const copy = {
     isaText: "RV32E integer arithmetic, logical, shift, branch, and jump instructions are decoded into control signals and executed in EXU. LSU turns load/store operations into bus transactions, while WBU selects arithmetic, load, or PC-related results.",
     isaText2: "CSR access, ECALL, MRET, and exception handling share redirect and state-control paths. FENCE.I synchronizes instruction fetches with earlier code writes; this implementation invalidates the instruction cache to fetch the updated code.",
     verification: "Verification environment",
-    verificationText: "The implemented NEMU simulator is the reference model for differential testing. RTL state is compared against NEMU alongside ISA tests, riscv-tests, and custom programs; Verilator, FST traces, and GTKWave are used to inspect handshake signals, bus responses, and registers when a mismatch appears.",
+    verificationText: "NEMU is the differential-testing reference for instruction-by-instruction comparisons of registers and execution state. ISA tests, riscv-tests and custom programs cover arithmetic, control flow, memory access and exceptions. When a mismatch appears, I inspect Verilator FST traces in GTKWave to locate handshake, bus-response or register-update issues.",
     verificationText2: "RT-Thread also runs on the RTL CPU. This extends validation beyond isolated instructions to startup, interrupt, UART, memory mapping, and peripheral integration.",
     soc: "SoC integration and cache",
     socText: "The CPU connects to SRAM, CLINT, UART, and peripherals through an AXI4-Lite interconnect. IFU and LSU traffic requires arbitration, address decoding, response routing, and a consistent memory map shared by boot software and hardware.",
@@ -77,16 +77,16 @@ const copy = {
 
 const challenges = {
   zh: [
-    ["IFU/WBU ready 死锁", "取指端与写回端的 ready 信号出现相互依赖时，双方都在等待对方推进，导致流水停滞。解决方法是重新划分握手依赖：让每一级只根据本级缓存状态和下游接收能力决定是否推进，避免 ready 信号形成闭环。"],
-    ["PC 与指令不匹配", "AXI 返回时序与取指请求并不同步，若只使用当前 PC，可能把返回指令标记到错误地址。为此将取指请求 PC 与指令缓冲 PC 分离：请求发出时保存地址，响应到达时再把对应 PC 与指令一起写入缓冲。"],
-    ["跳转与过期指令", "分支、跳转或异常改变取指地址时，内存侧可能仍有未完成请求。控制逻辑需要区分请求是否已经发出、响应属于哪一次取指，并丢弃不再属于当前执行路径的过期指令。"],
-    ["AXI 仲裁与响应归属", "取指缓存回填和访存请求可能争用同一条 AXI 通道。仲裁器除了决定谁先发请求，还要记录响应所属的请求方，确保返回数据交给正确的请求方，而不会在可变延迟下串扰。"],
+    ["IFU/WBU ready 死锁", "取指端与写回端的 ready 信号相互依赖，导致流水线停滞。重新划分握手逻辑，由各级缓存状态和下游接收能力决定是否推进，消除 ready 信号闭环。"],
+    ["PC 与指令不匹配", "取指请求发出后，当前 PC 可能先发生变化。请求发出时保存 PC，响应到达时再将对应 PC 与指令一同写入缓冲，避免返回指令与地址错配。"],
+    ["跳转与过期指令", "分支、跳转或异常发生时，仍可能有尚未返回的取指请求。通过记录请求状态和响应归属，丢弃不再属于当前执行路径的指令。"],
+    ["AXI 仲裁与响应归属", "指令缓存回填与访存请求共用 AXI 通道。仲裁器记录请求来源，并将返回数据交给对应模块，避免可变延迟下的响应错配。"],
   ],
   en: [
-    ["IFU/WBU ready deadlock", "Mutual ready dependencies can leave fetch and writeback waiting on each other. The control logic was reorganized so each stage advances from local buffered state and downstream acceptance, rather than forming a ready-signal loop."],
-    ["PC and instruction mismatch", "AXI response timing is decoupled from the current fetch PC. Fetch PCs and instruction-buffer PCs are therefore stored separately: the request address is retained when issued, then paired with its instruction on response."],
-    ["Redirect and stale instructions", "Branch, jump, and exception redirects can coexist with pending memory requests. The control path tracks issued requests and response ownership, discarding instructions that no longer belong to the current control flow."],
-    ["AXI arbitration and response ownership", "IFU cache refills and LSU transactions can contend for the AXI channel. Arbitration must choose requests and retain response ownership so variable-latency data is returned to the correct requester."],
+    ["IFU/WBU ready deadlock", "Fetch and writeback stalled because their ready signals depended on each other. Reworking the handshake logic around local buffered state and downstream acceptance removed the ready-signal loop."],
+    ["PC and instruction mismatch", "The current PC can change before an instruction request completes. The request PC is saved when issued and written into the instruction buffer with the returned instruction, keeping each instruction paired with its address."],
+    ["Redirect and stale instructions", "Branches, jumps and exceptions can occur while instruction requests are still pending. Request-state and response-ownership tracking allow the core to discard instructions outside the current execution path."],
+    ["AXI arbitration and response ownership", "Instruction-cache refills and load/store requests share an AXI channel. The arbiter records each request's source and routes returned data to the corresponding module, preserving response ownership under variable latency."],
   ],
 } as const;
 

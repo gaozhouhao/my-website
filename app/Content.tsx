@@ -10,13 +10,12 @@ const copy = {
   zh: {
     meta: "郜周豪的集成电路设计作品集，重点展示数字集成电路、寄存器传输级设计、片上系统与硬件项目。",
     degree: "慕尼黑工业大学 / 南洋理工大学 · 集成电路设计硕士在读",
-    internship: "英飞凌科技 · 新加坡亚太总部 · 混合信号设计工程师",
+    internship: "英飞凌科技 · 新加坡亚太总部 · 混合信号设计工程师 · 实习",
     direction: "数字 IC · RTL 与 SoC 设计 · 混合信号设计",
     projects: "项目经历",
     email: "邮箱",
-    resume: "简历整理中",
     selected: "代表项目",
-    selectedIntro: "处理器、神经网络加速器、模拟电路与嵌入式硬件。",
+    selectedIntro: "处理器、NPU、模拟电路、射频与嵌入式硬件。",
     view: "项目详情",
     experience: "实习经历",
     ongoing: "进行中",
@@ -30,13 +29,12 @@ const copy = {
   en: {
     meta: "Gao Zhouhao's IC design portfolio with projects across analog IC, RTL, SoC, ASIC flow, and hardware.",
     degree: "TUM / NTU · M.Sc. Integrated Circuit Design · Expected graduation: 2027",
-    internship: "Infineon Technologies Singapore · Mixed-Signal Design Engineer",
+    internship: "Infineon Technologies Singapore · Mixed-Signal Design Engineer · Internship",
     direction: "Digital IC / RTL · SoC Design · Mixed-Signal Design",
     projects: "Projects",
     email: "Email",
-    resume: "Resume coming soon",
     selected: "Selected Projects",
-    selectedIntro: "A selection of my work in circuit design, processors, and embedded hardware.",
+    selectedIntro: "Processors, NPUs, analog circuits, RF, and embedded hardware.",
     view: "Project details",
     experience: "Experience",
     ongoing: "Ongoing",
@@ -61,18 +59,17 @@ export function HomePage({ locale }: { locale: Locale }) {
       <ReadingText as="p" className="eyebrow">{locale === "zh" ? "2027 届 · 集成电路设计" : "2027 · IC Design"}</ReadingText>
       <ReadingText as="h1" className="display-title">{zh ? "郜周豪" : "Gao Zhouhao"}</ReadingText>
       <div className="hero-facts">
-        <ReadingText as="p">{t.degree}</ReadingText><ReadingText as="p">{t.internship}</ReadingText><ReadingText as="p">{t.direction}</ReadingText>
+        <ReadingText as="p" keepTogether={zh ? ["集成电路设计"] : undefined}>{t.degree}</ReadingText><ReadingText as="p">{t.internship}</ReadingText><ReadingText as="p">{t.direction}</ReadingText>
       </div>
       <div className="button-row compact-buttons">
         <Link className="button button-primary" href={href("/projects")}>{t.projects}</Link>
         <a className="button" href={site.github} target="_blank" rel="noreferrer">GitHub</a>
         <a className="button" href={`mailto:${site.email}`}>{t.email}</a>
-        <span className="button button-muted" aria-disabled="true">{t.resume}</span>
       </div>
     </section>
 
     <section className="page-shell home-section">
-      <div className="section-bar"><div><ReadingText as="p" className="eyebrow">01 / {zh ? "项目选集" : "Selected work"}</ReadingText><ReadingText as="h2" className="home-heading">{t.selected}</ReadingText></div><ReadingText as="p">{t.selectedIntro}</ReadingText></div>
+      <div className="section-bar"><ReadingText as="h2" className="home-heading">{t.selected}</ReadingText><ReadingText as="p">{t.selectedIntro}</ReadingText></div>
       <div className="showcase-grid">
         <article className="showcase-card showcase-wide">
           <Link href={href("/projects/riscv-cpu")} className="showcase-media"><Image src="/projects/riscv32-layout.png" alt={locale === "zh" ? "RV32E RISC-V 处理器版图" : "RV32E RISC-V processor layout"} width={765} height={762} sizes="(max-width: 800px) 100vw, 55vw" priority /></Link>
@@ -88,14 +85,14 @@ export function HomePage({ locale }: { locale: Locale }) {
         </article>
         <article className="showcase-card video-card">
           <div className="video-preview"><CompetitionVideo bvid="BV1hiQXBFEzB" title={locale === "zh" ? "多车编队智能车比赛演示" : "Multi-vehicle smart car competition demo"} /></div>
-          <div className="showcase-copy"><ReadingText as="p" className="eyebrow">{locale === "zh" ? "嵌入式 · PCB · 系统联调" : "Embedded · PCB · System Bring-Up"}</ReadingText><ReadingText as="h3">{zh ? "多车编队智能车" : "Multi-Vehicle Smart Car Formation"}</ReadingText><ReadingText as="p">{zh ? "我主要负责电路板设计和焊接、车辆间蓝牙通信，以及控制参数调整和整车调试。团队获全国总决赛二等奖。" : "Our team won second prize at the national finals. I worked on the boards, inter-vehicle communication, control tuning, and vehicle integration."}</ReadingText><div className="inline-links"><Link className="card-link" href={href("/projects/smart-car")}>{t.view} →</Link></div></div>
+          <div className="showcase-copy"><ReadingText as="p" className="eyebrow">{locale === "zh" ? "嵌入式 · PCB · 系统联调" : "Embedded · PCB · System Bring-Up"}</ReadingText><ReadingText as="h3">{zh ? "多车编队智能车" : "Multi-Vehicle Smart Car Formation"}</ReadingText><ReadingText as="p">{zh ? "主要负责电路板设计、焊接与硬件调试，参与车辆间蓝牙串口通信、PID 参数整定和整车联调。团队获全国总决赛二等奖。" : "Handled PCB design, assembly, and hardware debugging. Contributed to Bluetooth-UART communication, PID tuning, and vehicle integration. The team won Second Prize at the national finals."}</ReadingText><div className="inline-links"><Link className="card-link" href={href("/projects/smart-car")}>{t.view} →</Link></div></div>
         </article>
         <article className="showcase-card video-card">
           <CompetitionVideo bvid="BV1QXQQBbEMi" title={zh ? "TI 杯双车跟随系统比赛演示" : "TI Cup dual-vehicle following demo"} />
           <div className="showcase-copy">
-            <ReadingText as="p" className="eyebrow">{zh ? "电子设计竞赛 · 江苏省一等奖" : "TI Cup · Jiangsu First Prize"}</ReadingText>
+            <ReadingText as="p" className="eyebrow">{zh ? "2022 TI 杯" : "2022 TI Cup"}</ReadingText>
             <ReadingText as="h3">{zh ? "双车跟随系统" : "Dual-Vehicle Following System"}</ReadingText>
-            <ReadingText as="p">{zh ? "采用 MSP430F5529 控制器，通过灰度传感器循迹、超声测距和蓝牙通信，实现两辆车的协同跟随。" : "Built around the MSP430F5529, the two cars follow a track and maintain their spacing using line sensors, ultrasonic ranging, and Bluetooth communication."}</ReadingText>
+            <ReadingText as="p">{zh ? "担任三人团队队长，负责 MCU、电源与电机驱动电路、PID 框架、实车调参与系统集成。团队获江苏省一等奖。" : "As captain of a three-person team, handled MCU, power and motor-driver circuits, the PID framework, vehicle tuning, and integration. The team won First Prize in Jiangsu."}</ReadingText>
             <Link className="card-link" href={href("/projects/dual-vehicle-following")}>{t.view} →</Link>{" · "}<a className="card-link" href="/certificates/awards/previews/ti-cup-2022.webp" target="_blank" rel="noreferrer">{zh ? "查看奖状" : "View certificate"} ↗</a>
           </div>
         </article>
@@ -107,8 +104,8 @@ export function HomePage({ locale }: { locale: Locale }) {
     </section>
 
     <section className="page-shell home-section compact-grid">
-      <article className="compact-panel experience-panel"><ReadingText as="p" className="eyebrow">{t.experience}</ReadingText><div className="compact-title"><div className="brand-title"><Image src="/brand/infineon.svg" alt="Infineon" width={120} height={53} className="brand-logo brand-logo-infineon" /><ReadingText as="h2">{locale === "zh" ? "英飞凌科技" : "Infineon Technologies"}</ReadingText></div><span>{t.ongoing}</span></div><ReadingText as="p">{zh ? "新加坡亚太总部" : "Asia-Pacific headquarters · Singapore"}</ReadingText><ReadingText as="p"><strong>{locale === "zh" ? "混合信号设计工程师" : "Mixed-Signal Design Engineer"}</strong> · 2026.06–2027.04</ReadingText><ReadingText as="p">{t.experienceText}</ReadingText><Link className="card-link" href={href("/experience")}>{zh ? "实习详情" : "Experience details"} →</Link></article>
-      <article className="compact-panel"><ReadingText as="p" className="eyebrow">{t.more}</ReadingText><div className="mini-project"><div><ReadingText as="h3">{locale === "zh" ? "NM6008 数字集成电路设计实验" : "NM6008 Digital IC Design Lab"}</ReadingText><ReadingText as="p">{locale === "zh" ? "课程基础实验 · 逻辑综合 · 布局布线" : "Introductory coursework · Synthesis · Place and route"}</ReadingText></div><Link href={href("/projects/digital-ic-flow")} aria-label={zh ? "查看数字集成电路设计实验" : "View Digital IC Design Lab"}>→</Link></div><div className="mini-project"><div><ReadingText as="h3">{locale === "zh" ? "带隙基准电压" : "Bandgap Reference"}</ReadingText><ReadingText as="p">{locale === "zh" ? "台积电 0.18 微米 · 原理图 · 温度扫描" : "TSMC 0.18 µm · Schematic · Temperature Sweep"}</ReadingText></div><Link href={href("/projects/bandgap-reference")} aria-label={zh ? "查看带隙基准电压电路" : "View Bandgap Reference"}>→</Link></div><Link className="card-link" href={href("/projects")}>{t.allProjects} →</Link></article>
+      <article className="compact-panel experience-panel"><ReadingText as="p" className="eyebrow">{t.experience}</ReadingText><div className="compact-title"><div className="brand-title"><Image src="/brand/infineon.svg" alt="Infineon" width={120} height={53} className="brand-logo brand-logo-infineon" /><ReadingText as="h2">{locale === "zh" ? "英飞凌科技" : "Infineon Technologies"}</ReadingText></div><span>{t.ongoing}</span></div><ReadingText as="p">{zh ? "新加坡亚太总部" : "Asia-Pacific headquarters · Singapore"}</ReadingText><ReadingText as="p"><strong>{locale === "zh" ? "混合信号设计工程师" : "Mixed-Signal Design Engineer"}</strong> · {zh ? "实习" : "Internship"} · 2026.06–2027.04</ReadingText><ReadingText as="p">{t.experienceText}</ReadingText><Link className="card-link" href={href("/experience")}>{zh ? "实习详情" : "Experience details"} →</Link></article>
+      <article className="compact-panel"><ReadingText as="p" className="eyebrow">{t.more}</ReadingText><div className="mini-project"><div><ReadingText as="h3">{locale === "zh" ? "NM6008 数字集成电路设计实验" : "NM6008 Digital IC Design Lab"}</ReadingText><ReadingText as="p">{locale === "zh" ? "课程实验 · 逻辑综合 · 布局布线" : "Coursework · Synthesis · Place and route"}</ReadingText></div><Link href={href("/projects/digital-ic-flow")} aria-label={zh ? "查看数字集成电路设计实验" : "View Digital IC Design Lab"}>→</Link></div><div className="mini-project"><div><ReadingText as="h3">{locale === "zh" ? "带隙基准电压" : "Bandgap Reference"}</ReadingText><ReadingText as="p">{locale === "zh" ? "台积电 0.18 微米 · 原理图 · 温度扫描" : "TSMC 0.18 µm · Schematic · Temperature Sweep"}</ReadingText></div><Link href={href("/projects/bandgap-reference")} aria-label={zh ? "查看带隙基准电压电路" : "View Bandgap Reference"}>→</Link></div><Link className="card-link" href={href("/projects")}>{t.allProjects} →</Link></article>
     </section>
 
     <section className="page-shell home-section support-grid">

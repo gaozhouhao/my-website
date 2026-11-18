@@ -8,8 +8,8 @@ import { localizedPath } from "../../lib/i18n";
 import { pageMetadata } from "../../lib/site";
 
 const copy = {
-  zh: { title: "项目经历", heading: "代表项目", intro: "数字 IC、模拟电路与嵌入式硬件项目，包含个人工作、设计过程及仿真或测试结果。", open: "查看项目 →", meta: "郜周豪的芯片设计与硬件开发项目，包括模拟电路、处理器、神经网络加速器和嵌入式系统。" },
-  en: { title: "Portfolio", heading: "Selected Projects", intro: "Projects in digital ICs, analog circuits, and embedded hardware, with my contributions, design decisions, and simulation or test results.", open: "Explore project →", meta: "Analog IC, processor RTL, neural accelerator and embedded hardware projects by Gao Zhouhao." },
+  zh: { title: "项目经历", intro: "数字 IC、模拟电路、射频与嵌入式硬件项目。", open: "查看项目 →", meta: "郜周豪的芯片设计与硬件开发项目，包括模拟电路、处理器、神经网络加速器和嵌入式系统。" },
+  en: { title: "Projects", intro: "Digital IC, analog circuit, RF, and embedded hardware projects.", open: "Explore project →", meta: "Analog IC, processor RTL, neural accelerator and embedded hardware projects by Gao Zhouhao." },
 } as const;
 
 export const metadata = pageMetadata("项目经历", copy.zh.meta, "/projects", "zh");
@@ -17,7 +17,7 @@ export const metadata = pageMetadata("项目经历", copy.zh.meta, "/projects", 
 export function ProjectsPage({ locale }: { locale: Locale }) {
   const t = copy[locale];
   return <main id="main-content" className="page-shell" lang={locale === "zh" ? "zh-CN" : "en"}>
-    <ReadingText as="p" className="eyebrow">{t.title}</ReadingText><ReadingText as="h1" className="page-title">{t.heading}</ReadingText><ReadingText as="p" className="lead" style={{ marginTop: "1.5rem" }}>{t.intro}</ReadingText>
+    <ReadingText as="h1" className="page-title">{t.title}</ReadingText><ReadingText as="p" className="lead" style={{ marginTop: "1.5rem" }}>{t.intro}</ReadingText>
     <div className="card-grid project-grid section">
       {projectSummaries.map(project => <article className="card" key={project.slug}>
         {project.image && project.width && project.height && <Link href={localizedPath(`/projects/${project.slug}`, locale)}><Image src={project.image} alt={locale === "zh" ? project.titleZh : project.imageAlt ?? project.title} width={project.width} height={project.height} sizes="(max-width: 800px) 100vw, 33vw" style={{ width: "100%", height: "auto", display: "block" }} /></Link>}
