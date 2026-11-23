@@ -411,3 +411,28 @@ main[lang="zh-CN"] :is(.page-title,.section-heading,.home-heading) { letter-spac
   .education-strip { gap: 2rem; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+.publication-entry, .cpu-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 40%);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+.publication-entry {
+  border-top: 1px solid var(--line);
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+  padding-top: clamp(1.5rem, 4vw, 2.5rem);
+}
+.publication-entry .eyebrow, .cpu-overview .prose-section { margin-top: 0; }
+.publication-entry .button-row { margin-top: 1.25rem; }
+.publication-entry .evidence { width: min(100%, 24rem); }
+.publication-entry .patent-certificate { width: min(100%, 16rem); margin-inline: 0; }
+.patent-facts { margin: 1.5rem 0 0; }
+.patent-facts > div { display: grid; grid-template-columns: minmax(6rem, 40%) 1fr; gap: .75rem; padding-block: .4rem; border-top: 1px solid var(--line); }
+.patent-facts dt, .patent-facts dd { margin: 0; font-size: .85rem; }
+.patent-facts dt { color: var(--muted); }
+.cpu-overview .evidence { width: min(100%, 28rem); }
+.cpu-overview .prose-section > p + p { margin-top: 1rem; }
+@media (max-width: 800px) {
+  .publication-entry, .cpu-overview { grid-template-columns: 1fr; gap: 1.5rem; }
+}

@@ -14,8 +14,8 @@ const copy = {
     repo: "RISCV32 代码仓库",
     socRepo: "ysyxSoC 代码仓库",
     overview: "项目概览",
-    overviewText: "先实现 NEMU 指令级模拟器，再设计 RV32E 处理器 RTL。NEMU 执行程序并提供寄存器与内存状态，作为差分测试的参考模型；RTL 覆盖取指、译码、执行、访存和写回。",
-    overviewText2: "处理器从多周期版本起步，经过两级流水探索，逐步演进为当前实现。接入 ysyxSoC 后，结合 NEMU 差分测试与 Verilator 波形，调试启动程序、存储器、外设访问及控制流。",
+    overviewText: "我先用 RTL 实现了单周期 RV32E 处理器，随后将它改为三周期，再改为五周期。这两个多周期版本都逐条执行指令。之后，我将五周期版本改为五级流水线，让不同指令可以同时处于不同阶段。",
+    overviewText2: "调试时，我用 NEMU 作为差分测试的参考模型，逐条比对指令执行结果，再用 Verilator 波形检查握手、总线响应和控制流。将处理器接入 ysyxSoC 后，我继续调试启动程序、存储器和外设访问。",
     architecture: "处理器微架构",
     architectureText: "当前版本采用取指、译码、执行、访存和写回五级流水线，并已实现 2-bit 分支预测。",
     architectureText2: "控制逻辑重点处理停顿、跳转和可变延迟访存。分别保存取指请求的 PC 与已接收指令的 PC，并跟踪请求和响应，避免指令与地址错配。",
@@ -47,8 +47,8 @@ const copy = {
     repo: "RISCV32 repository",
     socRepo: "ysyxSoC repository",
     overview: "Project overview",
-    overviewText: "I implemented the NEMU instruction-set simulator as a differential-testing reference, then built the RV32E core in RTL. NEMU provides register and memory state for checking RTL execution. The core covers fetch, decode, execute, load/store and writeback.",
-    overviewText2: "The core evolved from a multi-cycle design through a two-stage pipeline experiment. After integration with ysyxSoC, differential testing and Verilator waveforms helped debug boot code, memory accesses, peripherals and control flow.",
+    overviewText: "I first implemented a single-cycle RV32E core in RTL, then reworked it into a three-cycle core and later a five-cycle core. Both multicycle versions executed one instruction at a time. I then converted the five-cycle core into a five-stage pipeline so different instructions could occupy different stages at the same time.",
+    overviewText2: "I compared instruction results against NEMU and used Verilator waveforms to trace handshakes, bus responses and changes in control flow. After integrating the core into ysyxSoC, I debugged the boot code, memory accesses and peripheral transactions.",
     architecture: "Processor architecture",
     architectureText: "The current core implements five pipeline stages—fetch, decode, execute, memory access and writeback—with 2-bit branch prediction.",
     architectureText2: "Earlier control-path debugging focused on stalls, redirects and variable-latency memory accesses. Fetch-request PCs and instruction-buffer PCs were stored separately, with explicit request and response tracking to keep instructions paired with the correct addresses.",
@@ -99,8 +99,20 @@ export function RiscvCpuPage({ locale }: { locale: Locale }) {
     <ReadingText as="p" className="lead" style={{ marginTop: "1.5rem" }}>{t.lead}</ReadingText>
     <div className="button-row"><a className="button button-primary" href="https://github.com/gaozhouhao/RISCV32" target="_blank" rel="noreferrer">{t.repo}</a><a className="button" href="https://github.com/gaozhouhao/ysyxSoC" target="_blank" rel="noreferrer">{t.socRepo}</a></div>
 
-    <section className="prose-section"><ReadingText as="h2">{t.overview}</ReadingText><ReadingText as="p">{t.overviewText}</ReadingText><ReadingText as="p">{t.overviewText2}</ReadingText></section>
-    <section className="section"><figure className="evidence"><a href="/projects/cpu_arch.jpg" target="_blank" rel="noreferrer" title={zh ? "点击查看原图（新窗口）" : "Open full-size image (new tab)"}><Image src="/projects/cpu_arch.jpg" alt={zh ? "RV32E 多周期处理器架构图" : "RV32E multi-cycle processor architecture"} width={1080} height={868} sizes="(max-width:800px) 100vw,50vw" /></a><ReadingText as="figcaption">{zh ? "原始多周期实现的模块与数据通路示意。" : "Module and data-path diagram from the original multi-cycle implementation."}</ReadingText></figure></section><section className="section split"><div><ReadingText as="h2" className="section-heading">{t.architecture}</ReadingText><ReadingText as="p" className="section-intro">{t.architectureText}</ReadingText><ReadingText as="p" className="section-intro">{t.architectureText2}</ReadingText></div><dl className="fact-panel"><dt>{zh ? "个人工作" : "Role"}</dt><ReadingText as="dd">{zh ? "微架构设计、RTL 设计、SoC 集成、验证与后端流程探索" : "Microarchitecture, RTL design, SoC integration, verification, and backend-flow exploration"}</ReadingText><dt>{zh ? "处理器结构" : "Core structure"}</dt><ReadingText as="dd">{zh ? "五级流水线；已实现 2-bit 分支预测" : "Five-stage pipeline with 2-bit branch prediction"}</ReadingText><dt>{zh ? "硬件描述语言与软件" : "HDL / software"}</dt><ReadingText as="dd">{zh ? "Verilog、SystemVerilog、Chisel、C、C++、RISC-V 汇编" : "Verilog, SystemVerilog, Chisel, C, C++, RISC-V assembly"}</ReadingText></dl></section>
+    <section className="section cpu-overview">
+      <div className="prose-section">
+        <ReadingText as="h2">{t.overview}</ReadingText>
+        <ReadingText as="p">{t.overviewText}</ReadingText>
+        <ReadingText as="p">{t.overviewText2}</ReadingText>
+      </div>
+      <figure className="evidence">
+        <a href="/projects/cpu_arch.jpg" target="_blank" rel="noreferrer" title={zh ? "点击查看原图（新窗口）" : "Open full-size image (new tab)"}>
+          <Image src="/projects/cpu_arch.jpg" alt={zh ? "RV32E 多周期处理器架构图" : "RV32E multicycle processor architecture"} width={1087} height={868} sizes="(max-width: 480px) 90vw, 448px" />
+        </a>
+        <ReadingText as="figcaption">{zh ? "早期多周期版本的处理器模块与数据通路。" : "Modules and datapath of the earlier multicycle core."}</ReadingText>
+      </figure>
+    </section>
+    <section className="section split"><div><ReadingText as="h2" className="section-heading">{t.architecture}</ReadingText><ReadingText as="p" className="section-intro">{t.architectureText}</ReadingText><ReadingText as="p" className="section-intro">{t.architectureText2}</ReadingText></div><dl className="fact-panel"><dt>{zh ? "个人工作" : "Role"}</dt><ReadingText as="dd">{zh ? "微架构设计、RTL 设计、SoC 集成、验证与后端流程探索" : "Microarchitecture, RTL design, SoC integration, verification, and backend-flow exploration"}</ReadingText><dt>{zh ? "处理器结构" : "Core structure"}</dt><ReadingText as="dd">{zh ? "五级流水线；已实现 2-bit 分支预测" : "Five-stage pipeline with 2-bit branch prediction"}</ReadingText><dt>{zh ? "硬件描述语言与软件" : "HDL / software"}</dt><ReadingText as="dd">{zh ? "Verilog、SystemVerilog、Chisel、C、C++、RISC-V 汇编" : "Verilog, SystemVerilog, Chisel, C, C++, RISC-V assembly"}</ReadingText></dl></section>
 
     <section className="section"><ReadingText as="h2" className="section-heading">{t.isa}</ReadingText><div className="prose-section"><ReadingText as="p">{t.isaText}</ReadingText><ReadingText as="p">{t.isaText2}</ReadingText></div></section>
     <section className="section"><ReadingText as="h2" className="section-heading">{t.verification}</ReadingText><div className="prose-section"><ReadingText as="p">{t.verificationText}</ReadingText><ReadingText as="p">{t.verificationText2}</ReadingText></div></section>

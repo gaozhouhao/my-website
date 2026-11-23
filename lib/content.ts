@@ -33,8 +33,8 @@ export const projectSummaries: readonly ProjectSummary[] = [
     direction: "Digital IC · RTL · SoC · Verification",
     directionZh: "数字 IC · RTL 设计 · SoC 集成",
     summary:
-      "Independently designed and implemented an RV32E CPU with a five-stage pipeline and 2-bit branch prediction. Completed bus and SoC integration, memory modeling, and differential testing against NEMU.",
-    summaryZh: "独立设计与实现 RV32E 五级流水线处理器与 2-bit 分支预测，完成总线与 SoC 集成、存储器建模和 NEMU 差分测试。",
+      "I built a single-cycle RV32E core in RTL, developed three-cycle and five-cycle versions, then implemented a five-stage pipeline with 2-bit branch prediction. Completed bus and SoC integration, memory modeling, and differential testing against NEMU.",
+    summaryZh: "独立实现单周期 RV32E 处理器 RTL，依次改为三周期、五周期版本，随后实现五级流水线与 2-bit 分支预测。完成总线与 SoC 集成、存储器建模和 NEMU 差分测试。",
     image: "/projects/riscv32-layout.png",
     imageAlt: "RV32E RISC-V processor layout",
     width: 765,
