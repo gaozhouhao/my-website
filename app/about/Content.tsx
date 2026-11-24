@@ -31,7 +31,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
         <article className="school-profile school-profile-graduate">
           <div className="school-logo-row">
             <Image src="/brand/tum.svg" alt="Technical University of Munich" width={112} height={58} className="school-logo school-logo-tum" />
-            <Image src="/brand/ntu-logo.png" alt="Nanyang Technological University Singapore" width={180} height={84} className="school-logo school-logo-ntu" />
+            <Image src="/brand/ntu-wordmark.webp" alt="Nanyang Technological University Singapore" width={802} height={300} sizes="(max-width: 800px) 134px, 163px" className="school-logo school-logo-ntu" />
           </div>
           <ReadingText as="h3">{zh ? "慕尼黑工业大学 / 南洋理工大学" : "Technical University of Munich / Nanyang Technological University"}</ReadingText>
           <ReadingText as="p">{zh ? "集成电路设计理学硕士 · 2025.08–2027.07（预计）" : "M.Sc. Integrated Circuit Design · Aug 2025–Jul 2027 (expected)"}</ReadingText>
