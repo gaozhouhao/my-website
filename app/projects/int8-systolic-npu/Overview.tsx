@@ -43,11 +43,16 @@ export default function Overview({ locale }: { locale: Locale }) {
       <div><dt>2.48×</dt><ReadingText as="dd">{t("同频加速比 · 相比串行供数基线", "speedup at equal clock frequency vs. serial-loading baseline")}</ReadingText></div>
     </dl>
 
-    <section className={styles.section} aria-labelledby="npu-system">
+    <section className={`${styles.section} ${styles.systemSpread}`} aria-labelledby="npu-system">
+      <div>
       <ReadingText as="h2" id="npu-system">{t("系统架构", "System architecture")}</ReadingText>
       <ReadingText as="p">{t("主机提供任务描述符的起始地址与数量，NPU 自主读取并调度。矩阵乘法、卷积和全连接共用计算引擎，池化与残差加法使用独立引擎；不同任务通过 DDR 交接数据。", "The host supplies a descriptor base address and count; the NPU fetches and schedules the tasks. GEMM, convolution and fully connected layers share the matrix engine, while pooling and residual addition use dedicated engines. Separate tasks exchange data through DDR.")}</ReadingText>
+      <ReadingText as="h3">{t("一条卷积如何执行", "How a convolution executes")}</ReadingText>
+      <ReadingText as="p">{t("命令读取器解码后，通过 valid/ready 把任务交给矩阵引擎。DMA 根据卷积坐标读取输入窗口与权重，装入 A/B 双缓冲；阵列处理当前分块时，另一组缓冲可准备下一块。", "After decoding, the command reader hands the task to the matrix engine through valid/ready. DMA fetches input windows and weights into the A/B banks. While the array processes one tile, the alternate banks can prepare the next.")}</ReadingText>
+      <ReadingText as="p">{t("PE 对 INT8 乘积做 INT32 累加。最后一个 K 分块完成后，后处理按标志位加偏置、重定量并执行 ReLU，再将结果写回 DDR，供后续任务读取。", "The PEs accumulate INT8 products in INT32. After the final K tile, the postprocessor applies bias, requantization and ReLU as enabled, then writes the result to DDR for later tasks.")}</ReadingText>
+      </div>
       <figure className={styles.diagram}>
-        <a href="/projects/npu-system-architecture.png" target="_blank" rel="noreferrer" aria-label={t("查看系统架构原图（新窗口）", "Open full-size system architecture in a new tab")}><Image src="/projects/npu-system-architecture.png" alt={t("NPU 系统架构：读取互连、任务调度、计算引擎与共享写回通路", "NPU system architecture: read interconnect, task dispatch, compute engines and shared writeback")} width={1492} height={1790} sizes="(max-width: 800px) 100vw, 720px" priority /></a>
+        <a href="/projects/npu-system-architecture.png" target="_blank" rel="noreferrer" aria-label={t("查看系统架构原图（新窗口）", "Open full-size system architecture in a new tab")}><Image src="/projects/npu-system-architecture.png" alt={t("NPU 系统架构：读取互连、任务调度、计算引擎与共享写回通路", "NPU system architecture: read interconnect, task dispatch, compute engines and shared writeback")} width={1492} height={1790} sizes="(max-width: 800px) 100vw, 384px" priority /></a>
         <ReadingText as="figcaption">{t("实线为数据，虚线为控制与配置。点击查看原图。", "Solid lines show data; dashed lines show control and configuration. Select the image for full detail.")}</ReadingText>
       </figure>
     </section>
@@ -62,7 +67,26 @@ export default function Overview({ locale }: { locale: Locale }) {
 
     <section className={styles.section} aria-labelledby="npu-descriptor">
       <ReadingText as="h2" id="npu-descriptor">{t("编译器输出的任务描述符", "Compiler output and task descriptor format")}</ReadingText>
-      <ReadingText as="p">{t("编译器把每条硬件任务编码为 64 字节，按小端序连续写入 16 个 32 位字。NPU 从 DDR 顺序取出这些字，根据 W0 的操作码选择执行引擎。64 位地址均先存低 32 位，再存高 32 位。", "The compiler encodes each hardware task in 64 bytes as 16 consecutive little-endian 32-bit words. The NPU fetches them from DDR and selects an engine using the opcode in W0. Each 64-bit address occupies two words, low word first.")}</ReadingText>
+      <ReadingText as="p">{t("ONNX 编译器生成 descriptors.bin、DDR 镜像和 manifest.json。每条描述符占 64 字节，由 16 个小端 32 位字组成；64 位地址先存低字。主机从清单取出描述符首地址与数量，启动 NPU。", "The ONNX compiler emits descriptors.bin, a DDR image and manifest.json. Each 64-byte command contains 16 little-endian 32-bit words, with the low word first for 64-bit addresses. The host reads the command base and count from the manifest to launch the NPU.")}</ReadingText>
+      <div className={styles.commandMap} aria-label={t("描述符字布局", "Descriptor word layout")}>
+        {[
+          ["W0", "操作码与标志", "Opcode and flags"], ["W1–3", "任务维度", "Dimensions"],
+          ["W4–9", "A、B、C 基址", "A, B, C bases"], ["W10–12", "算子参数", "Operator fields"],
+          ["W13–14", "参数块基址", "Parameter base"], ["W15", "池化配置", "Pool config"],
+        ].map(([word, cn, en]) => <div key={word}><code>{word}</code><span>{t(cn, en)}</span></div>)}
+      </div>
+      <ReadingText as="p">{t("ResNet-50 编译后共 72 条命令。下表按硬件操作码列出这次运行的任务数，以及各引擎如何解释同一组字段。", "ResNet-50 compiles to 72 commands. The counts below are from that workload and show how each engine interprets the same descriptor words.")}</ReadingText>
+      <table className={styles.opTable}>
+        <thead><tr><th scope="col">{t("操作码 / 任务", "Opcode / task")}</th><th scope="col">{t("条数", "Count")}</th><th scope="col">{t("字段用途", "Field interpretation")}</th></tr></thead>
+        <tbody>{([
+          ["01 · GEMM / FC", 1, "M、N、K 为矩阵维度，W10–12 为 A、B、C 行步长。分类层取 M=1、N=1001、K=2048。", "M, N, K give matrix dimensions. W10–12 hold row strides for A, B and C. The classifier uses M=1, N=1001, K=2048."],
+          ["02 · Conv", 53, "M 为输出位置数，N 为输出通道数，K 为每个点积的长度。W10–12 编码输入形状、卷积核、步长与补边。", "M counts output positions, N counts output channels and K is the dot-product length. W10–12 encode input shape, kernel, stride and padding."],
+          ["03 · MaxPool", 1, "M、N、K 表示输入高、宽、通道数。W10 指定四侧补边，W15 指定窗口和步长。", "M, N, K give input height, width and channels. W10 sets padding on four sides and W15 sets window size and stride."],
+          ["04 · GAP", 1, "沿整幅特征图求平均，每个通道输出一个值。M、N 给出空间范围，K 给出通道数。", "M and N span the spatial plane. Global average pooling writes one mean for each of the K channels."],
+          ["05 · ADD", 16, "A、B 指向残差相加的两路输入，C 指向输出。M 是元素数，N、K 置零。", "A and B point to the two residual inputs and C to the output. M counts elements, with N and K set to zero."],
+        ] as const).map(([op, count, cn, en]) => <tr key={op}><th scope="row">{op}</th><td>{count}</td><td><ReadingText as="p">{t(cn, en)}</ReadingText></td></tr>)}</tbody>
+      </table>
+      <details className={styles.details}><summary>{t("展开实测示例：SmallCNN 第一条卷积的 16 个字", "Inspect the 16 words of the first SmallCNN convolution")}</summary>
       <table className={styles.descriptor}>
         <caption>{t("SmallCNN 部署文件 commands.bin 中的第一条卷积任务", "First convolution task in the SmallCNN deployment file commands.bin")}</caption>
         <thead><tr><th scope="col">{t("字序与十六进制值", "Words and hex values")}</th><th scope="col">{t("硬件解码结果", "Hardware interpretation")}</th></tr></thead>
@@ -70,7 +94,7 @@ export default function Overview({ locale }: { locale: Locale }) {
           <th scope="row">{word}<code>{hex}</code></th><td><ReadingText as="p">{t(cn, en)}</ReadingText></td>
         </tr>)}</tbody>
       </table>
-      <ReadingText as="p">{t("W10–W12 的含义随算子变化。上表给出卷积的几何参数；在 GEMM 任务中，这三个字分别指定 A、B、C 的访存步长。", "W10–W12 depend on the opcode. They describe convolution geometry here. For GEMM they carry the memory strides for A, B and C, respectively.")}</ReadingText>
+      </details>
     </section>
 
     <section className={styles.section} aria-labelledby="npu-performance">

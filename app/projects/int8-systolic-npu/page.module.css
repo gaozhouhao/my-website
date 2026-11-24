@@ -66,3 +66,23 @@
 .descriptor tbody th { width: 34%; color: var(--accent-strong); }
 .descriptor code { display: block; color: var(--muted); font-size: .8rem; overflow-wrap: normal; }
 .descriptor p { margin: 0; line-height: 1.85; }
+
+.page .section { margin-top: clamp(2rem, 4vw, 3rem); }
+.systemSpread { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .85fr); align-items: start; gap: 2rem; }
+.systemSpread h3 { margin: 1.2rem 0 .45rem; font-size: 1.08rem; }
+.systemSpread p { margin: .55rem 0; }
+.systemSpread .diagram { width: min(100%, 24rem); margin: 0 auto; }
+.commandMap { display: grid; grid-template-columns: repeat(6, 1fr); margin: 1rem 0; border-block: 1px solid var(--line); }
+.commandMap > div { padding: .5rem .35rem; }
+.commandMap code, .commandMap span { display: block; }
+.commandMap code { color: var(--accent-strong); font-size: .78rem; }
+.commandMap span { font-size: .85rem; }
+.opTable { width: 100%; border-collapse: collapse; margin: .8rem 0; text-align: left; font-size: .87rem; }
+.opTable :is(th,td) { text-align: start; vertical-align: top; border-top: 1px solid var(--line); padding: .42rem .6rem .42rem 0; }
+.opTable th { font-weight: 500; }
+.opTable p { margin: 0; line-height: 1.65; }
+@media (max-width: 700px) {
+  .systemSpread { grid-template-columns: 1fr; gap: .8rem; }
+  .commandMap { grid-template-columns: repeat(3, 1fr); }
+  .opTable th:first-child { min-width: 5.4rem; }
+}
