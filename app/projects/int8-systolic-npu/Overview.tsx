@@ -10,6 +10,20 @@ const runs = [
   { zh: "当前版本", en: "Current design", cycles: 489351345 },
 ];
 
+// First 64 bytes of the SmallCNN deployment's artifacts/npu/commands.bin.
+const convDescriptor = [
+  ["W0", "00000702", "低 8 位 0x02 选择卷积，高 24 位 0x07 启用偏置、重定量和 ReLU。", "Opcode 0x02 in bits 7–0 selects Conv. Flags 0x07 in bits 31–8 enable bias, requantization and ReLU."],
+  ["W1–W3", "00000310 00000008 00000009", "M、N、K 分别为 784 个输出位置（28×28）、8 个输出通道和每个点积的 9 项乘加。", "M = 784 output positions (28×28), N = 8 output channels and K = 9 products per dot product."],
+  ["W4–W5", "00002A80 00000000", "A 指向 DDR 中的输入特征图。", "A points to the input feature map in DDR."],
+  ["W6–W7", "00000000 00000000", "B 指向卷积权重，本例的权重从 DDR 地址 0 开始。", "B points to the convolution weights, stored at DDR address zero in this image."],
+  ["W8–W9", "00002D90 00000000", "C 指向输出特征图的写回地址。", "C is the writeback address for the output feature map."],
+  ["W10", "001C001C", "低、高 16 位分别为输入高度和宽度，均为 28。", "The low and high halfwords give input height and width, both 28."],
+  ["W11", "03030001", "低 16 位为输入通道数 1，高两个字节依次为卷积核高度 3、宽度 3。", "Bits 15–0 give one input channel. Bits 23–16 and 31–24 give kernel height and width, both 3."],
+  ["W12", "01010101", "从低到高四个字节依次为纵向步长、横向步长、上侧补边、左侧补边，本层均取 1。", "From the least significant byte: vertical stride, horizontal stride, top padding and left padding, all 1."],
+  ["W13–W14", "000029C0 00000000", "参数基址指向本层后处理所需的参数块。", "The parameter base points to the block used for postprocessing."],
+  ["W15", "00000000", "池化窗口与步长配置。本条卷积未启用融合池化。", "Pool window and stride configuration. Fused pooling is disabled for this convolution."],
+] as const;
+
 export default function Overview({ locale }: { locale: Locale }) {
   const zh = locale === "zh";
   const t = (cn: string, en: string) => zh ? cn : en;
@@ -44,6 +58,19 @@ export default function Overview({ locale }: { locale: Locale }) {
         ["模型编译", "Model compilation", "实现算子映射、权重布局、量化参数转换与 DDR 内存规划，将 ResNet-50 转换为 72 条硬件任务，由 NPU 自主调度执行。", "Implemented operator mapping, weight layouts, quantization conversion and DDR allocation. ResNet-50 compiles into 72 hardware tasks for autonomous execution by the NPU."],
         ["验证与优化", "Validation and optimization", "建立独立整数参考模型，逐层核对 RTL 输出及完整 DDR 数据；通过统一条件的性能对照，测量双缓冲和后续优化的实际收益。", "Built an independent integer reference model to check each layer and the complete DDR contents. Matched-condition benchmarks measure the gains from double buffering and subsequent optimizations."],
       ].map(([cn, en, bodyCn, bodyEn]) => <article key={en}><ReadingText as="h2">{t(cn, en)}</ReadingText><ReadingText as="p">{t(bodyCn, bodyEn)}</ReadingText></article>)}
+    </section>
+
+    <section className={styles.section} aria-labelledby="npu-descriptor">
+      <ReadingText as="h2" id="npu-descriptor">{t("编译器输出的任务描述符", "Compiler output and task descriptor format")}</ReadingText>
+      <ReadingText as="p">{t("编译器把每条硬件任务编码为 64 字节，按小端序连续写入 16 个 32 位字。NPU 从 DDR 顺序取出这些字，根据 W0 的操作码选择执行引擎。64 位地址均先存低 32 位，再存高 32 位。", "The compiler encodes each hardware task in 64 bytes as 16 consecutive little-endian 32-bit words. The NPU fetches them from DDR and selects an engine using the opcode in W0. Each 64-bit address occupies two words, low word first.")}</ReadingText>
+      <table className={styles.descriptor}>
+        <caption>{t("SmallCNN 部署文件 commands.bin 中的第一条卷积任务", "First convolution task in the SmallCNN deployment file commands.bin")}</caption>
+        <thead><tr><th scope="col">{t("字序与十六进制值", "Words and hex values")}</th><th scope="col">{t("硬件解码结果", "Hardware interpretation")}</th></tr></thead>
+        <tbody>{convDescriptor.map(([word, hex, cn, en]) => <tr key={word}>
+          <th scope="row">{word}<code>{hex}</code></th><td><ReadingText as="p">{t(cn, en)}</ReadingText></td>
+        </tr>)}</tbody>
+      </table>
+      <ReadingText as="p">{t("W10–W12 的含义随算子变化。上表给出卷积的几何参数；在 GEMM 任务中，这三个字分别指定 A、B、C 的访存步长。", "W10–W12 depend on the opcode. They describe convolution geometry here. For GEMM they carry the memory strides for A, B and C, respectively.")}</ReadingText>
     </section>
 
     <section className={styles.section} aria-labelledby="npu-performance">
