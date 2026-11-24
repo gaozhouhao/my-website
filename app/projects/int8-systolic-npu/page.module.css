@@ -59,10 +59,31 @@
   .section h2 { font-size: 1.3rem; }
 }
 
-.descriptor { width: 100%; max-width: 52rem; margin: 1.5rem 0; border-collapse: collapse; text-align: left; font-size: .88rem; }
+.opTable, .descriptor {
+  --grid-line: #cec5d8;
+  width: 100%;
+  border-collapse: collapse;
+  background: #fffefd;
+  color: var(--foreground);
+  text-align: start;
+  font-size: .89rem;
+}
+.opTable :is(th, td), .descriptor :is(th, td) {
+  padding: .48rem clamp(.42rem, 1.2vw, .9rem);
+  border: 1px solid var(--grid-line);
+  vertical-align: top;
+}
+.opTable thead th, .descriptor thead th {
+  border-top: 2px solid var(--accent-strong);
+  background: #e7dfef;
+  color: #42344e;
+  font-weight: 600;
+}
+.opTable tbody tr:nth-child(even), .descriptor tbody tr:nth-child(even) { background: #f6f3f8; }
+.opTable tbody th, .descriptor tbody th { text-align: start; font-weight: 500; color: var(--accent-strong); }
+.opTable :is(th, td):nth-child(2) { text-align: center; font-variant-numeric: tabular-nums; }
+.descriptor { max-width: 52rem; margin: 1rem 0; }
 .descriptor caption { text-align: left; color: var(--muted); padding-bottom: .75rem; }
-.descriptor th, .descriptor td { border-top: 1px solid var(--line); padding: .65rem .75rem .65rem 0; vertical-align: top; }
-.descriptor th { font-weight: 500; }
 .descriptor tbody th { width: 34%; color: var(--accent-strong); }
 .descriptor code { display: block; color: var(--muted); font-size: .8rem; overflow-wrap: normal; }
 .descriptor p { margin: 0; line-height: 1.85; }
@@ -72,14 +93,12 @@
 .systemSpread h3 { margin: 1.2rem 0 .45rem; font-size: 1.08rem; }
 .systemSpread p { margin: .55rem 0; }
 .systemSpread .diagram { width: min(100%, 24rem); margin: 0 auto; }
-.commandMap { display: grid; grid-template-columns: repeat(6, 1fr); margin: 1rem 0; border-block: 1px solid var(--line); }
-.commandMap > div { padding: .5rem .35rem; }
+.commandMap { display: grid; grid-template-columns: repeat(6, 1fr); margin: 1rem 0; border: 1px solid #cec5d8; gap: 1px; background: #cec5d8; }
+.commandMap > div { padding: .45rem .55rem; background: #f6f3f8; }
 .commandMap code, .commandMap span { display: block; }
 .commandMap code { color: var(--accent-strong); font-size: .78rem; }
 .commandMap span { font-size: .85rem; }
-.opTable { width: 100%; border-collapse: collapse; margin: .8rem 0; text-align: left; font-size: .87rem; }
-.opTable :is(th,td) { text-align: start; vertical-align: top; border-top: 1px solid var(--line); padding: .42rem .6rem .42rem 0; }
-.opTable th { font-weight: 500; }
+.opTable { margin: .8rem 0; }
 .opTable p { margin: 0; line-height: 1.65; }
 @media (max-width: 700px) {
   .systemSpread { grid-template-columns: 1fr; gap: .8rem; }
